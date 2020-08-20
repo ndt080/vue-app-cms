@@ -1,0 +1,84 @@
+@font-face{
+    font-family: 'Oswald';
+    src: url('../fonts/Oswald-VariableFont_wght.woff2') format('woff2');
+    src: url('../fonts/src/Oswald-VariableFont_wght.ttf') format('truetype');
+    font-weight: 400;
+    font-display: swap;
+    font-style: normal;
+}
+body{
+    font-family: 'Oswald', sans-serif;
+}
+.main-layout{
+    display: inline-flex;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background: rgb(154,198,172);
+    background: linear-gradient(90deg, rgba(154,198,172,1) 49%, rgba(58,173,180,1) 100%);
+}
+.empty-layout{
+    display: flex;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.15);
+    color: #0a0a0a;
+}
+.empty-layout .content{
+    margin: 0 auto;
+    width: 50vw;
+    background: #fff;
+    padding: 3rem;
+}
+/* Стили для переключателя режима */
+.bars label{
+    display: block;
+    left: 0;
+    top: 0;
+    position: relative;
+    margin: 0.6rem 0.4rem 0.4rem 0.4rem;
+    width: 3.8rem;
+    height: 40px;
+    z-index: 10;
+    line-height: 40px;
+    font-weight: bold;
+    background: #303030;
+    border-radius: 0.2rem;
+    -webkit-transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    -moz-transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    -ms-transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    -o-transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    cursor: pointer;
+}
+
+.bars label:after {
+    content: url("https://fpmi.spiralarms.org/img/toggle/sun.svg");
+    padding: 0.25rem;
+    width: 1.9rem;
+    height: 40px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    display: block;
+    background: #199cff;
+    border-radius: 0.2rem;
+    -webkit-transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    -moz-transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    -ms-transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    -o-transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    cursor: pointer;
+}
+.checkbox {
+    display: none;
+}
+.bars :checked + label {
+    left: 0px;
+}
+.bars :checked + label:after {
+    left: 1.9rem;
+    background: #404d59;
+    content: url("https://fpmi.spiralarms.org/img/toggle/moon.svg");
+}

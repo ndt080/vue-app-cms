@@ -18,10 +18,5 @@
 </script>
 
 <style scoped>
-  .main-layout{
-    display: inline-flex;
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-  }
+
 </style>

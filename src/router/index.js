@@ -8,7 +8,7 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    meta: { layout: 'main' },
+    meta: { layout: 'home' },
     component: Home
   },
   {
@@ -22,6 +22,18 @@ const routes = [
     name: 'Schedule',
     meta: { layout: 'main' },
     component: () => import('../views/Schedule.vue')
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    meta: { layout: 'empty' },
+    component: () => import('../views/Login.vue')
+  },
+  {
+    path: '/registration',
+    name: 'Registration',
+    meta: { layout: 'empty' },
+    component: () => import('../views/Registration.vue')
   }
 ]
 

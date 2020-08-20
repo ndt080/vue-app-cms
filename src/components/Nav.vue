@@ -1,17 +1,33 @@
 <template>
-  <div class="nav">
-    <div class="nav-container-top">
+  <div class="nav" v-bind:class="{ active: isOpen }">
+    <div class="nav-container-top" v-bind:class="{ active: isOpen }">
       <!-- Index link -->
       <div class="bars">
-        <a href="#" data-toggle="modal" data-target="#headerlink">
-          <img class="nav-elements" :src="header" alt="На главную"/>
-        </a>
+        <div class="dropleft">
+          <a href="#" data-toggle="dropdown">
+            <img class="nav-elements" :src="require(`@/assets/img/3.svg`)" alt="На главную"/>
+          </a>
+          <div class="dropdown-menu dropdown-login">
+            <div class="btn btn-login">
+              <router-link class="router-link" to="/">Главная</router-link>
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="btn btn-login">
+              <span><img :src="require(`@/assets/img/login.svg`)" alt="На главную"/></span>
+              <router-link class="router-link" to="/login">Вход</router-link>
+            </div>
+            <div class="btn btn-login">
+              <span><img :src="require(`@/assets/img/arrow.svg`)" alt="На главную"/></span>
+              <router-link class="router-link" to="/registration">Регистрация</router-link>
+            </div>
+          </div>
+        </div>
       </div>
       <!-- notification -->
       <div class="bars">
-        <div class="dropdown">
+        <div class="dropleft">
           <a href="#" data-toggle="dropdown">
-            <img :src="notification" id="notification-alarm" title="Уведомления" class="nav-elements"  alt="ДР"/>
+            <img :src="require(`@/assets/img/notification-on.svg`)" id="notification-alarm" title="Уведомления" class="nav-elements"  alt="ДР"/>
           </a>
           <div class="dropdown-menu">
             <div class="alert alert-warning" style="min-width: 200px">
@@ -27,7 +43,7 @@
       <!-- helpful link -->
       <div class="bars">
         <a href="#">
-          <img :src="helpful" title="Полезная информация и материалы" class="nav-elements" alt="Полезное" />
+          <img :src="require(`@/assets/img/helpful.svg`)"  title="Полезная информация и материалы" class="nav-elements" alt="Полезное" />
         </a>
       </div>
       <!-- light/night mode -->
@@ -41,27 +57,29 @@
       <div class="bars"></div>
     </a>
     <!-- Bottom link block -->
-    <div class="nav-container-bottom">
+    <div class="nav-container-bottom" v-bind:class="{ active: isOpen }">
       <!--GIT link -->
       <div class="bars">
         <a href="https://gitlab.com/gera-univ/site/pi14-schedule">
-          <img :src="git" title="Присоединяйся к разработке проекта!" class="nav-elements-bottom" alt="Git" />
+          <img :src="require(`@/assets/img/git.svg`)"  title="Присоединяйся к разработке проекта!" class="nav-elements-bottom" alt="Git" />
         </a>
       </div>
     </div>
 
     <!-- trigger -->
-    <a href="#" class="nav__trigger">
+    <a href="#" v-bind:class="{ active: isOpen }" class="nav__trigger"
+                v-on:click="openMenu()">
       <div class="bars"></div>
     </a>
     <!-- Menu content -->
-    <div class="nav__content">
-      <nav class="nav__list">
+    <div class="nav__content" v-bind:class="{ active: isOpen }">
+      <nav class="nav__list" v-bind:class="{ active: isOpen }">
         <ul>
-          <li class="nav__item"><a href="#">Главная</a></li>
-          <li class="nav__item"><a href="#">13 гр. 2 курс</a></li>
-          <li class="nav__item"><a href="#">14 гр. 2 курс</a></li>
-          <li class="nav__item"><a href="#">13 гр. 3 курс</a></li>
+          <li class="nav__item"><router-link class="router-link" to="/">Главная</router-link></li>
+          <li class="nav__item"><router-link class="router-link" to="/schedule">13 гр. 2 курс</router-link></li>
+          <li class="nav__item"><router-link class="router-link" to="/schedule">14 гр. 2 курс</router-link></li>
+          <li class="nav__item"><router-link class="router-link" to="/schedule">13 гр. 3 курс</router-link></li>
+          <li class="nav__item"><router-link class="router-link" to="/about">О проекте</router-link></li>
         </ul>
       </nav>
     </div>
@@ -70,16 +88,19 @@
 
 <script>
   export default {
-        name: "Nav",
-        data() {
-          return {
-            git: './assets/img/git.svg',
-            helpful: './assets/img/helpful.svg',
-            notification: './assets/img/notification-on.svg',
-            header: './assets/img/2.svg'
-          }
-        }
+    name: "Nav",
+    data() {
+      return{
+        isOpen: false
+      }
+    },
+    methods:{
+      openMenu(event) {
+        this.isOpen = !this.isOpen;
+      }
     }
+  }
+
 </script>
 
 <style scoped>
@@ -89,7 +110,29 @@
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
   }
-
+  .btn-login{
+    display: inline-flex;
+    font-size: 1.25rem;
+    width: 100%;
+    text-align: left;
+    border-radius: 0;
+  }
+  .btn-login:hover{
+    background: rgba(51,51,255,0.15);
+  }
+  .btn-login img{
+    width: 1.3rem;
+    height: 1.3rem;
+    margin-right: 10px;
+  }
+  .dropdown-login, .dropdown-divider{
+    margin: 0;
+    padding: 0;
+  }
+  .router-link {
+    text-decoration: none;
+    color: #0a0a0a;
+  }
   .nav {
     position: fixed;
     top: 0;
@@ -100,10 +143,10 @@
     -webkit-transition: 1s cubic-bezier(0.645, 0.045, 0.355, 1);
     transition: 1s cubic-bezier(0.645, 0.045, 0.355, 1);
     will-change: width;
-    z-index: 99;
+    z-index: 1;
   }
-  .nav.is-active {
-    width: 100%;
+  .nav.active {
+    width: 100vw;
   }
 
   .nav__trigger {
@@ -144,11 +187,11 @@
     -webkit-transform: translateY(8px);
     transform: translateY(8px);
   }
-  .nav__trigger.is-active {
+  .nav__trigger.active {
     -webkit-transform: rotate(-45deg);
     transform: rotate(-45deg);
   }
-  .nav__trigger.is-active .bars:before, .nav__trigger.is-active .bars:after {
+  .nav__trigger.active .bars:before, .nav__trigger.active .bars:after {
     -webkit-transform: translateX(0) rotate(-90deg);
     transform: translateX(0) rotate(-90deg);
   }
@@ -167,13 +210,13 @@
     -webkit-transition: 0s linear 0.25s;
     transition: 0s linear 0.25s;
   }
-  .nav__content.is-active {
+  .nav__content.active {
     visibility: visible;
     opacity: 1;
-    -webkit-transition: 0s linear;
-    transition: 0s linear;
+    -webkit-transition: 0s linear 1s;
+    transition: 0s linear 1s;
   }
-  .nav__content.is-active .nav__item a {
+  .nav__content.active .nav__item a {
     opacity: 1;
     -webkit-transform: translateY(0);
     transform: translateY(0);
@@ -186,39 +229,39 @@
     -webkit-transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1), ease-in-out, ease-in-out;
     transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1), ease-in-out, ease-in-out;
   }
-  .nav__content.is-active .nav__list .nav__item:nth-of-type(1) a {
+  .nav__content.active .nav__list .nav__item:nth-of-type(1) a {
     -webkit-transition-delay: 0s, 0s, 0s;
     transition-delay: 0s, 0s, 0s;
   }
-  .nav__content.is-active .nav__list .nav__item:nth-of-type(2) a {
-    -webkit-transition-delay: 0.05s, 0.05s, 0s;
-    transition-delay: 0.05s, 0.05s, 0s;
+  .nav__content.active .nav__list .nav__item:nth-of-type(2) a {
+    -webkit-transition-delay: 0.5s, 0.7s, 0s;
+    transition-delay: 0.5s, 0.5s, 0s;
   }
-  .nav__content.is-active .nav__list .nav__item:nth-of-type(3) a {
-    -webkit-transition-delay: 0.1s, 0.1s, 0s;
-    transition-delay: 0.1s, 0.1s, 0s;
+  .nav__content.active .nav__list .nav__item:nth-of-type(3) a {
+    -webkit-transition-delay: 0.75s, 0.75s, 0s;
+    transition-delay: 0.75s, 0.75s, 0s;
   }
-  .nav__content.is-active .nav__list .nav__item:nth-of-type(4) a {
-    -webkit-transition-delay: 0.15s, 0.15s, 0s;
-    transition-delay: 0.15s, 0.15s, 0s;
+  .nav__content.active .nav__list .nav__item:nth-of-type(4) a {
+    -webkit-transition-delay: 1s, 1s, 0s;
+    transition-delay: 1s, 1s, 0s;
   }
-  .nav__content.is-active .nav__list .nav__item:nth-of-type(5) a {
-    -webkit-transition-delay: 0.2s, 0.2s, 0s;
-    transition-delay: 0.2s, 0.2s, 0s;
+  .nav__content.active .nav__list .nav__item:nth-of-type(5) a {
+    -webkit-transition-delay: 1.25s, 1.25s, 0s;
+    transition-delay: 1.25s, 1.25s, 0s;
   }
-  .nav__content.is-active .nav__list .nav__item:nth-of-type(6) a {
+  .nav__content.active .nav__list .nav__item:nth-of-type(6) a {
     -webkit-transition-delay: 0.25s, 0.25s, 0s;
     transition-delay: 0.25s, 0.25s, 0s;
   }
-  .nav__content.is-active .nav__list .nav__item:nth-of-type(7) a {
+  .nav__content.active .nav__list .nav__item:nth-of-type(7) a {
     -webkit-transition-delay: 0.3s, 0.3s, 0s;
     transition-delay: 0.3s, 0.3s, 0s;
   }
-  .nav__content.is-active .nav__list .nav__item:nth-of-type(8) a {
+  .nav__content.active .nav__list .nav__item:nth-of-type(8) a {
     -webkit-transition-delay: 0.35s, 0.35s, 0s;
     transition-delay: 0.35s, 0.35s, 0s;
   }
-  .nav__content.is-active .nav__list .nav__item:nth-of-type(9) a {
+  .nav__content.active .nav__list .nav__item:nth-of-type(9) a {
     -webkit-transition-delay: 0.4s, 0.4s, 0s;
     transition-delay: 0.4s, 0.4s, 0s;
   }
@@ -241,6 +284,7 @@
     font-size: 14vmin;
     font-weight: 300;
     font-family: 'Oswald', sans-serif;
+    line-height: 7rem;
     opacity: 0;
     -webkit-transform: translateY(100%);
     transform: translateY(100%);
@@ -286,5 +330,15 @@
     display: inline-block;
     position: absolute;
     top: 0;
+  }
+  .nav .nav-container-bottom.active{
+    -webkit-transition: 0s linear 3s;
+    transition: 0s linear 3s;
+    display: none;
+  }
+  .nav .nav-container-top.active{
+    -webkit-transition: 0s linear 3s;
+    transition: 0s linear 3s;
+    display: none;
   }
 </style>

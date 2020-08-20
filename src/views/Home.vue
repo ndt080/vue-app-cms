@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div >
+
   </div>
 </template>
 
@@ -9,3 +10,6 @@ export default {
   name: 'Home'
 }
 </script>
+
+<style scoped>
+</style>

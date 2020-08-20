@@ -1,17 +1,22 @@
 <template>
   <div class="empty-layout">
-    <router-view />
+    <Nav />
+    <div class="content">
+      <router-view />
+    </div>
   </div>
 </template>
 
 <script>
+  import Nav from "../components/Nav";
     export default {
-        name: "EmptyLayout"
+      name: "EmptyLayout",
+      components:{
+          Nav
+      }
     }
 </script>
 
 <style scoped>
-  .empty-layout{
-    background: #9ac6ac;
-  }
+
 </style>
