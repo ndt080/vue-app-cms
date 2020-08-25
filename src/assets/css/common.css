@@ -10,12 +10,14 @@ body{
     font-family: 'Oswald', sans-serif;
 }
 .main-layout{
-    display: inline-flex;
     position: absolute;
     width: 100vw;
     height: 100vh;
     background: rgb(154,198,172);
     background: linear-gradient(90deg, rgba(154,198,172,1) 49%, rgba(58,173,180,1) 100%);
+    overflow: auto;
+    padding-left: 2rem;
+    padding-right: 4.2rem;
 }
 .empty-layout{
     display: flex;
@@ -24,12 +26,15 @@ body{
     height: 100vh;
     background: rgba(0,0,0,0.15);
     color: #0a0a0a;
+    padding-right: 4.5rem;
 }
 .empty-layout .content{
     margin: 0 auto;
-    width: 50vw;
     background: #fff;
     padding: 3rem;
+}
+.empty-layout .content .card-deck{
+    display: block !important;
 }
 /* Стили для переключателя режима */
 .bars label{
@@ -81,4 +86,79 @@ body{
     left: 1.9rem;
     background: #404d59;
     content: url("https://fpmi.spiralarms.org/img/toggle/moon.svg");
+}
+
+
+.site-header-text {            /* Сайт */
+    margin: 0;
+    padding-top: 0.5rem;
+    font-size: 2rem;
+    font-size: 4vw;
+    font-size: 6vmin;
+    font-weight: bold;
+    font-family: 'Oswald', sans-serif;
+    color: #0a0a0a;
+    text-align: left;
+}
+.card {
+    background-color: rgba(255,255,255, 0.3) !important;
+    min-width: 22rem !important;
+}
+.card-border {
+    border-radius: 1rem !important;
+    border-color: rgba(154,198,172,1) !important;
+}
+.card-header {
+    border-top-left-radius: 1rem !important;
+    border-top-right-radius: 1rem !important;
+    opacity: 1;
+    font-size: 1.3rem;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    color: #ffff;
+    background: rgba(10, 18, 16, 0.9) !important;
+}
+.card-body {
+    opacity: 1;
+}
+.card-body-text {
+    font-size: 1.2rem;
+    font-family: 'Oswald', sans-serif;
+    color: #0a0a0a;
+}
+.card-body .close{
+    font-size: 2rem;
+    font-family: 'Oswald', sans-serif;
+    color: #ff0000;
+}
+.list-group {
+    opacity: 95%;
+}
+.alert-danger, .list-group-item-danger {
+    box-shadow: 0 0 20px rgba(225, 83, 97, 0.5);
+}
+.text-right {
+    float: right;
+}
+.text-left {
+    float: left;
+}
+.card-header .alert {
+    margin: -1rem;
+}
+.card-deck {
+    width: 100%;
+    margin-top: 1%;
+}
+.card-section{
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    -ms-scrollbar-base-color: rgba(255,255,255,0);
+}
+.card-section::-webkit-scrollbar {
+    display: none;
+}
+.card-section--content{
+    width: 100%;
 }

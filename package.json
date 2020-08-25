@@ -9,11 +9,14 @@
   "dependencies": {
     "bootstrap": "^4.5.2",
     "core-js": "^3.6.5",
+    "firebase": "^7.19.0",
     "jquery": "^3.5.1",
     "popper.js": "^1.16.1",
     "register-service-worker": "^1.7.1",
     "vue": "^2.6.11",
+    "vue-bootstrap-toasts": "^1.0.7",
     "vue-router": "^3.2.0",
+    "vuelidate": "^0.7.5",
     "vuex": "^3.4.0"
   },
   "devDependencies": {

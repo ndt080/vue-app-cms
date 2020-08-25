@@ -7,20 +7,7 @@
           <a href="#" data-toggle="dropdown">
             <img class="nav-elements" :src="require(`@/assets/img/3.svg`)" alt="На главную"/>
           </a>
-          <div class="dropdown-menu dropdown-login">
-            <div class="btn btn-login">
-              <router-link class="router-link" to="/">Главная</router-link>
-            </div>
-            <div class="dropdown-divider"></div>
-            <div class="btn btn-login">
-              <span><img :src="require(`@/assets/img/login.svg`)" alt="На главную"/></span>
-              <router-link class="router-link" to="/login">Вход</router-link>
-            </div>
-            <div class="btn btn-login">
-              <span><img :src="require(`@/assets/img/arrow.svg`)" alt="На главную"/></span>
-              <router-link class="router-link" to="/registration">Регистрация</router-link>
-            </div>
-          </div>
+          <LoginNav />
         </div>
       </div>
       <!-- notification -->
@@ -34,9 +21,9 @@
               Новый адрес сайта <a href="https://fpmi.spiralarms.org">fpmi.spiralarms.org</a>. Обновите свои
               закладки.
             </div>
-            <list class="dropdown-item disabled" id="birthdays-list"><b style="font-size: 20px;">ДНИ
-              РОЖДЕНИЯ:</b>
-            </list>
+            <ul class="dropdown-item disabled" id="birthdays-list">
+              ДНИ РОЖДЕНИЯ:
+            </ul>
           </div>
         </div>
       </div>
@@ -58,6 +45,12 @@
     </a>
     <!-- Bottom link block -->
     <div class="nav-container-bottom" v-bind:class="{ active: isOpen }">
+      <!--Discord link -->
+      <div class="bars">
+        <a href="https://discord.gg/m2SHTB">
+          <img :src="require(`@/assets/img/discord.svg`)" class="nav-elements-bottom" alt="Discord" />
+        </a>
+      </div>
       <!--GIT link -->
       <div class="bars">
         <a href="https://gitlab.com/gera-univ/site/pi14-schedule">
@@ -75,11 +68,10 @@
     <div class="nav__content" v-bind:class="{ active: isOpen }">
       <nav class="nav__list" v-bind:class="{ active: isOpen }">
         <ul>
-          <li class="nav__item"><router-link class="router-link" to="/">Главная</router-link></li>
-          <li class="nav__item"><router-link class="router-link" to="/schedule">13 гр. 2 курс</router-link></li>
-          <li class="nav__item"><router-link class="router-link" to="/schedule">14 гр. 2 курс</router-link></li>
-          <li class="nav__item"><router-link class="router-link" to="/schedule">13 гр. 3 курс</router-link></li>
-          <li class="nav__item"><router-link class="router-link" to="/about">О проекте</router-link></li>
+          <li class="nav__item"><router-link class="router-link" tag="a" to="/">Главная</router-link></li>
+          <li class="nav__item"><router-link class="router-link" tag="a" to="/schedule">Расписание</router-link></li>
+          <li class="nav__item"><router-link class="router-link" tag="a" to="/schedule">Блог</router-link></li>
+          <li class="nav__item"><router-link class="router-link" tag="a" to="/about">О проекте</router-link></li>
         </ul>
       </nav>
     </div>
@@ -87,8 +79,10 @@
 </template>
 
 <script>
+  import LoginNav from "./nav/LoginNav";
   export default {
     name: "Nav",
+    components: {LoginNav},
     data() {
       return{
         isOpen: false
@@ -110,25 +104,7 @@
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
   }
-  .btn-login{
-    display: inline-flex;
-    font-size: 1.25rem;
-    width: 100%;
-    text-align: left;
-    border-radius: 0;
-  }
-  .btn-login:hover{
-    background: rgba(51,51,255,0.15);
-  }
-  .btn-login img{
-    width: 1.3rem;
-    height: 1.3rem;
-    margin-right: 10px;
-  }
-  .dropdown-login, .dropdown-divider{
-    margin: 0;
-    padding: 0;
-  }
+
   .router-link {
     text-decoration: none;
     color: #0a0a0a;

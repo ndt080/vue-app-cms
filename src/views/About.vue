@@ -1,6 +1,8 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <div class="card-deck" style="padding: 0; margin: 0;">
+      <a><p class="site-header-text"> О ПРОЕКТЕ</p></a>
+    </div>
   </div>
 </template>
 

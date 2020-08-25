@@ -1,40 +1,51 @@
 <template>
-  <div class="registration">
+  <div class="card-deck">
     <h1>Регистрация</h1>
-    <form class="form-horizontal" action='' method="POST">
+    <form class="form-horizontal" action='' method="POST"
+          @submit.prevent="submitHandler">
         <div class="form-group">
           <!-- Username -->
-          <label class="control-label"  for="username">Имя пользователя</label>
-            <input type="text" id="username" name="username" placeholder="" class="form-control">
+          <label class="control-label"  for="text">ФИО</label>
+            <input type="text" id="text" name="text" placeholder="" class="form-control"
+                   v-model.trim="username">
+        </div>
+        <div class="form-group">
+            <label class="mr-sm-2" for="inlineFormCustomSelect">Курс</label>
+            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect"
+                    v-model.trim="course">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
+            <label class="mr-sm-2" for="inlineFormCustomSelect1">Группа</label>
+            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect1"
+                    v-model.trim="group">
+                <option value="13">13</option>
+                <option value="14">14</option>
+            </select>
         </div>
         <div class="control-group">
           <!-- E-mail -->
           <label class="control-label" for="date">Дата рождения</label>
-          <input type="text" id="date" name="date" placeholder="" class="form-control">
+          <input type="date" id="date" name="date" placeholder="" class="form-control"
+                 v-model.trim="dateBirth">
           <p class="help-block"></p>
         </div>
-
         <div class="control-group">
           <!-- E-mail -->
           <label class="control-label" for="email">Электронная почта</label>
-            <input type="text" id="email" name="email" placeholder="" class="form-control">
+            <input type="text" id="email" name="email" placeholder="email" class="form-control"
+                   autocomplete="current-password"
+                   v-model.trim="email">
             <p class="help-block"></p>
         </div>
 
         <div class="control-group">
           <!-- Password-->
           <label class="control-label" for="password">Пароль</label>
-            <input type="password" id="password" name="password" placeholder="" class="form-control">
-            <p class="help-block">Пароль должен содержать более 4 символов</p>
-        </div>
-
-        <div class="control-group">
-          <!-- Password -->
-          <label class="control-label"  for="password_confirm">Подтверждение пароля</label>
-          <div class="controls">
-            <input type="password" id="password_confirm" name="password_confirm" placeholder="" class="form-control">
-            <p class="help-block"></p>
-          </div>
+            <input type="password" id="password" name="password" placeholder="" class="form-control"
+                   autocomplete="current-password"
+                   v-model.trim="password">
         </div>
 
         <div class="control-group">
@@ -48,7 +59,48 @@
     </form>
   </div>
 </template>
-
+<script>
+    import {email, required, minLength} from 'vuelidate/lib/validators'
+    export default {
+        name: 'Registration',
+        data: () => ({
+            email: '',
+            password: '',
+            username: '',
+            dateBirth: '',
+            course: '',
+            group: ''
+        }),
+        validations: {
+            email: {email, required},
+            password: {required, minLength: minLength(6)},
+            username: {required},
+            dateBirth: {required},
+            course: {required},
+            group: {required},
+        },
+        methods: {
+            async submitHandler (){
+                if(this.$v.$invalid){
+                    this.$v.$touch()
+                    return
+                }
+                const formData ={
+                    email: this.email,
+                    password: this.password,
+                    username: this.username,
+                    dateBirth: this.dateBirth,
+                    course: this.course,
+                    group: this.group,
+                }
+                try{
+                    await this.$store.dispatch('register', formData)
+                    await this.$router.push('/')
+                }catch (e) {}
+            }
+        }
+    }
+</script>
 <style scoped>
   .btn{
     width: 100%;
