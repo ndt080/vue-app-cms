@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import auth from './auth'
 import sche from './sche'
+import info from './info'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -24,6 +25,6 @@ export default new Vuex.Store({
     isEditT: s => s.isEditT
   },
   modules: {
-    auth, sche
+    auth, sche, info
   }
 })

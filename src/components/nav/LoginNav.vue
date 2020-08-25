@@ -17,7 +17,7 @@
         <section v-else>
             <div class="btn btn-login">
                 <span><img :src="require(`@/assets/img/user.svg`)" alt="На главную"/></span>
-                <router-link class="router-link" tag="a" to="/login">Профиль</router-link>
+                <router-link class="router-link" tag="a" to="/profile">Профиль</router-link>
             </div>
             <div class="btn btn-login">
                 <span><img :src="require(`@/assets/img/logout.svg`)" alt="На главную"/></span>

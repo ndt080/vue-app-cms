@@ -10,9 +10,10 @@ export default {
                 throw e
             }
         },
-        async logout (){
+        async logout ({commit}){
             await firebase.auth().signOut()
             localStorage.removeItem('userAuth')
+            commit('clearInfo')
         },
         async register({dispatch, commit}, {username, dateBirth, course, group, email, password}){
             try{
@@ -33,17 +34,6 @@ export default {
         getUID(){
             const user = firebase.auth().currentUser;
             return user ? user.uid : null
-        },
-        async editCard({dispatch, commit}, {schedule, schedule_next}){
-            try{
-                await firebase.database().ref(`/schedule`).set({
-                    now: schedule,
-                    next: schedule_next
-                })
-            }catch (e){
-                commit('setError', e)
-                throw e
-            }
-        },
+        }
     }
 }
