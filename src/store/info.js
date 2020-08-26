@@ -2,7 +2,6 @@ import firebase from "firebase/app";
 export default {
     state: {
         info: {},
-        username: '',
     },
     mutations: {
         setInfo(state, info){
@@ -68,7 +67,6 @@ export default {
         },
     },
     getters: {
-        info: s => s.info,
-        username: s => s.info.username
+        info: s => s.info
     }
 }

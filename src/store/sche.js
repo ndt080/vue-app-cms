@@ -3,6 +3,14 @@ import firebase from "firebase/app";
 export default {
     state: {
         schedule: {},
+        daysSch: [
+            'D1Monday',
+            'D2Tuesday',
+            'D3Wednesday',
+            'D4Thursday',
+            'D5Friday',
+            'D6Saturday'
+        ],
         schedule_next: [
             {id: 1, title: 'ПОНЕДЕЛЬНИК', date: '08.09', lessons: [
                     {time: '08:15', timeEnd: '09:35', subj: '--', homework: '--', teach: '--', cab: '--'},
@@ -53,19 +61,39 @@ export default {
     actions: {
         async fetchSchedule({dispatch, commit}) {
             try {
-                const schedule = (await firebase.database().ref(`/schedule`).once('value')).val()
+                const schedule = (await firebase.database().ref(`/scheduleC${this.getters.info.course}G${this.getters.info.group}`).once('value')).val()
                 commit('setSchedule', schedule)
             } catch (e){
 
             }
 
-        }
+        },
+        async modScheduleDate({dispatch, commit}, {dateFrom}){
+            try{
+                if(dateFrom){
+                    let tmpD = new Date(dateFrom)
+                    for(let i=0; i <= this.getters.daysSch.length-1; i++) {
+                        let tmp = await firebase.database().ref(`/scheduleC${this.getters.info.course}G${this.getters.info.group}/${this.getters.daysSch[i]}/`).child('date')
+                        tmp.transaction(function (data) {
+                                return data = dateFrom
+                            }
+                        )
+                        console.log('#1:' + tmpD)
+                        console.log('#2:' + dateFrom)
+                    }
+                }
+            }catch (e){
+                commit('setError', e)
+                throw e
+            }
+        },
     },
     getters:{
         getSchedule_next(state){
             return state.schedule_next;
         },
-        schedule: s => s.schedule
+        schedule: s => s.schedule,
+        daysSch: s => s.daysSch
     }
 
 
