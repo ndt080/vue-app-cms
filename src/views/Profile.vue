@@ -6,55 +6,50 @@
     <h1>Здравствуйте, {{name}} </h1>
     <div class="card-deck" style="padding: 0; margin: 0;">
         <div class="card" style="max-width: 18rem">
-            <img :src="require(`@/assets/img/hacker.svg`)" class="card-img-top" alt="avatar" />
+            <img :src="require(`@/assets/img/hacker.svg`)" class="card-img-top" alt="avatar"
+                 v-if="!ava"/>
+            <img :src="ava" class="card-img-top" alt="avatar"
+                 v-else/>
             <div class="card-body">
                 <h5 class="card-title">{{status}}</h5>
-                <a href="#" class="btn btn-primary">Редактировать профиль</a>
+                <a href="#" class="btn btn-primary"
+                   @click.prevent="isModeration">Редактировать профиль</a>
             </div>
         </div>
 
-        <div class="card" style="max-width: 60rem">
-            <div class="card-body">
-                <table class="table table-hover">
-                    <tbody>
-                    <tr>
-                        <td>ФИО</td>
-                        <td>{{name}}</td>
-                    </tr>
-                    <tr>
-                        <td>Дата рождения</td>
-                        <td>{{dateBirth}}</td>
-                    </tr>
-                    <tr>
-                        <td>Курс/группа</td>
-                        <td>курс {{course}} группа {{group}}</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <FormProfile v-if="!isMod" />
+        <FormModProfile v-else/>
+
     </div>
 </div>
 </template>
 
 <script>
+    import FormModProfile from "../components/FormModProfile";
+    import FormProfile from "../components/FormProfile";
     export default {
         name: "Profile",
+        components: {FormProfile, FormModProfile},
+        data() {
+            return{
+                isMod: false
+            }
+        },
         computed: {
             name () {
                 return this.$store.getters.info.username
             },
-            dateBirth (){
-                return this.$store.getters.info.dateBirth
-            },
-            course (){
-                return this.$store.getters.info.course
-            },
-            group (){
-                return this.$store.getters.info.group
-            },
             status (){
                 return this.$store.getters.info.status
+            },
+            ava (){
+                return this.$store.getters.info.ava
+            },
+        },
+        methods:{
+            isModeration(){
+                this.isMod = !this.isMod
+                return this.isMod
             },
         },
     }

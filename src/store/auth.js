@@ -14,6 +14,7 @@ export default {
             await firebase.auth().signOut()
             localStorage.removeItem('userAuth')
             commit('clearInfo')
+            commit('clearSchedule')
         },
         async register({dispatch, commit}, {username, dateBirth, course, group, email, password}){
             try{

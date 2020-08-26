@@ -36,8 +36,10 @@
             </a>
             <div class="collapse" id="collapseCommonLess">
                 предмет: <input type="text" class="form-control"/>
-                преподаватель: <input type="text" class="form-control" />
-                кабинет: <input type="text" class="form-control"/>
+                #1 преподаватель: <input type="text" class="form-control" />
+                #1 кабинет: <input type="text" class="form-control"/>
+                #2 преподаватель: <input type="text" class="form-control" />
+                #2 кабинет: <input type="text" class="form-control"/>
             </div>
         </div>
         <div>

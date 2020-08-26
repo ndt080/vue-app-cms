@@ -21,13 +21,15 @@
         <section class="card-section"
                  v-if="this.selected === 'actual_week'"
         >
-            <Card v-for="(card, i) of this.getSchedule"
+            <SchNow />
+            <Card v-for="(card, i) of schedule"
                   v-bind:key="card.id"
                   v-bind:i="i"
                   v-bind:card="card"
                   v-bind:lessons="card.lessons"
                   v-bind:date="card.date"
-                  v-bind:title="card.title"/>
+                  v-bind:title="card.title"
+            />
         </section>
         <section class="card-section"
                  v-if="this.selected === 'next_week'"
@@ -77,12 +79,13 @@
 </template>
 
 <script>
-    import Card from "../components/Card";
+    import Card from "../components/schedule/Card";
     import {mapMutations, mapActions, mapGetters} from "vuex";
-    import ModCard from "../components/ModCard";
+    import ModCard from "../components/schedule/ModCard";
+    import SchNow from "../components/schedule/SchNow";
     export default {
         name: "Schedule",
-        components: {ModCard, Card},
+        components: {SchNow, ModCard, Card},
         data() {
             return{
                 isLogin: this.isAuth(),
@@ -99,12 +102,14 @@
             isModeration(){
                 this.isMod = !this.isMod
                 return this.isMod
-            }
+            },
         },
         computed:{
-            ...mapGetters(["getSchedule"]),
-            ...mapGetters(["getSchedule_next"])
-        }
+            ...mapGetters(["getSchedule_next"]),
+            schedule (){
+                return this.$store.getters.schedule
+            },
+        },
     }
 </script>
 

@@ -5,24 +5,32 @@
         </div>
         <div class="dropdown-divider"></div>
         <section v-if="!isLogin">
-            <div class="btn btn-login">
-                <span><img :src="require(`@/assets/img/login.svg`)" alt="На главную"/></span>
-                <router-link class="router-link" tag="a" to="/login">Вход</router-link>
-            </div>
-            <div class="btn btn-login">
-                <span><img :src="require(`@/assets/img/arrow.svg`)" alt="На главную"/></span>
-                <router-link class="router-link" tag="a" to="/registration">Регистрация</router-link>
-            </div>
+            <router-link class="router-link" tag="a" to="/login">
+                <div class="btn btn-login">
+                    <span><img :src="require(`@/assets/img/login.svg`)" alt="На главную"/></span>
+                    Вход
+                </div>
+            </router-link>
+            <router-link class="router-link" tag="a" to="/registration">
+                <div class="btn btn-login">
+                    <span><img :src="require(`@/assets/img/arrow.svg`)" alt="На главную"/></span>
+                    Регистрация
+                </div>
+            </router-link>
         </section>
         <section v-else>
-            <div class="btn btn-login">
-                <span><img :src="require(`@/assets/img/user.svg`)" alt="На главную"/></span>
-                <router-link class="router-link" tag="a" to="/profile">Профиль</router-link>
-            </div>
-            <div class="btn btn-login">
-                <span><img :src="require(`@/assets/img/logout.svg`)" alt="На главную"/></span>
-                <a class="router-link" href="" @click.prevent="logout">Выход</a>
-            </div>
+            <router-link class="router-link" tag="a" to="/profile">
+                <div class="btn btn-login">
+                    <span><img :src="require(`@/assets/img/user.svg`)" alt="На главную"/></span>
+                    Профиль
+                </div>
+            </router-link>
+            <a class="router-link" href="" @click.prevent="logout">
+                <div class="btn btn-login">
+                    <span><img :src="require(`@/assets/img/logout.svg`)" alt="На главную"/></span>
+                    Выход
+                </div>
+            </a>
         </section>
     </div>
 </template>
