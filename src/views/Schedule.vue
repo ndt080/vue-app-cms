@@ -16,8 +16,9 @@
       </header>
       <ModCard v-if="isMod"/>
 
+      <Loader v-if="loading"/>
     <!-- Дни недели -->
-    <div class="card-deck">
+    <div class="card-deck" v-else>
         <section class="card-section"
                  v-if="this.selected === 'actual_week'"
         >
@@ -91,7 +92,8 @@
                 isLogin: this.isAuth(),
                 isWeek: false,
                 selected: 'actual_week',
-                isMod: false
+                isMod: false,
+                loading: true
             }
         },
         methods:{
@@ -110,6 +112,12 @@
                 return this.$store.getters.schedule
             },
         },
+        async mounted() {
+            if(!Object.keys(this.$store.getters.schedule).length) {
+                await this.$store.dispatch('fetchSchedule')
+                this.loading = false
+            }
+        }
     }
 </script>
 

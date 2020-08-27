@@ -4,6 +4,7 @@ import App from './App.vue';
 import './registerServiceWorker';
 import router from './router';
 import store from './store';
+import Loader from "./components/Loader";
 import 'bootstrap/dist/js/bootstrap.min';
 import 'jquery/dist/jquery.min';
 import VueBootstrapToasts from "vue-bootstrap-toasts";
@@ -15,6 +16,7 @@ import 'firebase/database';
 Vue.config.productionTip = false
 Vue.use(Vuelidate);
 Vue.use(VueBootstrapToasts);
+Vue.component('Loader', Loader)
 
 firebase.initializeApp({
   apiKey: "AIzaSyC3wKon8167t3AduzsYPWEJ2NdZPdDnUTQ",

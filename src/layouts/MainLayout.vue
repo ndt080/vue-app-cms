@@ -20,6 +20,7 @@
       }
       if(!Object.keys(this.$store.getters.schedule).length) {
         await this.$store.dispatch('fetchSchedule')
+        this.loading = false
       }
     }
   }

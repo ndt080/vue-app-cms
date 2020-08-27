@@ -19,6 +19,10 @@
                         <span>{{card.lessons[0].teach2}}</span><b class="text-right">{{card.lessons[0].cab2}}</b>
                     </div>
                 </div>
+                <div class="card-homework list-group-item-secondary"
+                     v-if="card.lessons[0].homework">
+                    {{card.lessons[0].homework}}
+                </div>
             </li>
 
             <!-- 2 пара -->
@@ -33,6 +37,10 @@
                     <div>
                         <span>{{card.lessons[1].teach2}}</span><b class="text-right">{{card.lessons[1].cab2}}</b>
                     </div>
+                </div>
+                <div class="card-homework list-group-item-secondary"
+                     v-if="card.lessons[1].homework">
+                    {{card.lessons[1].homework}}
                 </div>
             </li>
 
@@ -49,6 +57,10 @@
                         <span>{{card.lessons[2].teach2}}</span><b class="text-right">{{card.lessons[2].cab2}}</b>
                     </div>
                 </div>
+                <div class="card-homework list-group-item-secondary"
+                     v-if="card.lessons[2].homework">
+                    {{card.lessons[2].homework}}
+                </div>
             </li>
 
             <!-- 4 пара -->
@@ -63,6 +75,10 @@
                     <div>
                         <span>{{card.lessons[3].teach2}}</span><b class="text-right">{{card.lessons[3].cab2}}</b>
                     </div>
+                </div>
+                <div class="card-homework list-group-item-secondary"
+                     v-if="card.lessons[3].homework">
+                    {{card.lessons[3].homework}}
                 </div>
             </li>
         </ul>
@@ -96,5 +112,10 @@
 <style scoped>
     .card-tech{
         display: block;
+    }
+    .card-homework{
+        padding: 0.5rem;
+        text-align: justify-all;
+        border-radius: 0.5rem;
     }
 </style>

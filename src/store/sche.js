@@ -11,44 +11,7 @@ export default {
             'D5Friday',
             'D6Saturday'
         ],
-        schedule_next: [
-            {id: 1, title: 'ПОНЕДЕЛЬНИК', date: '08.09', lessons: [
-                    {time: '08:15', timeEnd: '09:35', subj: '--', homework: '--', teach: '--', cab: '--'},
-                    {time: '09:45', timeEnd: '11:05', subj: '--', homework: '--', teach: '--', cab: '--'},
-                    {time: '11:15', timeEnd: '12:35', subj: '--', homework: '--', teach: '--', cab: '--'},
-                    {time: '13:00', timeEnd: '14:20', subj: '--', homework: '--', teach: '--', cab: '--'},
-                ]},
-            {id: 2, title: 'ВТОРНИК', date: '09.09', lessons: [
-                    {time: '08:15', timeEnd: '09:35', subj: '--', homework: '--', teach: '--', cab: '--'},
-                    {time: '09:45', timeEnd: '11:05', subj: '--', homework: '--', teach: '--', cab: '--'},
-                    {time: '11:15', timeEnd: '12:35', subj: '--', homework: '--', teach: '--', cab: '--'},
-                    {time: '13:00', timeEnd: '14:20', subj: '--', homework: '--', teach: '--', cab: '--'},
-                ]},
-            {id: 3, title: 'СРЕДА', date: '10.09', lessons: [
-                    {time: '08:15', timeEnd: '09:35', subj: '--', homework: '--', teach: '--', cab: '--'},
-                    {time: '09:45', timeEnd: '11:05', subj: '--', homework: '--', teach: '--', cab: '--'},
-                    {time: '11:15', timeEnd: '12:35', subj: '--', homework: '--', teach: '--', cab: '--'},
-                    {time: '13:00', timeEnd: '14:20', subj: '--', homework: '--', teach: '--', cab: '--'},
-                ]},
-            {id: 4, title: 'ЧЕТВЕРГ', date: '11.09', lessons: [
-                    {time: '08:15', timeEnd: '09:35', subj: '--', homework: '--', teach: '--', cab: '--'},
-                    {time: '09:45', timeEnd: '11:05', subj: '--', homework: '--', teach: '--', cab: '--'},
-                    {time: '11:15', timeEnd: '12:35', subj: '--', homework: '--', teach: '--', cab: '--'},
-                    {time: '13:00', timeEnd: '14:20', subj: '--', homework: '--', teach: '--', cab: '--'},
-                ]},
-            {id: 5, title: 'ПЯТНИЦА', date: '12.09', lessons: [
-                    {time: '08:15', timeEnd: '09:35', subj: '--', homework: '--', teach: '--', cab: '--'},
-                    {time: '09:45', timeEnd: '11:05', subj: '--', homework: '--', teach: '--', cab: '--'},
-                    {time: '11:15', timeEnd: '12:35', subj: '--', homework: '--', teach: '--', cab: '--'},
-                    {time: '13:00', timeEnd: '14:20', subj: '--', homework: '--', teach: '--', cab: '--'},
-                ]},
-            {id: 6, title: 'СУББОТА', date: '13.09', lessons: [
-                    {time: '08:15', timeEnd: '09:35', subj: '--', homework: '--', teach: '', cab: '--'},
-                    {time: '09:45', timeEnd: '11:05', subj: '--', homework: '--', teach: '', cab: '--'},
-                    {time: '11:15', timeEnd: '12:35', subj: '--', homework: '--', teach: '', cab: '--'},
-                    {time: '13:00', timeEnd: '14:20', subj: '--', homework: '--', teach: '', cab: '--'},
-                ]},
-        ],
+        schedule_next: [],
     },
     mutations: {
         setSchedule(state, schedule){
@@ -71,15 +34,16 @@ export default {
         async modScheduleDate({dispatch, commit}, {dateFrom}){
             try{
                 if(dateFrom){
-                    let tmpD = new Date(dateFrom)
+                    let data = new Date(dateFrom)
+                    let newDate = data.getDate()
                     for(let i=0; i <= this.getters.daysSch.length-1; i++) {
-                        let tmp = await firebase.database().ref(`/scheduleC${this.getters.info.course}G${this.getters.info.group}/${this.getters.daysSch[i]}/`).child('date')
-                        tmp.transaction(function (data) {
-                                return data = dateFrom
+                        let conn = await firebase.database().ref(`/scheduleC${this.getters.info.course}G${this.getters.info.group}/${this.getters.daysSch[i]}/`).child('date')
+                        await conn.transaction(function () {
+                                return data.toISOString().split('T')[0]
                             }
                         )
-                        console.log('#1:' + tmpD)
-                        console.log('#2:' + dateFrom)
+                        newDate++
+                        data.setDate(newDate)
                     }
                 }
             }catch (e){
@@ -87,6 +51,75 @@ export default {
                 throw e
             }
         },
+        async modSchedule({dispatch, commit}, {dateWeek, lesson, timeFrom, timeTo, subject, teachOne, teachTwo, cabOne, cabTwo, homework}){
+            try{
+                if(dateWeek && lesson && timeFrom){
+                    let conn = await firebase.database().ref(`/scheduleC${this.getters.info.course}G${this.getters.info.group}/${dateWeek}/lessons/${lesson}`).child('time')
+                    conn.transaction(function () {
+                            return timeFrom
+                        }
+                    )
+                }
+                if(dateWeek && lesson && timeTo){
+                    let conn = await firebase.database().ref(`/scheduleC${this.getters.info.course}G${this.getters.info.group}/${dateWeek}/lessons/${lesson}`).child('timeEnd')
+                    conn.transaction(function () {
+                            return timeTo
+                        }
+                    )
+                }
+                if(dateWeek && lesson && subject){
+                    let conn = await firebase.database().ref(`/scheduleC${this.getters.info.course}G${this.getters.info.group}/${dateWeek}/lessons/${lesson}`).child('subj')
+                    conn.transaction(function () {
+                            return (subject === 'del') ? '' : subject
+                        }
+                    )
+                }
+                if(dateWeek && lesson && teachOne){
+                    let conn = await firebase.database().ref(`/scheduleC${this.getters.info.course}G${this.getters.info.group}/${dateWeek}/lessons/${lesson}`).child('teach1')
+                    conn.transaction(function () {
+                            return (teachOne === 'del') ? '' : teachOne
+                        }
+                    )
+                }
+                if(dateWeek && lesson && teachTwo){
+                    let conn = await firebase.database().ref(`/scheduleC${this.getters.info.course}G${this.getters.info.group}/${dateWeek}/lessons/${lesson}`).child('teach2')
+                    conn.transaction(function () {
+                            return (teachTwo === 'del') ? '' : teachTwo
+                        }
+                    )
+                }
+                if(dateWeek && lesson && cabOne){
+                    let conn = await firebase.database().ref(`/scheduleC${this.getters.info.course}G${this.getters.info.group}/${dateWeek}/lessons/${lesson}`).child('cab1')
+                    conn.transaction(function () {
+                            return (cabOne === 'del') ? '' : cabOne
+                        }
+                    )
+                }
+                if(dateWeek && lesson && cabTwo){
+                    let conn = await firebase.database().ref(`/scheduleC${this.getters.info.course}G${this.getters.info.group}/${dateWeek}/lessons/${lesson}`).child('cab2')
+                    conn.transaction(function () {
+                            return (cabTwo === 'del') ? '' : cabTwo
+                        }
+                    )
+                }
+                if(dateWeek && lesson && homework){
+                    let conn = await firebase.database().ref(`/scheduleC${this.getters.info.course}G${this.getters.info.group}/${dateWeek}/lessons/${lesson}`).child('homework')
+                    conn.transaction(function () {
+                            return (homework === 'del') ? '' : homework
+                        }
+                    )
+                }
+            }catch (e){
+                commit('setError', e)
+                throw e
+            }
+        },
+        dataTransaction(conn, data){
+            return conn.transaction(function () {
+                    return data.toISOString().split('T')[0]
+                }
+            )
+        }
     },
     getters:{
         getSchedule_next(state){
