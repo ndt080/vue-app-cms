@@ -2,12 +2,12 @@
   <div class="overlay-i">
     <!-- GIF LOGO BOX -->
     <div class="container-img-i">
-      <div>
+
         <img class="img-body" :src="require(`@/assets/img/logo.gif`)" alt="ЛОГО" />
-      </div>
+
     </div>
     <!-- TEXT CONTENT -->
-    <h1 class="text-body-i">WELCOME, <span v-if="!isLogin">ФПМИ-ШНИК БГУ</span><span v-else>{{name}}</span>!!!</h1>
+    <h1 class="text-body-i">WELCOME,ФПМИ-ШНИК БГУ!!!</h1>
     <p class="text-body-i">«Примешь синюю таблетку — и сказке конец. Ты проснешься в своей постели и поверишь,
       что это был сон.
       Примешь красную таблетку — войдешь в страну чудес. Я покажу тебе, глубока ли кроличья нора» <i> —
@@ -34,11 +34,6 @@ export default {
     return{
       isLogin: this.isAuth()
     }
-  },
-  computed:{
-    name () {
-      return this.$store.getters.info.username.toUpperCase()
-    },
   },
   methods:{
     isAuth(){
