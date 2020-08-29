@@ -5,7 +5,10 @@
       <div class="bars">
         <div class="dropleft">
           <a href="#" data-toggle="dropdown">
-            <img class="nav-elements" :src="require(`@/assets/img/3.svg`)" alt="На главную"/>
+            <img :src="require(`@/assets/img/3.svg`)" class="nav-elements" alt="avatar"
+                 v-if="!ava"/>
+            <img :src="ava" class="nav-elements" alt="avatar"
+                 v-else/>
           </a>
           <LoginNav />
         </div>
@@ -22,7 +25,6 @@
               закладки.
             </div>
             <ul class="dropdown-item disabled" id="birthdays-list">
-              ДНИ РОЖДЕНИЯ:
             </ul>
           </div>
         </div>
@@ -33,11 +35,12 @@
           <img :src="require(`@/assets/img/helpful.svg`)"  title="Полезная информация и материалы" class="nav-elements" alt="Полезное" />
         </a>
       </div>
-      <!-- light/night mode -->
-      <div class="bars">
-        <input type="checkbox" class="checkbox" id="theme-switcher-checkbox"/>
-        <label for="theme-switcher-checkbox" title="Light/Night mode"></label>
-      </div>
+      <!-- light/night mode
+        <div class="bars">
+          <input type="checkbox" class="checkbox" id="theme-switcher-checkbox"/>
+          <label for="theme-switcher-checkbox" title="Light/Night mode"></label>
+        </div>
+      -->
     </div>
     <!-- empty -->
     <a href="#" class="nav-elements-empty">
@@ -51,11 +54,11 @@
           <img :src="require(`@/assets/img/discord.svg`)" class="nav-elements-bottom" alt="Discord" />
         </a>
       </div>
-      <!--GIT link -->
+      <!--Info link -->
       <div class="bars">
-        <a href="https://gitlab.com/gera-univ/site/pi14-schedule">
-          <img :src="require(`@/assets/img/git.svg`)"  title="Присоединяйся к разработке проекта!" class="nav-elements-bottom" alt="Git" />
-        </a>
+        <router-link to="/faq">
+          <img :src="require(`@/assets/img/faq.svg`)"  title="Присоединяйся к разработке проекта!" class="nav-elements-bottom" alt="faq" />
+        </router-link>
       </div>
     </div>
 
@@ -85,8 +88,21 @@
     components: {LoginNav},
     data() {
       return{
-        isOpen: false
+        isOpen: false,
       }
+    },
+    watch: {
+      '$route': {
+        deep: true,
+                handler () {
+          this.isOpen = false;
+        }
+      }
+    },
+    computed: {
+      ava (){
+        return this.$store.getters.info.ava
+      },
     },
     methods:{
       openMenu(event) {

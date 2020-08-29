@@ -29,6 +29,9 @@
   import {email, required, minLength} from 'vuelidate/lib/validators'
   export default {
     name: 'Login',
+    metaInfo:{
+      title: 'Вход'
+    },
     data: () => ({
       email: '',
       password: ''

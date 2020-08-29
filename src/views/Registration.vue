@@ -9,28 +9,46 @@
             <input type="text" id="text" name="text" placeholder="" class="form-control"
                    v-model.trim="username">
         </div>
+
+        <div class="control-group">
+            <!-- DateBirth -->
+            <label class="control-label" for="date">Дата рождения</label>
+            <input type="date" id="date" name="date" placeholder="" class="form-control"
+                   v-model.trim="dateBirth">
+            <p class="help-block"></p>
+        </div>
+
         <div class="form-group">
+            <!-- Course and group -->
             <label class="mr-sm-2" for="inlineFormCustomSelect">Курс</label>
             <select class="custom-select mr-sm-2" id="inlineFormCustomSelect"
                     v-model.trim="course">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
+                <option value="3">4</option>
             </select>
             <label class="mr-sm-2" for="inlineFormCustomSelect1">Группа</label>
             <select class="custom-select mr-sm-2" id="inlineFormCustomSelect1"
                     v-model.trim="group">
+                <option value="13">1</option>
+                <option value="14">2</option>
+                <option value="13">3</option>
+                <option value="14">4</option>
+                <option value="13">5</option>
+                <option value="14">6</option>
+                <option value="14">7</option>
+                <option value="13">8</option>
+                <option value="14">9</option>
+                <option value="13">10</option>
+                <option value="14">11</option>
+                <option value="14">12</option>
                 <option value="13">13</option>
                 <option value="14">14</option>
             </select>
+            <small class="form-text text-muted">Введите курс и группу для корректного отображения расписания занятий</small>
         </div>
-        <div class="control-group">
-          <!-- E-mail -->
-          <label class="control-label" for="date">Дата рождения</label>
-          <input type="date" id="date" name="date" placeholder="" class="form-control"
-                 v-model.trim="dateBirth">
-          <p class="help-block"></p>
-        </div>
+
         <div class="control-group">
           <!-- E-mail -->
           <label class="control-label" for="email">Электронная почта</label>
@@ -63,6 +81,9 @@
     import {email, required, minLength} from 'vuelidate/lib/validators'
     export default {
         name: 'Registration',
+        metaInfo:{
+            title: 'Регистрация'
+        },
         data: () => ({
             email: '',
             password: '',

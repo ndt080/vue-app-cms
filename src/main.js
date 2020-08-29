@@ -1,5 +1,7 @@
 import Vue from 'vue';
 import Vuelidate from "vuelidate";
+import VueBootstrapToasts from "vue-bootstrap-toasts";
+import VueMeta from 'vue-meta'
 import App from './App.vue';
 import './registerServiceWorker';
 import router from './router';
@@ -7,7 +9,7 @@ import store from './store';
 import Loader from "./components/Loader";
 import 'bootstrap/dist/js/bootstrap.min';
 import 'jquery/dist/jquery.min';
-import VueBootstrapToasts from "vue-bootstrap-toasts";
+
 
 import firebase from "firebase/app";
 import 'firebase/auth';
@@ -16,6 +18,7 @@ import 'firebase/database';
 Vue.config.productionTip = false
 Vue.use(Vuelidate);
 Vue.use(VueBootstrapToasts);
+Vue.use(VueMeta)
 Vue.component('Loader', Loader)
 
 firebase.initializeApp({

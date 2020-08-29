@@ -28,7 +28,7 @@
 </script>
 <style lang="scss">
 @import '~bootstrap/dist/css/bootstrap.min.css';
-@import 'assets/css/common.css';
+@import './assets/css/common.css';
 
   .toast-icon, .toast .progress{
     display: none;

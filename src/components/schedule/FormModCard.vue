@@ -1,39 +1,65 @@
 <template>
-    <form class="form-group" @submit.prevent="submitHandler" action='' method="POST">
-        <!-- week -->
-        <label class="form-group">
-            <select class="custom-select my-1 mr-sm-2">
-                <option value="actual_week">Текущая неделя</option>
-                <option value="next_week">Следующая неделя</option>
-            </select>
+    <form @submit.prevent="submitHandler" action='' method="POST">
+        <div class="form-group row">
+            <!-- week -->
+            <div class="col-md-2">
+                Неделя<span style="color: red">*</span>:
+                <select class="custom-select my-1 mr-sm-2">
+                    <option value="actual_week">Текущая неделя</option>
+                    <option value="next_week">Следующая неделя</option>
+                </select>
+            </div>
             <!-- dateWeek-->
-            <select class="custom-select my-1 mr-sm-2"
-                    v-model="dateWeek">
-                <option value="D1Monday">Понедельник</option>
-                <option value="D2Tuesday">Вторник</option>
-                <option value="D3Wednesday">Среда</option>
-                <option value="D4Thursday">Четверг</option>
-                <option value="D5Friday">Пятница</option>
-                <option value="D6Saturday">Суббота</option>
-            </select>
+            <div class="col-md-2">
+                День<span style="color: red">*</span>:
+                <select class="custom-select my-1 mr-sm-2"
+                        v-model="dateWeek" >
+                    <option selected value="D1Monday">Понедельник</option>
+                    <option value="D2Tuesday">Вторник</option>
+                    <option value="D3Wednesday">Среда</option>
+                    <option value="D4Thursday">Четверг</option>
+                    <option value="D5Friday">Пятница</option>
+                    <option value="D6Saturday">Суббота</option>
+                </select>
+            </div>
             <!-- lesson-->
-            <select class="custom-select my-1 mr-sm-2"
-                    v-model="lesson">
-                <option value="0">пара 1</option>
-                <option value="1">пара 2</option>
-                <option value="2">пара 3</option>
-                <option value="3">пара 4</option>
-            </select>
-        </label>
+            <div class="col-md-2">
+                Занятие<span style="color: red">*</span>:
+                <select class="custom-select my-1 mr-sm-2 form-control"
+                        v-model="lesson">
+                    <option selected value="0">пара 1</option>
+                    <option value="1">пара 2</option>
+                    <option value="2">пара 3</option>
+                    <option value="3">пара 4</option>
+                    <option value="4">пара 5</option>
+                </select>
+            </div>
+            <!-- Type lessons (color)-->
+            <div class="col-md-2">
+                Тип:
+                <select class="custom-select my-1 mr-sm-2 form-control"
+                        v-model="colorLes">
+                    <option selected value="list-group-item-success">лекция</option>
+                    <option value="list-group-item-primary">практическое</option>
+                    <option value="list-group-item-secondary">отсутствует</option>
+                </select>
+            </div>
+        </div>
+
         <!-- common: timeFrom, timeTo -->
         <div class="form-group">
             <a class="dropdown-toggle" data-toggle="collapse" href="#collapseTimeLess" aria-expanded="false" aria-controls="collapseTimeLess">
                 Время
             </a>
-            <div class="form-group collapse" id="collapseTimeLess">
-                <label>
-                с <input type="time" class="form-control" v-model="timeFrom"/> по <input type="time" class="form-control" v-model="timeTo"/>
-                </label>
+            <div class="form-group row collapse" id="collapseTimeLess">
+                <div class="col-md-1 text-form-group">
+                    <span>с </span>
+                    <input type="time" class="form-control" v-model="timeFrom"/>
+                </div>
+                <div class="col-md-1 text-form-group">
+                    <span>по </span>
+                    <input type="time" class="form-control" v-model="timeTo"/>
+                </div>
             </div>
         </div>
         <!-- common: subject, teachOne, teachTwo, cabOne, cabTwo-->
@@ -41,12 +67,22 @@
             <a class="dropdown-toggle" data-toggle="collapse" href="#collapseCommonLess" aria-expanded="false" aria-controls="collapseCommonLess">
                 Общее
             </a>
-            <div class="collapse" id="collapseCommonLess" >
-                предмет: <input type="text" class="form-control" v-model="subject"/>
-                #1 преподаватель: <input type="text" class="form-control" v-model="teachOne"/>
-                #1 кабинет: <input type="text" class="form-control" v-model="cabOne"/>
-                #2 преподаватель: <input type="text" class="form-control" v-model="teachTwo"/>
-                #2 кабинет: <input type="text" class="form-control" v-model="cabTwo"/>
+            <div class="form-group row collapse" id="collapseCommonLess" >
+                <div class="col-md-2">
+                    #1 преподаватель: <input type="text" class="form-control" v-model="teachOne"/>
+                </div>
+                <div class="col-md-2">
+                    #1 кабинет: <input type="text" class="form-control" v-model="cabOne"/>
+                </div>
+                <div class="col-md-2">
+                    #2 преподаватель: <input type="text" class="form-control" v-model="teachTwo"/>
+                </div>
+                <div class="col-md-2">
+                    #2 кабинет: <input type="text" class="form-control" v-model="cabTwo"/>
+                </div>
+                <div class="col-md-8">
+                    предмет: <textarea type="text" class="form-control" v-model="subject"/>
+                </div>
             </div>
         </div>
         <!-- homework-->
@@ -54,13 +90,19 @@
             <a class="dropdown-toggle" data-toggle="collapse" href="#collapseHomeLess" aria-expanded="false" aria-controls="collapseHomeLess">
                 Домашнее задание
             </a>
-            <div class="collapse" id="collapseHomeLess">
-                <input type="text" class="form-control"
-                       v-model="homework"/>
+            <div class="form-group row collapse" id="collapseHomeLess">
+                <div class="col-md-8">
+                    <textarea type="text" class="form-control"
+                              v-model="homework"/>
+                </div>
             </div>
         </div>
         <!-- button submit-->
-        <button class="btn btn-success">Сохранить</button>
+        <div class="form-group row">
+            <div class="col-md-8">
+                <button class="btn btn-success">Сохранить</button>
+            </div>
+        </div>
     </form>
 </template>
 
@@ -80,6 +122,7 @@
             cabOne: '',
             cabTwo: '',
             homework: '',
+            colorLes: ''
         }),
         validations: {
             dateWeek: {required},
@@ -92,6 +135,7 @@
             cabOne: {},
             cabTwo: {},
             homework: {},
+            colorLes: {},
         },
         methods:{
             async submitHandler (){
@@ -111,6 +155,7 @@
                     cabOne: this.cabOne,
                     cabTwo: this.cabTwo,
                     homework: this.homework,
+                    colorLes: this.colorLes
                 }
                 try{
                     await this.$store.dispatch('modSchedule', formData)
@@ -124,14 +169,11 @@
 </script>
 
 <style scoped>
-    label{
-        display: inline-flex;
-    }
     form a{
         text-decoration: none;
         font-size: 1.2em;
-        font-family: 'Oswald', sans-serif;
         color: #0275d8;
+        padding-left: 0.5rem;
     }
     form {
         font-size: 1.2em;
@@ -140,5 +182,18 @@
     }
     .btn{
         width: 100%;
+    }
+    .form-group{
+        padding: 0;
+        margin: 0;
+    }
+    .form-group label{
+        display: inline-flex;
+    }
+    .form-group .text-form-group {
+        display: inline-flex;
+    }
+    .form-group .text-form-group  span{
+        padding-right: 10px;
     }
 </style>

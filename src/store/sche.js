@@ -4,12 +4,12 @@ export default {
     state: {
         schedule: {},
         daysSch: [
-            'D1Monday',
-            'D2Tuesday',
-            'D3Wednesday',
-            'D4Thursday',
-            'D5Friday',
-            'D6Saturday'
+            {code: 'D1Monday', title: 'ПОНЕДЕЛЬНИК'},
+            {code: 'D2Tuesday', title: 'ВТОРНИК'},
+            {code: 'D3Wednesday', title: 'СРЕДА'},
+            {code: 'D4Thursday', title: 'ЧЕТВЕРГ'},
+            {code: 'D5Friday', title: 'ПЯТНИЦА'},
+            {code: 'D6Saturday', title: 'СУББОТА'},
         ],
         schedule_next: [],
     },
@@ -36,14 +36,23 @@ export default {
                 if(dateFrom){
                     let data = new Date(dateFrom)
                     let newDate = data.getDate()
-                    for(let i=0; i <= this.getters.daysSch.length-1; i++) {
-                        let conn = await firebase.database().ref(`/scheduleC${this.getters.info.course}G${this.getters.info.group}/${this.getters.daysSch[i]}/`).child('date')
-                        await conn.transaction(function () {
+                    for(let i=0; i < this.getters.daysSch.length; i++) {
+                        data.getDate()
+                        await firebase.database().ref(`/scheduleC${this.getters.info.course}G${this.getters.info.group}/${this.getters.daysSch[i].code}/`)
+                            .child('date').transaction(function () {
                                 return data.toISOString().split('T')[0]
-                            }
-                        )
-                        newDate++
+                            })
+
+                        newDate = data.getDate() + 1
                         data.setDate(newDate)
+                    }
+                if(!this.getters.schedule.title)
+                    for(let i=0; i < this.getters.daysSch.length; i++) {
+                        let name = this.getters.daysSch[i].title
+                        await firebase.database().ref(`/scheduleC${this.getters.info.course}G${this.getters.info.group}/${this.getters.daysSch[i].code}/`)
+                            .child('title').transaction(function () {
+                                return name
+                            })
                     }
                 }
             }catch (e){
@@ -51,7 +60,7 @@ export default {
                 throw e
             }
         },
-        async modSchedule({dispatch, commit}, {dateWeek, lesson, timeFrom, timeTo, subject, teachOne, teachTwo, cabOne, cabTwo, homework}){
+        async modSchedule({dispatch, commit}, {dateWeek, lesson, timeFrom, timeTo, subject, teachOne, teachTwo, cabOne, cabTwo, homework, colorLes}){
             try{
                 if(dateWeek && lesson && timeFrom){
                     let conn = await firebase.database().ref(`/scheduleC${this.getters.info.course}G${this.getters.info.group}/${dateWeek}/lessons/${lesson}`).child('time')
@@ -109,17 +118,18 @@ export default {
                         }
                     )
                 }
+                if(dateWeek && lesson && colorLes){
+                    let conn = await firebase.database().ref(`/scheduleC${this.getters.info.course}G${this.getters.info.group}/${dateWeek}/lessons/${lesson}`).child('color')
+                    conn.transaction(function () {
+                            return colorLes
+                        }
+                    )
+                }
             }catch (e){
                 commit('setError', e)
                 throw e
             }
         },
-        dataTransaction(conn, data){
-            return conn.transaction(function () {
-                    return data.toISOString().split('T')[0]
-                }
-            )
-        }
     },
     getters:{
         getSchedule_next(state){

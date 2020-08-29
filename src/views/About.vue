@@ -6,5 +6,15 @@
   </div>
 </template>
 
+<script>
+  export default {
+    name: 'About',
+    metaInfo:{
+      title: 'О проекте'
+    }
+  }
+</script>
+
 <style scoped>
+
 </style>

@@ -1,34 +1,26 @@
 <template>
     <section>
-        <div>
-            <form class="card-body form-group" @submit.prevent="submitHandler" action='' method="POST">
-                <a class="dropdown-toggle" data-toggle="collapse" href="#collapseDateWeek" aria-expanded="false" aria-controls="collapseDateWeek">
-                    Настройка даты текущей недели
-                </a>
-                <div class="collapse" id="collapseDateWeek">
-                    <div class="form-row">
-                        <div class="col form-group">
-                            <input type="date" class="form-control" placeholder="с"
-                                   v-model.trim="dateFrom"/>
-                        </div>
-                        <div class="col form-group">
-                            <button class="btn btn-success">Сохранить</button>
-                        </div>
-                    </div>
-                </div>
-
-            </form>
-        </div>
-        <div>
-            <a class="dropdown-toggle" data-toggle="collapse" href="#collapseTime" aria-expanded="false" aria-controls="collapseTime">
-                Настройка времени и наименований занятий
+        <form class="card-body form-group" @submit.prevent="submitHandler" action='' method="POST">
+            <a class="dropdown-toggle" data-toggle="collapse" href="#collapseDateWeek" aria-expanded="false" aria-controls="collapseDateWeek">
+                Настройка даты текущей недели
             </a>
-            <div class="collapse" id="collapseTime">
-            <FormModCard />
+            <div class="form-group row collapse" id="collapseDateWeek">
+                <div class="col-md-6">
+                    <input type="date" class="form-control" placeholder="с"
+                           v-model.trim="dateFrom"/>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-success">Сохранить</button>
+                </div>
             </div>
+        </form>
+
+        <a class="dropdown-toggle" data-toggle="collapse" href="#collapseTime" aria-expanded="false" aria-controls="collapseTime">
+            Настройка времени и наименований занятий
+        </a>
+        <div class="collapse" id="collapseTime">
+            <FormModCard />
         </div>
-
-
     </section>
 </template>
 
@@ -74,5 +66,14 @@
     }
     form {
         padding: 0;
+    }
+    @media (max-width: 700px) {
+        section a {
+            font-size: 1.4em;
+        }
+    }
+    .form-group{
+        padding: 0;
+        margin: 0;
     }
 </style>

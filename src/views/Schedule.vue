@@ -1,7 +1,8 @@
 <template>
   <div>
-    <div class="card-deck" style="padding: 0; margin: 0;">
-      <a><p class="site-header-text"> РАСПИСАНИЕ</p></a>
+    <div class="card-deck" style="padding: 0; margin: 0;"
+         v-if="isLogin && !isMod">
+      <a><p class="site-header-text">РАСПИСАНИЕ ЗАНЯТИЙ</p></a>
     </div>
       <header>
           <button class="btn btn-dark" v-if="isLogin && !isMod" @click.prevent="isModeration">РЕДАКТИРОВАТЬ РАСПИСАНИЕ</button>
@@ -13,14 +14,19 @@
                   <option value="next_week">Следующая неделя</option>
               </select>
           </label>
+          <button class="btn btn-dark" v-if="isLogin" @click.prevent="isScroll">
+              <img class="scroll-icon" :src="require(`@/assets/img/scroll.svg`)" alt="Scrl"/>
+          </button>
+          <button class="btn btn-dark" v-if="isLogin"  @click.prevent="refresh">
+              <img class="scroll-icon" :src="require(`@/assets/img/repeat.svg`)" alt="Repeat"/>
+          </button>
       </header>
       <ModCard v-if="isMod"/>
-
-      <Loader v-if="loading"/>
+      <Loader v-if="loading"></Loader>
     <!-- Дни недели -->
     <div class="card-deck" v-else>
-        <section class="card-section"
-                 v-if="this.selected === 'actual_week'"
+        <section v-if="this.selected === 'actual_week'"
+                 v-bind:class="{ 'card-section': !isScroller, 'card-section-with-scroll': isScroller  }"
         >
             <SchNow />
             <Card v-for="(card, i) of schedule"
@@ -63,14 +69,7 @@
                 <br>
             </div>
             <div class="card-footer">
-                <div class="text-right">
-                    <a class="text-secondary" href="https://gitlab.com/gera-univ/site/pi14-schedule">git</a>
-                </div>
-                <div id="alert-schedule-out-of-date" class="alert alert-dismissible">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <p id="text-schedule-out-of-date">??</p>
-                    неделя <strong id="week-schedule-out-of-date">??</strong>
-                </div>
+
             </div>
         </div>
     </div>
@@ -86,6 +85,9 @@
     import SchNow from "../components/schedule/SchNow";
     export default {
         name: "Schedule",
+        metaInfo:{
+          title: 'Расписание'
+        },
         components: {SchNow, ModCard, Card},
         data() {
             return{
@@ -93,8 +95,13 @@
                 isWeek: false,
                 selected: 'actual_week',
                 isMod: false,
-                loading: true
+                loading: true,
+                isScroller: false
             }
+        },
+        async mounted() {
+            await this.$store.dispatch('fetchSchedule')
+            this.loading = false
         },
         methods:{
             isAuth(){
@@ -105,24 +112,32 @@
                 this.isMod = !this.isMod
                 return this.isMod
             },
+            isScroll(){
+                this.isScroller = !this.isScroller
+                return this.isScroller
+            },
+            async refresh(){
+                this.loading = true;
+                await this.$store.dispatch('fetchSchedule')
+                this.loading = false
+            }
         },
         computed:{
             ...mapGetters(["getSchedule_next"]),
             schedule (){
                 return this.$store.getters.schedule
             },
-        },
-        async mounted() {
-            if(!Object.keys(this.$store.getters.schedule).length) {
-                await this.$store.dispatch('fetchSchedule')
-                this.loading = false
-            }
         }
     }
 </script>
 
 <style scoped>
-header button {
-    margin-right: 1.3rem;
-}
+    header button,  header label {
+        margin-right: 1.3rem;
+    }
+    .scroll-icon{
+        padding-top: 0;
+        padding-bottom: 0;
+        height: 1.3rem;
+    }
 </style>

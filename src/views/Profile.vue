@@ -29,6 +29,9 @@
     import FormProfile from "../components/FormProfile";
     export default {
         name: "Profile",
+        metaInfo:{
+            title: 'Профиль пользователя'
+        },
         components: {FormProfile, FormModProfile},
         data() {
             return{
