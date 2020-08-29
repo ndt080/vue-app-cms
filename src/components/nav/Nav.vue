@@ -50,7 +50,7 @@
     <div class="nav-container-bottom" v-bind:class="{ active: isOpen }">
       <!--Discord link -->
       <div class="bars">
-        <a href="https://discord.gg/m2SHTB">
+        <a href="https://discord.gg/yw4sEtQ">
           <img :src="require(`@/assets/img/discord.svg`)" class="nav-elements-bottom" alt="Discord" />
         </a>
       </div>
@@ -72,8 +72,7 @@
       <nav class="nav__list" v-bind:class="{ active: isOpen }">
         <ul>
           <li class="nav__item"><router-link class="router-link" tag="a" to="/">Главная</router-link></li>
-          <li class="nav__item"><router-link class="router-link" tag="a" to="/schedule">Расписание</router-link></li>
-          <li class="nav__item"><router-link class="router-link" tag="a" to="/schedule">Блог</router-link></li>
+          <li class="nav__item"><router-link class="router-link" tag="a" to="/schedule">Расписание <sup style="color: red; font-size: 0.5em">[beta]</sup></router-link></li>
           <li class="nav__item"><router-link class="router-link" tag="a" to="/about">О проекте</router-link></li>
         </ul>
       </nav>
@@ -82,7 +81,7 @@
 </template>
 
 <script>
-  import LoginNav from "./nav/LoginNav";
+  import LoginNav from "./LoginNav";
   export default {
     name: "Nav",
     components: {LoginNav},

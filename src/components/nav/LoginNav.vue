@@ -1,8 +1,10 @@
 <template>
     <div class="dropdown-menu dropdown-login">
-        <div class="btn btn-login">
-            <router-link class="router-link" tag="a" to="/">Главная</router-link>
-        </div>
+        <router-link class="router-link" to="/">
+            <div class="btn btn-login">
+                Главная
+            </div>
+        </router-link>
         <div class="dropdown-divider"></div>
         <section v-if="!isLogin">
             <router-link class="router-link" tag="a" to="/login">

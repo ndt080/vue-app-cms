@@ -30,7 +30,7 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import './assets/css/common.css';
 
-  .toast-icon, .toast .progress{
+  .toast .progress{
     display: none;
   }
 </style>

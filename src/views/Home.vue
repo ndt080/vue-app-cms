@@ -2,25 +2,24 @@
   <div class="overlay-i">
     <!-- GIF LOGO BOX -->
     <div class="container-img-i">
-      <iframe class="embed-responsive-item img-body"
-              src="https://www.arcgis.com/apps/opsdashboard/index.html#/85320e2ea5424dfaaa75ae62e5c06e61"
-              allowfullscreen></iframe>
-      <!-- <a href="index.html"><img class="img-body" src="img/logo.gif" alt="Еноты"></a> -->
+      <div>
+        <img class="img-body" :src="require(`@/assets/img/logo.gif`)" alt="ЛОГО" />
+      </div>
     </div>
     <!-- TEXT CONTENT -->
-    <h1 class="text-body-i">WELCOME, ФПМИ-ШНИК БГУ!!!</h1>
+    <h1 class="text-body-i">WELCOME, <span v-if="!isLogin">ФПМИ-ШНИК БГУ</span><span v-else>{{name}}</span>!!!</h1>
     <p class="text-body-i">«Примешь синюю таблетку — и сказке конец. Ты проснешься в своей постели и поверишь,
       что это был сон.
       Примешь красную таблетку — войдешь в страну чудес. Я покажу тебе, глубока ли кроличья нора» <i> —
         Морфеус </i></p>
-    <div v-if="!isLogin">
-      <h2 class="text-body-i"  >чтобы в полной мере воспользователь функциями приложения, необходимо <br />
+    <div >
+      <h2 class="text-body-i" v-if="!isLogin">чтобы в полной мере воспользователь функциями приложения, необходимо <br />
       <router-link to="/login">войти</router-link> или <router-link to="/registration">зарегистрироваться</router-link></h2>
     </div>
-    <div v-else>
-      <h2 class="text-body-i" >перейти к <router-link to="/schedule">расписанию занятий</router-link></h2>
-    </div>
-
+    <footer>
+        <p class="text-left">Powered by Vue.js and firebase </p>
+        <p class="text-right" v-if="isLogin">перейти к <router-link to="/schedule">расписанию занятий</router-link></p>
+    </footer>
   </div>
 </template>
 
@@ -35,6 +34,11 @@ export default {
     return{
       isLogin: this.isAuth()
     }
+  },
+  computed:{
+    name () {
+      return this.$store.getters.info.username.toUpperCase()
+    },
   },
   methods:{
     isAuth(){
@@ -75,14 +79,28 @@ export default {
   .container-img-i{
     position: relative;
     display: block;
-    margin: auto;
+    margin: 0 auto;
     padding-left: 1.5%;
     padding-top: 1.5%;
     text-align: center;
   }
   .img-body{
-    width: 100%;
-    height: 18rem;
+    width: 25rem;
+    height: 15rem;
     border-radius: 0.5rem;
+    margin-bottom: 30px;
+  }
+  footer{
+    display: inline-flex;
+    justify-content: space-between;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    padding: 0 5rem 0 3rem;
+  }
+  footer p{
+    font-size: 1.3em !important;
+    color: #9ac6ac !important;
   }
 </style>
