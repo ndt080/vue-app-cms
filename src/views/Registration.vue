@@ -45,6 +45,7 @@
                 <option value="14">12</option>
                 <option value="13">13</option>
                 <option value="14">14</option>
+                <option value="14">15</option>
             </select>
             <small class="form-text text-muted">Введите курс и группу для корректного отображения расписания занятий</small>
         </div>

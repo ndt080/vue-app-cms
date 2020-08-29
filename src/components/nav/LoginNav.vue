@@ -15,7 +15,7 @@
             </router-link>
             <router-link class="router-link" tag="a" to="/registration">
                 <div class="btn btn-login">
-                    <span><img :src="require(`@/assets/img/arrow.svg`)" alt="На главную"/></span>
+                    <span><img :src="require(`@/assets/img/reg.svg`)" alt="На главную"/></span>
                     Регистрация
                 </div>
             </router-link>
@@ -67,7 +67,7 @@
         border-radius: 0;
     }
     .btn-login:hover{
-        background: rgba(51,51,255,0.15);
+        background: rgba(154,198,172,0.3);
     }
     .btn-login img{
         width: 1.3rem;

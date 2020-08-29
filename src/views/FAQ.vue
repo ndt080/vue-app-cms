@@ -16,8 +16,11 @@
             </p>
         </section>
         <section >
-            <a class="text-justify dropdown-toggle" data-toggle="collapse" href="#collapseFAQ1" >
-                #1 Зачем нужна на сайте авторизация
+            <a class="text-justify" data-toggle="collapse" href="#collapseFAQ1" >
+               #1 Зачем нужна на сайте авторизация
+                <svg width="0.7em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-down-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                </svg>
             </a>
             <div class="collapse" id="collapseFAQ1">
                 <p class="text-justify"> Авторизация происходит по email и паролю. Сама электронная почта не обязательно должна быть действительна. Наш проект не
@@ -32,15 +35,51 @@
             </div>
         </section>
         <section >
-            <a class="dropdown-toggle" data-toggle="collapse" href="#collapseFAQ2" >
+            <a class="text-justify" data-toggle="collapse" href="#collapseFAQ2" >
                 #2 Как пользоваться конструктором раписания
+                <svg width="0.7em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-down-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                </svg>
             </a>
             <div class="collapse" id="collapseFAQ2">
                 <p class="text-justify">
+                    Для удобной работы с расписанием в приложении реализована возможность создания и изменения текщего расписания группы.
+                    Чтобы создать таблицу с расписанием вашей группы, необходимо сделать несколько простых действий.
+                    <ol>
+                    <li>Нажмите кнопку <span class="text-primary">"Редактировать расписание"</span> на странице "Расписание занятий", чтобы войти в режим редактирования.</li>
+                    <li>Выберите подпункт <span class="text-primary">"Настройка даты текущей недели"</span>. Введите дату с которой начинается неделя и нажмите кнопку <span class="text-primary">"Сохранить"</span></li>
+                    Нажав на кнопку обновления расписания, у вас появятся карточки с днями неделями и датами.<br /> Поздавляем, вы создали таблицу с расписанием, теперь её
+                    нужно только заполнить.
+                    </ol>
+                    Давайте заполним расписание! Для этого:
+                    <ol>
+                        <li>Выберите подпункт <span class="text-primary">"Настройка времени и наименований занятий"</span>.</li>
+                        <li>Заполянем <span style="color: red">ОБЯЗАТЕЛЬНЫЕ</span> поля, без которых не возможно изменить расписание: неделя, день недели, номер занятия. <br />
+                            <i> Учтите, что номеров занятий только 5, поэтому если у вас получается 6 полей и первое занятие отсутствует ("форточка"), то стоит его опустить в заполнении.</i>
+                        </li>
+                        <li>Выбираем тип занятия. <br />
+                            <i>Он влияет на цвет, которым будет подствечиваться занятие.</i>
+                        </li>
+                        <li>Во вкладке <span class="text-primary">"Время"</span> устанавливаем начальное и конечное время занятия.</li>
+                        <li>Во вкладке <span class="text-primary">"Общее"</span> устанавливаем параметры занятия: предмет, преподавать, кабинет. <br />
+                            <i>Два варианта полей "преподаватель" и "кабинет" необходимы для случаем, когда группы разделена на подгруппы.<br />
+                            В случае, когда у разных подгрупп раз разные предметы, предусмотрен многостроный ввод в поле "Предмет".<br />
+                            <span style="color: red">Данные поля не являются обязательными и могут не заполняться!!!</span>
+                            </i>
+                        </li>
+                        <li>Во вкладке <span class="text-primary">"Домашнее задание"</span> при необходимости можно указать задания, которые преподавать
+                        предоставл для самостоятельного изучения или выполнения</li>
+                        <li>Нажимаем <span class="text-primary">"Сохранить"</span> и кнопку обновления расписания.</li>
+                    </ol>
+                    <b>ПРИМЕРЫ ХОРОШО ЗАПОЛНЕНОГО РАСПИСАНИЯ:</b>
                 </p>
+                <div class="img-template">
+                    <img class="img-body" :src="require(`@/assets/img/template/full.jpg`)" alt="templete1" />
+                    <img class="img-body" :src="require(`@/assets/img/template/1.jpg`)" alt="templete2" />
+                </div>
             </div>
-        </section>
 
+        </section>
     </div>
 </template>
 
@@ -67,12 +106,13 @@
         font-size: 2rem;
         font-weight: bold;
         color: #292b2c;
+        line-height: 1;
     }
     .faq section p{
         text-indent: 25px;
         font-size: 1.5rem;
     }
-    .faq section .collapse p{
+    .faq section .collapse{
         font-size: 1.3rem;
         color: #31372b;
     }
@@ -81,6 +121,9 @@
     }
     .mx-1{
         width: 48px;
+    }
+    .img-body{
+        max-width: 50%;
     }
 
 </style>

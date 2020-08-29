@@ -47,7 +47,7 @@ const router = new VueRouter({
     {
       path: '/faq',
       name: 'FAQ',
-      meta: { layout: 'main', auth: true },
+      meta: { layout: 'main' },
       component: () => import('../views/FAQ.vue')
     }
   ]

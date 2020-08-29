@@ -35,6 +35,12 @@
           <img :src="require(`@/assets/img/helpful.svg`)"  title="Полезная информация и материалы" class="nav-elements" alt="Полезное" />
         </a>
       </div>
+      <!-- schedule link -->
+      <div class="bars">
+        <router-link to="/schedule">
+          <img :src="require(`@/assets/img/sche1.svg`)"  title="Расписание" class="nav-elements" alt="Расписание" />
+        </router-link>
+      </div>
       <!-- light/night mode
         <div class="bars">
           <input type="checkbox" class="checkbox" id="theme-switcher-checkbox"/>
