@@ -54,16 +54,22 @@
     </a>
     <!-- Bottom link block -->
     <div class="nav-container-bottom" v-bind:class="{ active: isOpen }">
-      <!--Discord link -->
+      <!--GIT link -->
       <div class="bars">
         <a href="https://discord.gg/yw4sEtQ">
-          <img :src="require(`@/assets/img/discord.svg`)" class="nav-elements-bottom" alt="Discord" />
+          <img :src="require(`@/assets/img/git.svg`)" title="Присоединяйся к разработке проекта!" class="nav-elements-bottom" alt="GIT" />
+        </a>
+      </div>
+      <!--Discord link -->
+      <div class="bars">
+        <a href="https://github.com/ndt080/vue-app-cms.git">
+          <img :src="require(`@/assets/img/discord.svg`)" title="Присоединяйся к сообществу!" class="nav-elements-bottom" alt="Discord" />
         </a>
       </div>
       <!--Info link -->
       <div class="bars">
         <router-link to="/faq">
-          <img :src="require(`@/assets/img/faq.svg`)"  title="Присоединяйся к разработке проекта!" class="nav-elements-bottom" alt="faq" />
+          <img :src="require(`@/assets/img/faq.svg`)"  title="Часто задаваемые вопросы!" class="nav-elements-bottom" alt="faq" />
         </router-link>
       </div>
     </div>
