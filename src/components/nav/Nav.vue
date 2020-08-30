@@ -56,13 +56,13 @@
     <div class="nav-container-bottom" v-bind:class="{ active: isOpen }">
       <!--GIT link -->
       <div class="bars">
-        <a href="https://discord.gg/yw4sEtQ">
+        <a href="https://github.com/ndt080/vue-app-cms.git">
           <img :src="require(`@/assets/img/git.svg`)" title="Присоединяйся к разработке проекта!" class="nav-elements-bottom" alt="GIT" />
         </a>
       </div>
       <!--Discord link -->
       <div class="bars">
-        <a href="https://github.com/ndt080/vue-app-cms.git">
+        <a href="https://discord.gg/yw4sEtQ">
           <img :src="require(`@/assets/img/discord.svg`)" title="Присоединяйся к сообществу!" class="nav-elements-bottom" alt="Discord" />
         </a>
       </div>
