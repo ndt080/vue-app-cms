@@ -24,7 +24,7 @@
       <ModCard v-if="isMod"/>
       <Loader v-if="loading"></Loader>
     <!-- Дни недели -->
-    <div class="card-deck" v-else>
+    <div class="card-deck" v-if="!loading && schedule">
         <section v-if="this.selected === 'actual_week'"
                  v-bind:class="{ 'card-section': !isScroller, 'card-section-with-scroll': isScroller  }"
         >
@@ -50,6 +50,9 @@
             />
         </section>
     </div>
+      <div class="card-deck info-message" v-if="!loading && !schedule">
+          <p class="text-danger text-center">Расписание {{group}} группы {{course}} курса еще никто не заполнил. Воспользуйтесь конструктором, чтобы это сделать!</p>
+      </div>
 
     <div class="card-deck">
         <div class="card mb-3 border card-border border card-border border card-border" style="max-width: 44rem">
@@ -127,6 +130,12 @@
             schedule (){
                 return this.$store.getters.schedule
             },
+            course (){
+                return this.$store.getters.info.course
+            },
+            group (){
+                return this.$store.getters.info.group
+            },
         }
     }
 </script>
@@ -139,5 +148,11 @@
         padding-top: 0;
         padding-bottom: 0;
         height: 1.3rem;
+    }
+    .info-message{
+        width: 100%;
+        margin: 0 auto;
+        padding: 0 1rem 0 0;
+        font-size: 1.5em;
     }
 </style>
