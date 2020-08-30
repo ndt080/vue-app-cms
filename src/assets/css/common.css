@@ -37,6 +37,7 @@ body{
 .empty-layout .content .card-deck{
     display: block !important;
 }
+
 /* Стили для переключателя режима */
 .bars label{
     display: block;

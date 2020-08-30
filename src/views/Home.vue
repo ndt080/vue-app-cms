@@ -2,18 +2,15 @@
   <div class="overlay-i">
     <!-- GIF LOGO BOX -->
     <div class="container-img-i">
-
         <img class="img-body" :src="require(`@/assets/img/logo.gif`)" alt="ЛОГО" />
-
     </div>
     <!-- TEXT CONTENT -->
-    <h1 class="text-body-i">WELCOME, ФПМИ-ШНИК БГУ!!!</h1>
-    <p class="text-body-i">«Примешь синюю таблетку — и сказке конец. Ты проснешься в своей постели и поверишь,
-      что это был сон.
-      Примешь красную таблетку — войдешь в страну чудес. Я покажу тебе, глубока ли кроличья нора» <i> —
-        Морфеус </i></p>
+    <h1>WELCOME, ФПМИ-ШНИК БГУ!!!</h1>
+    <p class="text-body-i">"Оставь надежду всяк сюда входящий, боль и страдания не заставят себя ждать. Соседи не забудут крик бомбящий,
+        ведь Орешко будет завтра лабу принимать..."
+    </p>
     <div >
-      <h2 class="text-body-i" v-if="!isLogin">чтобы в полной мере воспользователь функциями приложения, необходимо <br />
+      <h2 v-if="!isLogin">чтобы в полной мере воспользователь функциями приложения, необходимо <br />
       <router-link to="/login">войти</router-link> или <router-link to="/registration">зарегистрироваться</router-link></h2>
     </div>
     <footer>
@@ -48,10 +45,23 @@ export default {
   .overlay-i {
     padding: 1.5%;
     margin: 0 auto;
-    margin-right: 5rem;
+    margin: 0 5rem 0 0;
     font-family: 'Oswald', sans-serif;
     color: rgb(154,198,172);
   }
+  @media (max-width: 700px) {
+      .container-img-i{
+          padding: 25% 0 0 0 !important;
+      }
+      .img-body{
+          width: 20rem !important;
+          height: 13rem;
+      }
+  }
+  .text-body-i{
+      padding: 0 5rem 0 5rem;
+  }
+
   .overlay-i h1{
     font-size: 45px;
     text-align: center;
@@ -61,12 +71,13 @@ export default {
     font-size: 2rem;
     text-align: center;
     font-weight: bold;
-    padding-top: 2rem;
+    padding-top: 1rem;
   }
   .overlay-i p{
     font-size: 24px;
     color: #e6e6e6;
     text-align: center;
+    padding-top: 0.3rem;
   }
   .overlay-i a{
     text-decoration: none;
@@ -76,11 +87,11 @@ export default {
     display: block;
     margin: 0 auto;
     padding-left: 1.5%;
-    padding-top: 1.5%;
+    padding-top: 5%;
     text-align: center;
   }
   .img-body{
-    width: 25rem;
+    width: 20rem;
     height: 15rem;
     border-radius: 0.5rem;
     margin-bottom: 30px;
