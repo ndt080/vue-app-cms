@@ -28,7 +28,6 @@
         <section v-if="this.selected === 'actual_week'"
                  v-bind:class="{ 'card-section': !isScroller, 'card-section-with-scroll': isScroller  }"
         >
-            <SchNow />
             <Card v-for="(card, i) of schedule"
                   v-bind:key="card.id"
                   v-bind:i="i"
@@ -41,7 +40,7 @@
         <section class="card-section"
                  v-if="this.selected === 'next_week'"
         >
-            <Card v-for="(card, i) of this.getSchedule_next"
+            <Card v-for="(card, i) of schedule_next"
                   v-bind:key="card.id"
                   v-bind:i="i"
                   v-bind:card="card"
@@ -81,14 +80,13 @@
 <script>
     import Card from "../components/schedule/Card";
     import {mapMutations, mapActions, mapGetters} from "vuex";
-    import ModCard from "../components/schedule/ModCard";
-    import SchNow from "../components/schedule/SchNow";
+    import ModCard from "../components/schedule/SchModeration";
     export default {
         name: "Schedule",
         metaInfo:{
           title: 'Расписание'
         },
-        components: {SchNow, ModCard, Card},
+        components: {ModCard, Card},
         data() {
             return{
                 isLogin: this.isAuth(),
@@ -123,7 +121,9 @@
             }
         },
         computed:{
-            ...mapGetters(["getSchedule_next"]),
+            schedule_next (){
+                return this.$store.getters.schedule_next
+            },
             schedule (){
                 return this.$store.getters.schedule
             },

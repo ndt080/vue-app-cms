@@ -4,9 +4,10 @@
             <!-- week -->
             <div class="col-md-2">
                 Неделя<span style="color: red">*</span>:
-                <select class="custom-select my-1 mr-sm-2">
-                    <option value="actual_week">Текущая неделя</option>
-                    <option value="next_week">Следующая неделя</option>
+                <select class="custom-select my-1 mr-sm-2"
+                        v-model="week">
+                    <option value="_now">Текущая неделя</option>
+                    <option value="_next">Следующая неделя</option>
                 </select>
             </div>
             <!-- dateWeek-->
@@ -112,6 +113,7 @@
     export default {
         name: "FormModCard",
         data: () => ({
+            week: '',
             dateWeek: '',
             lesson: '',
             timeFrom: '',
@@ -125,6 +127,7 @@
             colorLes: ''
         }),
         validations: {
+            week: {required},
             dateWeek: {required},
             lesson: {required},
             timeFrom: {},
@@ -145,6 +148,7 @@
                 }
 
                 const formData = {
+                    week: this.week,
                     dateWeek: this.dateWeek,
                     lesson: this.lesson,
                     timeFrom: this.timeFrom,
