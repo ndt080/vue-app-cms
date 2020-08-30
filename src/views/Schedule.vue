@@ -24,7 +24,7 @@
       <ModCard v-if="isMod"/>
       <Loader v-if="loading"></Loader>
     <!-- Дни недели -->
-    <div class="card-deck" v-if="!loading && schedule">
+    <div class="card-deck" v-else-if="!loading && schedule">
         <section v-if="this.selected === 'actual_week'"
                  v-bind:class="{ 'card-section': !isScroller, 'card-section-with-scroll': isScroller  }"
         >
@@ -50,7 +50,7 @@
             />
         </section>
     </div>
-      <div class="card-deck info-message" v-if="!loading && !schedule">
+      <div class="card-deck info-message" v-else-if="!loading && isNull">
           <p class="text-danger text-center">Расписание {{group}} группы {{course}} курса еще никто не заполнил. Воспользуйтесь конструктором, чтобы это сделать!</p>
       </div>
 
@@ -97,12 +97,16 @@
                 selected: 'actual_week',
                 isMod: false,
                 loading: true,
+                isNull: false,
                 isScroller: false
             }
         },
         async mounted() {
             await this.$store.dispatch('fetchSchedule')
             this.loading = false
+             if(!this.$store.getters.schedule){
+                 this.isNull = true
+            }
         },
         methods:{
             isAuth(){
@@ -120,6 +124,7 @@
             async refresh(){
                 this.loading = true;
                 await this.$store.dispatch('fetchSchedule')
+                this.isNull = !this.$store.getters.schedule;
                 this.loading = false
             }
         },

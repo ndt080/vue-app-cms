@@ -23,7 +23,8 @@
     },
     components: {
       EmptyLayout, MainLayout, HomeLayout
-    }
+    },
+
   }
 </script>
 <style lang="scss">

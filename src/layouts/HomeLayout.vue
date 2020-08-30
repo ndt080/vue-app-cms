@@ -13,7 +13,7 @@
         name: "HomeLayout",
         components: {
           Nav
-        }
+        },
     }
 
 </script>
