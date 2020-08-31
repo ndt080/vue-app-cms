@@ -9,10 +9,10 @@
     <p class="text-body-i">"Оставь надежду всяк сюда входящий, боль и страдания не заставят себя ждать. Соседи не забудут крик бомбящий,
         ведь Орешко будет завтра лабу принимать..."
     </p>
-    <div >
+    <section>
       <h2 v-if="!isLogin">чтобы в полной мере воспользователь функциями приложения, необходимо <br />
       <router-link to="/login">войти</router-link> или <router-link to="/registration">зарегистрироваться</router-link></h2>
-    </div>
+    </section>
     <footer>
         <p class="text-left">Powered by Vue.js and firebase </p>
         <p class="text-right" v-if="isLogin">перейти к <router-link to="/schedule">расписанию занятий</router-link></p>
@@ -50,18 +50,24 @@ export default {
     color: rgb(154,198,172);
   }
   @media (max-width: 700px) {
-      .container-img-i{
-          padding: 25% 0 0 0 !important;
-      }
-      .img-body{
-          width: 20rem !important;
-          height: 13rem;
-      }
+    .container-img-i{
+        padding: 5% 0 0 0 !important;
+    }
+    .img-body{
+        width: 20rem !important;
+        height: 13rem;
+    }
+    .text-body-i{
+      font-size: 20px !important;
+      padding: 0 !important;
+    }
+    footer{
+      padding: 0 5rem 0 1.5rem !important;
+    }
   }
   .text-body-i{
       padding: 0 5rem 0 5rem;
   }
-
   .overlay-i h1{
     font-size: 45px;
     text-align: center;
@@ -99,7 +105,7 @@ export default {
   footer{
     display: inline-flex;
     justify-content: space-between;
-    position: fixed;
+    position: absolute;
     bottom: 0;
     right: 0;
     left: 0;
@@ -108,5 +114,8 @@ export default {
   footer p{
     font-size: 1.3em !important;
     color: #9ac6ac !important;
+  }
+  section {
+
   }
 </style>

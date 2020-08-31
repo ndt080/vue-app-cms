@@ -37,7 +37,11 @@ body{
 .empty-layout .content .card-deck{
     display: block !important;
 }
-
+.template-main-container{
+    display: block;
+    width: 100%;
+    padding-right: 2rem;
+}
 /* Стили для переключателя режима */
 .bars label{
     display: block;
