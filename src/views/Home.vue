@@ -1,5 +1,6 @@
 <template>
   <div class="overlay-i">
+    <TopNav />
     <!-- GIF LOGO BOX -->
     <div class="container-img-i">
         <img class="img-body" :src="require(`@/assets/img/logo.gif`)" alt="ЛОГО" />
@@ -22,9 +23,11 @@
 
 <script>
 
+import TopNav from "../components/home/TopNav";
 export default {
   name: 'Home',
-  metaInfo:{
+    components: {TopNav},
+    metaInfo:{
     title: 'Главная'
   },
   data() {
@@ -43,19 +46,19 @@ export default {
 
 <style scoped>
   .overlay-i {
-    padding: 1.5%;
+    padding: 3%;
     margin: 0 auto;
-    margin: 0 5rem 0 0;
+    width: 100%;
     font-family: 'Oswald', sans-serif;
     color: rgb(154,198,172);
   }
-  @media (max-width: 700px) {
+  @media (max-width: 500px) {
     .container-img-i{
         padding: 5% 0 0 0 !important;
     }
     .img-body{
-        width: 20rem !important;
-        height: 13rem;
+        width: 18rem !important;
+        height: 12rem;
     }
     .text-body-i{
       font-size: 20px !important;

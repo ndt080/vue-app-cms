@@ -1,10 +1,10 @@
 <template>
-<div>
+<div class="container-profile">
     <div class="card-deck" style="padding: 0; margin: 0;">
         <a><p class="site-header-text"> ПРОФИЛЬ ПОЛЬЗОВАТЕЛЯ</p></a>
     </div>
-    <h1>Здравствуйте, {{name}} </h1>
-    <div class="card-deck" style="padding: 0; margin: 0;">
+    <h1 class="text-center">Здравствуйте, {{name}} </h1>
+    <div class="card-deck" >
         <div class="card" style="max-width: 18rem">
             <img :src="require(`@/assets/img/hacker.svg`)" class="card-img-top" alt="avatar"
                  v-if="!ava"/>
@@ -19,7 +19,6 @@
 
         <FormProfile v-if="!isMod" />
         <FormModProfile v-else/>
-
     </div>
 </div>
 </template>
@@ -59,6 +58,17 @@
 </script>
 
 <style scoped>
+    .container-profile{
+        padding: 0 4.2rem 0 2%;
+        width: 95vw;
+        height: 100vh;
+    }
+    @media (max-width: 500px) {
+        .container-profile h1{
+            font-size: 2rem !important;
+        }
+    }
+
     .card-img-top{
         margin: 0 auto;
         max-width: 15rem;

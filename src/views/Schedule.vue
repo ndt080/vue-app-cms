@@ -1,30 +1,30 @@
 <template>
-  <div>
+  <div class="overlay-i">
     <div class="card-deck" style="padding: 0; margin: 0;"
          v-if="isLogin && !isMod">
       <a><p class="site-header-text">РАСПИСАНИЕ ЗАНЯТИЙ</p></a>
     </div>
-      <header>
-          <button class="btn btn-dark" v-if="isLogin && !isMod" @click.prevent="isModeration">РЕДАКТИРОВАТЬ РАСПИСАНИЕ</button>
-          <button class="btn btn-secondary" v-if="isLogin && isMod" @click.prevent="isModeration">ОТМЕНИТЬ РЕДАКТИРОВАНИЕ</button>
-          <label>
-              <select class="custom-select my-1 mr-sm-2"
-                      v-model="selected">
-                  <option value="actual_week">Текущая неделя</option>
-                  <option value="next_week">Следующая неделя</option>
-              </select>
-          </label>
-          <button class="btn btn-dark" v-if="isLogin" @click.prevent="isScroll">
-              <img class="scroll-icon" :src="require(`@/assets/img/scroll.svg`)" alt="Scrl"/>
-          </button>
-          <button class="btn btn-dark" v-if="isLogin"  @click.prevent="refresh">
-              <img class="scroll-icon" :src="require(`@/assets/img/repeat.svg`)" alt="Repeat"/>
-          </button>
-      </header>
-      <ModCard v-if="isMod"/>
+    <header>
+        <button class="btn btn-dark" v-if="isLogin && !isMod" @click.prevent="isModeration">РЕДАКТИРОВАТЬ РАСПИСАНИЕ</button>
+        <button class="btn btn-secondary" v-if="isLogin && isMod" @click.prevent="isModeration">ОТМЕНИТЬ РЕДАКТИРОВАНИЕ</button>
+        <label>
+            <select class="custom-select my-1 mr-sm-2"
+                    v-model="selected">
+                <option value="actual_week">Текущая неделя</option>
+                <option value="next_week">Следующая неделя</option>
+            </select>
+        </label>
+        <button class="btn btn-dark" v-if="isLogin" @click.prevent="isScroll">
+            <img class="scroll-icon" :src="require(`@/assets/img/scroll.svg`)" alt="Scrl"/>
+        </button>
+        <button class="btn btn-dark" v-if="isLogin"  @click.prevent="refresh">
+            <img class="scroll-icon" :src="require(`@/assets/img/repeat.svg`)" alt="Repeat"/>
+        </button>
+    </header>
+      <SchModeration v-if="isMod"/>
       <Loader v-if="loading"></Loader>
     <!-- Дни недели -->
-    <div class="card-deck" v-else-if="!loading && schedule">
+    <div v-else-if="!loading && schedule">
         <section v-if="this.selected === 'actual_week'"
                  v-bind:class="{ 'card-section': !isScroller, 'card-section-with-scroll': isScroller  }"
         >
@@ -37,8 +37,8 @@
                   v-bind:title="card.title"
             />
         </section>
-        <section class="card-section"
-                 v-if="this.selected === 'next_week'"
+        <section v-if="this.selected === 'next_week'"
+                 v-bind:class="{ 'card-section': !isScroller, 'card-section-with-scroll': isScroller  }"
         >
             <Card v-for="(card, i) of schedule_next"
                   v-bind:key="card.id"
@@ -83,13 +83,13 @@
 <script>
     import Card from "../components/schedule/Card";
     import {mapMutations, mapActions, mapGetters} from "vuex";
-    import ModCard from "../components/schedule/SchModeration";
+    import SchModeration from "../components/schedule/SchModeration";
     export default {
         name: "Schedule",
         metaInfo:{
           title: 'Расписание'
         },
-        components: {ModCard, Card},
+        components: {SchModeration, Card},
         data() {
             return{
                 isLogin: this.isAuth(),
@@ -146,8 +146,20 @@
 </script>
 
 <style scoped>
+  .overlay-i {
+    position: absolute;
+    padding: 0 4.2rem 0 2%;
+    margin: 0 auto;
+    width: 100%;
+    background: rgb(154,198,172);
+    background: linear-gradient(90deg, rgba(154,198,172,1) 49%, rgba(58,173,180,1) 100%);
+    background-repeat: repeat;
+  }
+  .card-deck{
+    width: 100%;
+  }
     header button,  header label {
-        margin-right: 1.3rem;
+        margin-right: 1.3%;
     }
     .scroll-icon{
         padding-top: 0;

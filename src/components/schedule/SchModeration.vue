@@ -38,7 +38,7 @@
     import FormModCard from "./FormModCard";
     import {required} from "vuelidate/lib/validators";
     export default {
-        name: "ModCard",
+        name: "SchModeration",
         components: {FormModCard},
         data: () => ({
             dateFrom: '',
@@ -95,5 +95,6 @@
     }
     .mod-block{
         display: block !important;
+        padding-bottom: 1rem;
     }
 </style>
