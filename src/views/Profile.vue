@@ -61,7 +61,7 @@
     .container-profile{
         padding: 0 4.2rem 0 2%;
         width: 95vw;
-        height: 100vh;
+        min-height: 100vh;
     }
     @media (max-width: 500px) {
         .container-profile h1{

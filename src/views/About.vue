@@ -38,6 +38,10 @@
 </script>
 
 <style scoped>
+  .about{
+    padding: 0 4.2rem 0 2%;
+    min-height: 100vh;
+  }
   .about section p{
     text-indent: 25px;
     font-size: 1.5rem;

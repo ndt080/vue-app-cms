@@ -6,6 +6,7 @@ import App from './App.vue';
 import './registerServiceWorker';
 import router from './router';
 import store from './store';
+import dateFilter from "@/filters/date.filter";
 import Loader from "./components/Loader";
 import 'bootstrap/dist/js/bootstrap.min';
 import 'jquery/dist/jquery.min';
@@ -20,6 +21,7 @@ Vue.use(Vuelidate);
 Vue.use(VueBootstrapToasts);
 Vue.use(VueMeta)
 Vue.component('Loader', Loader)
+Vue.filter('dateFilter', dateFilter)
 
 firebase.initializeApp({
   apiKey: "AIzaSyC3wKon8167t3AduzsYPWEJ2NdZPdDnUTQ",

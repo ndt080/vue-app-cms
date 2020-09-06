@@ -20,6 +20,7 @@
                     v-bind:cab2="les.cab2"
                     v-bind:homework="les.homework"
                     v-bind:color="les.color"
+                    v-bind:dateCard="card.date"
             />
         </ul>
     </div>

@@ -1,5 +1,5 @@
 <template>
-    <li class="list-group-item" :class="les.color">
+    <li class="list-group-item" :class="[les.color]" >
         <span>{{les.time}}</span>
         <span class="text-right">{{les.timeEnd}}</span><br>
         <b style="white-space: pre-line">{{les.subj}}</b><br>
@@ -22,26 +22,21 @@
                 </div>
             </div>
         </div>
-
-
-
-
     </li>
 </template>
 
 <script>
-    export default {
+import dateFilter from "@/filters/date.filter";
+
+export default {
         name: "Lessons",
         props: {
-            les: {
-                type: Object,   //указываем тип передаваемого элемента
-                required: true,  //делаем его обязательным
-            },
-            index: Number
+          les: {
+              type: Object,   //указываем тип передаваемого элемента
+              required: true,  //делаем его обязательным
+          },
+          index: Number
         },
-        data: () => ({
-            cls: new Date(),
-        }),
     }
 </script>
 
@@ -57,5 +52,10 @@
     .homework a{
         text-decoration: none;
     }
-
+    .inactive{
+      opacity: 0.3;
+    }
+    .inactive:hover{
+      opacity: 1;
+    }
 </style>

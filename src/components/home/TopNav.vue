@@ -1,14 +1,16 @@
 <template>
   <header class="topNav" >
-
-
-
+    <h4 class="text-left">
+      CHANGELOG
+    </h4>
+    <h4 class="text-right" v-if="isLogin">перейти к <router-link to="/schedule">расписанию занятий</router-link></h4>
   </header>
 </template>
 
 <script>
     export default {
-        name: "TopNav"
+        name: "TopNav",
+      props: ['isLogin']
     }
 </script>
 
@@ -23,5 +25,13 @@
     z-index: 1000;
     margin-top: 1.2rem;
     border-radius: 1rem;
+  }
+  header h4{
+    padding-top: 5px;
+    line-height: 1em;
+    color: #0e0e0e;
+  }
+  header a{
+    text-decoration: none;
   }
 </style>

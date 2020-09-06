@@ -84,7 +84,7 @@
       <nav class="nav__list" v-bind:class="{ active: isOpen }">
         <ul>
           <li class="nav__item"><router-link class="router-link" tag="a" to="/">Главная</router-link></li>
-          <li class="nav__item"><router-link class="router-link" tag="a" to="/schedule">Расписание <sup style="color: red; font-size: 0.5em">[beta]</sup></router-link></li>
+          <li class="nav__item"><router-link class="router-link" tag="a" to="/schedule">Расписание</router-link></li>
           <li class="nav__item"><router-link class="router-link" tag="a" to="/about">О проекте</router-link></li>
         </ul>
       </nav>

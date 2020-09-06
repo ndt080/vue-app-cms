@@ -15,8 +15,8 @@
       Nav
     },
     async mounted() {
-        await this.$store.dispatch('fetchInfo')
-        await this.$store.dispatch('fetchSchedule')
+      await this.$store.dispatch('fetchInfo')
+      await this.$store.dispatch('fetchSchedule')
     }
   }
 </script>

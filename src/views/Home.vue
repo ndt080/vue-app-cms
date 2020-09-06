@@ -1,6 +1,6 @@
 <template>
   <div class="overlay-i">
-    <TopNav />
+    <TopNav v-bind:isLogin="isLogin"/>
     <!-- GIF LOGO BOX -->
     <div class="container-img-i">
         <img class="img-body" :src="require(`@/assets/img/logo.gif`)" alt="ЛОГО" />
@@ -16,7 +16,6 @@
     </section>
     <footer>
         <p class="text-left">Powered by Vue.js and firebase </p>
-        <p class="text-right" v-if="isLogin">перейти к <router-link to="/schedule">расписанию занятий</router-link></p>
     </footer>
   </div>
 </template>

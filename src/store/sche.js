@@ -12,6 +12,7 @@ export default {
             {code: 'D6Saturday', title: 'СУББОТА'},
         ],
         schedule_next: {},
+        isNewWeek: false
     },
     mutations: {
         setSchedule(state, schedule){
@@ -33,9 +34,43 @@ export default {
 
                 const schedule_next = (await firebase.database().ref(`/scheduleC${this.getters.info.course}G${this.getters.info.group}_next`).once('value')).val()
                 commit('setScheduleNext', schedule_next)
+                const update = (await firebase.database().ref(`/update`).once('value')).val()
+               //ДЛЯ ОТЛАДКИ--
+                    let date = new Date();
+                    if (date.getDay() === 6 && (date.getHours() === 22) && (date.getMinutes() === 0)) {
+                        await firebase.database().ref(`/update`).child('status').transaction(function () {
+                            return true
+                        })
+                    }
+                //--ДЛЯ ОТЛАДКИ)
+                    if (update.status){
+                        dispatch('newWeekSchedule')
+                    }
+
             } catch (e){ }
         },
-        async modScheduleDate({dispatch, commit}, {dateFrom}){
+        async newWeekSchedule({dispatch}) {
+            try {
+                let dateFrom =  new Date();
+                let tmp = dateFrom.getDate() + 2
+                dateFrom.setDate(tmp);
+                let i = 0
+                let j = 0
+                for(i=1; i <= 4; i++) {
+                    for (j = 1; j <= 15; j++) {
+                        try{
+                            let data = (await firebase.database().ref(`/scheduleC${i}G${j}_next`).once('value')).val()
+                            await firebase.database().ref(`/scheduleC${i}G${j}/`).update(data)
+                            dispatch('modScheduleDate', {dateFrom, i, j})
+                        }catch(e){}
+                    }
+                }
+                await firebase.database().ref(`/update`).child('status').transaction(function () {
+                    return false
+                })
+            } catch (e){ }
+        },
+        async modScheduleDate({dispatch, commit}, {dateFrom, course, group}){
             try{
                 if(dateFrom){
                     let data = new Date(dateFrom);
@@ -44,7 +79,7 @@ export default {
                     let statusSch = ''
                     for(let i=0; i < this.getters.daysSch.length; i++) {
                         data.getDate();
-                        await firebase.database().ref(`/scheduleC${this.getters.info.course}G${this.getters.info.group}${statusSch}/${this.getters.daysSch[i].code}/`)
+                        await firebase.database().ref(`/scheduleC${course?course:this.getters.info.course}G${group?group:this.getters.info.group}${statusSch}/${this.getters.daysSch[i].code}/`)
                             .child('date').transaction(function () {
                                 return data.toISOString().split('T')[0]
                             })
@@ -61,18 +96,16 @@ export default {
                     }
                     schNext = false;
                     statusSch = ''
-                    if(!this.getters.schedule.title || !this.getters.schedule_next.title) {
-                        for (let i = 0; i < this.getters.daysSch.length; i++) {
-                            let name = this.getters.daysSch[i].title
-                            await firebase.database().ref(`/scheduleC${this.getters.info.course}G${this.getters.info.group}${statusSch}/${this.getters.daysSch[i].code}/`)
-                                .child('title').transaction(function () {
-                                    return name
-                                })
-                            if (i + 1 === this.getters.daysSch.length && !schNext) {
-                                schNext = true;
-                                statusSch = '_next'
-                                i = -1;
-                            }
+                    for (let i = 0; i < this.getters.daysSch.length; i++) {
+                        let name = this.getters.daysSch[i].title
+                        await firebase.database().ref(`/scheduleC${this.getters.info.course}G${this.getters.info.group}${statusSch}/${this.getters.daysSch[i].code}/`)
+                            .child('title').transaction(function () {
+                                return name
+                            })
+                        if (i + 1 === this.getters.daysSch.length && !schNext) {
+                            schNext = true;
+                            statusSch = '_next'
+                            i = -1;
                         }
                     }
                 }
@@ -97,7 +130,7 @@ export default {
                 throw e
             }
         },
-        async modSchedule({dispatch, commit}, {week, dateWeek, lesson, timeFrom, timeTo, subject, teachOne, teachTwo, cabOne, cabTwo, homework, colorLes}){
+        async modSchedule({dispatch, commit}, {week, dateWeek, lesson, timeFrom, timeTo, subject, teachOne, teachTwo, cabOne, cabTwo, homework, colorLes, queueLes}){
             try{
                 if(week==='_now'){
                     week = ''
@@ -165,7 +198,28 @@ export default {
                         }
                     )
                 }
+                if(dateWeek && lesson && queueLes){
+                    queueLes = queueLes === 'true';
+                    let conn = await firebase.database().ref(`/scheduleC${this.getters.info.course}G${this.getters.info.group}${week}/${dateWeek}/`).child('queue')
+                    conn.transaction(function () {
+                            return queueLes
+                        }
+                    )
+                }
             }catch (e){
+                commit('setError', e)
+                throw e
+            }
+        },
+        async modQueue({dispatch, commit}, {nameInput, cardID, week}) {
+            try {
+                //let conn = await firebase.database().ref(`/scheduleC${this.getters.info.course}G${this.getters.info.group}${week?'':'_next'}/${cardID}/`).child('test')
+                console.log('This card id: '+ cardID)
+                //conn.transaction(function () {
+                //        return true
+                //    }
+                //)
+            } catch (e) {
                 commit('setError', e)
                 throw e
             }

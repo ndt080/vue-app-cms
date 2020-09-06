@@ -29,20 +29,19 @@
                 <select class="custom-select my-1 mr-sm-2 form-control"
                         v-model="lesson">
                     <option selected value="0">пара 1</option>
-                    <option value="1">пара 2</option>
-                    <option value="2">пара 3</option>
-                    <option value="3">пара 4</option>
-                    <option value="4">пара 5</option>
+                    <option value='1'>пара 2</option>
+                    <option value='2'>пара 3</option>
+                    <option value='3'>пара 4</option>
+                    <option value='4'>пара 5</option>
                 </select>
             </div>
-            <!-- Type lessons (color)-->
+            <!-- Queue -->
             <div class="col-md-2">
-                Тип:
+                Форма очереди<sup style="color: red; font-size: 0.7em">[alpha]</sup>:
                 <select class="custom-select my-1 mr-sm-2 form-control"
-                        v-model="colorLes">
-                    <option selected value="list-group-item-success">лекция</option>
-                    <option value="list-group-item-primary">практическое</option>
-                    <option value="list-group-item-secondary">отсутствует</option>
+                        v-model="queueLes">
+                    <option selected value='true'>Добавить</option>
+                    <option value='false'>Убрать</option>
                 </select>
             </div>
         </div>
@@ -124,7 +123,8 @@
             cabOne: '',
             cabTwo: '',
             homework: '',
-            colorLes: ''
+            colorLes: '',
+            queueLes: ''
         }),
         validations: {
             week: {required},
@@ -139,6 +139,7 @@
             cabTwo: {},
             homework: {},
             colorLes: {},
+            queueLes: {}
         },
         methods:{
             async submitHandler (){
@@ -146,7 +147,6 @@
                     this.$v.$touch()
                     return
                 }
-
                 const formData = {
                     week: this.week,
                     dateWeek: this.dateWeek,
@@ -159,7 +159,8 @@
                     cabOne: this.cabOne,
                     cabTwo: this.cabTwo,
                     homework: this.homework,
-                    colorLes: this.colorLes
+                    colorLes: this.colorLes,
+                    queueLes: this.queueLes
                 }
                 try{
                     await this.$store.dispatch('modSchedule', formData)
