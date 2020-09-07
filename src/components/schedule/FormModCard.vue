@@ -37,7 +37,7 @@
             </div>
             <!-- Queue -->
             <div class="col-md-2">
-                Форма очереди<sup style="color: red; font-size: 0.7em">[alpha]</sup>:
+                Форма очереди<sup style="color: red; font-size: 0.7em">[beta]</sup>:
                 <select class="custom-select my-1 mr-sm-2 form-control"
                         v-model="queueLes">
                     <option selected value='true'>Добавить</option>

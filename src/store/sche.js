@@ -202,7 +202,7 @@ export default {
                     queueLes = queueLes === 'true';
                     let conn = await firebase.database().ref(`/scheduleC${this.getters.info.course}G${this.getters.info.group}${week}/${dateWeek}/`).child('queue')
                     conn.transaction(function () {
-                            return queueLes
+                            return { status: queueLes, lesson: lesson}
                         }
                     )
                 }
@@ -211,14 +211,18 @@ export default {
                 throw e
             }
         },
-        async modQueue({dispatch, commit}, {nameInput, cardID, week}) {
+        async modQueue({dispatch, commit}, {user, cardID, week,  lesson}) {
             try {
-                //let conn = await firebase.database().ref(`/scheduleC${this.getters.info.course}G${this.getters.info.group}${week?'':'_next'}/${cardID}/`).child('test')
-                console.log('This card id: '+ cardID)
-                //conn.transaction(function () {
-                //        return true
-                //    }
-                //)
+                await firebase.database().ref(`/scheduleC${this.getters.info.course}G${this.getters.info.group}${week?'':'_next'}/${cardID}/lessons/${lesson}`)
+                    .child('qPeople').push({user: user})
+            } catch (e) {
+                commit('setError', e)
+                throw e
+            }
+        },
+        async delRecQueue({commit}, {cardID, week,  lesson, recID}) {
+            try {
+                await firebase.database().ref(`/scheduleC${this.getters.info.course}G${this.getters.info.group}${week?'':'_next'}/${cardID}/lessons/${lesson}/qPeople/${recID}`).remove()
             } catch (e) {
                 commit('setError', e)
                 throw e
