@@ -1,8 +1,8 @@
 <template>
-    <form @submit.prevent="submitHandler" action='' method="POST">
+    <form class="form-mod" @submit.prevent="submitHandler" action='' method="POST">
         <div class="form-group row">
             <!-- week -->
-            <div class="col-md-2">
+            <div class="col-md-4">
                 Неделя<span style="color: red">*</span>:
                 <select class="custom-select my-1 mr-sm-2"
                         v-model="week">
@@ -11,7 +11,7 @@
                 </select>
             </div>
             <!-- dateWeek-->
-            <div class="col-md-2">
+            <div class="col-md-4">
                 День<span style="color: red">*</span>:
                 <select class="custom-select my-1 mr-sm-2"
                         v-model="dateWeek" >
@@ -24,7 +24,7 @@
                 </select>
             </div>
             <!-- lesson-->
-            <div class="col-md-2">
+            <div class="col-md-4">
                 Занятие<span style="color: red">*</span>:
                 <select class="custom-select my-1 mr-sm-2 form-control"
                         v-model="lesson">
@@ -35,8 +35,18 @@
                     <option value='4'>пара 5</option>
                 </select>
             </div>
+          <!-- Type lessons (color)-->
+          <div class="col-md-4">
+            Тип:
+            <select class="custom-select my-1 mr-sm-2 form-control"
+                    v-model="colorLes">
+              <option selected value="list-group-item-success">лекция</option>
+              <option value="list-group-item-primary">практическое</option>
+              <option value="list-group-item-secondary">отсутствует</option>
+            </select>
+          </div>
             <!-- Queue -->
-            <div class="col-md-2">
+            <div class="col-md-5">
                 Форма очереди<sup style="color: red; font-size: 0.7em">[beta]</sup>:
                 <select class="custom-select my-1 mr-sm-2 form-control"
                         v-model="queueLes">
@@ -52,11 +62,11 @@
                 Время
             </a>
             <div class="form-group row collapse" id="collapseTimeLess">
-                <div class="col-md-1 text-form-group">
+                <div class="col-md-3 text-form-group">
                     <span>с </span>
                     <input type="time" class="form-control" v-model="timeFrom"/>
                 </div>
-                <div class="col-md-1 text-form-group">
+                <div class="col-md-3 text-form-group">
                     <span>по </span>
                     <input type="time" class="form-control" v-model="timeTo"/>
                 </div>
@@ -68,19 +78,19 @@
                 Общее
             </a>
             <div class="form-group row collapse" id="collapseCommonLess" >
-                <div class="col-md-2">
+                <div class="col-md-5">
                     #1 преподаватель: <input type="text" class="form-control" v-model="teachOne"/>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-5">
                     #1 кабинет: <input type="text" class="form-control" v-model="cabOne"/>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-5">
                     #2 преподаватель: <input type="text" class="form-control" v-model="teachTwo"/>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-5">
                     #2 кабинет: <input type="text" class="form-control" v-model="cabTwo"/>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-10">
                     предмет: <textarea type="text" class="form-control" v-model="subject"/>
                 </div>
             </div>
@@ -91,8 +101,9 @@
                 Домашнее задание
             </a>
             <div class="form-group row collapse" id="collapseHomeLess">
-                <div class="col-md-8">
+                <div class="col-md-10">
                     <textarea type="text" class="form-control"
+                              style="margin-bottom: 1rem"
                               v-model="homework"/>
                 </div>
             </div>

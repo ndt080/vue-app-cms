@@ -9,11 +9,11 @@
   "dependencies": {
     "bootstrap": "^4.5.2",
     "core-js": "^3.6.5",
-    "firebase": "^7.19.0",
+    "firebase": "^7.19.1",
     "jquery": "^3.5.1",
     "popper.js": "^1.16.1",
     "register-service-worker": "^1.7.1",
-    "vue": "^2.6.11",
+    "vue": "^2.6.12",
     "vue-bootstrap-toasts": "^1.0.7",
     "vue-burger-menu": "^2.0.5",
     "vue-meta": "^2.4.0",
@@ -29,6 +29,6 @@
     "@vue/cli-service": "~4.5.0",
     "node-sass": "^4.12.0",
     "sass-loader": "^8.0.2",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.12"
   }
 }

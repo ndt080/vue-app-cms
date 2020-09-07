@@ -8,14 +8,14 @@
                 </svg>
             </a>
             <div class="form-group row collapse" id="collapseDateWeek">
-                <form class="col-md-3" @submit.prevent="submitHandler" action='' method="POST">
+                <form class="col-md-7" @submit.prevent="submitHandler" action='' method="POST">
                     <label>
                         <input type="date" class="form-control" placeholder="с"
                                v-model.trim="dateFrom"/>
                         <button class="btn btn-success">Сохранить</button>
                     </label>
                 </form>
-                <form class="col-md-2" @submit.prevent="submitClone" action='' method="POST">
+                <form class="col-md-4" @submit.prevent="submitClone" action='' method="POST">
                     <button class="btn btn-light" title="Дублирование расписания на следующую неделю">
                       <img alt="Duplicate"
                            width="20px" height="20px"
@@ -99,7 +99,10 @@
         display: inline-flex;
     }
     .mod-block{
-        display: block !important;
-        padding-bottom: 1rem;
+      display: block !important;
+      position: relative;
+      margin: 0;
+      padding: 0;
+      width: 100%;
     }
 </style>

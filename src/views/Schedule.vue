@@ -1,52 +1,65 @@
 <template>
-  <div class="overlay-i">
-    <div class="card-deck" style="padding: 0; margin: 0;"
-         v-if="isLogin && !isMod">
-      <a><p class="site-header-text">РАСПИСАНИЕ ЗАНЯТИЙ <span v-if="course">{{group}} ГРУППЫ {{course}} КУРСА</span></p></a>
-    </div>
-    <header>
-        <button class="btn btn-dark" v-if="isLogin && !isMod" @click.prevent="isModeration">
-          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-          </svg>
-          <span>&nbsp; РЕДАКТИРОВАТЬ</span>
-        </button>
-        <button class="btn btn-danger" v-if="isLogin && isMod" @click.prevent="isModeration">ОТМЕНИТЬ</button>
-        <label>
+  <div class="content">
+
+      <div class="moderation" v-bind:class="{ 'moderation-show': isMod }">
+        <div class="active close" style="opacity: 1">
+          <a href="#" v-if="isLogin && isMod" @click.prevent="isModeration">
+            <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+            </svg>
+          </a>
+        </div>
+
+        <SchModeration v-if="isMod"/>
+      </div>
+
+
+      <div class="overlay-i" v-bind:class="{ 'moderation-show': isMod }">
+        <div class="card-deck" style="padding: 0; margin: 0;">
+          <a><p class="site-header-text">РАСПИСАНИЕ ЗАНЯТИЙ <span v-if="course">{{group}} ГРУППЫ {{course}} КУРСА</span></p></a>
+        </div>
+        <header>
+          <button class="btn btn-dark" v-if="isLogin && !isMod" @click.prevent="isModeration">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+              <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+            </svg>
+            <span>&nbsp; РЕДАКТИРОВАТЬ</span>
+          </button>
+          <button class="btn btn-danger" v-if="isLogin && isMod" @click.prevent="isModeration">ОТМЕНИТЬ</button>
+          <label>
             <select class="custom-select my-1 mr-sm-2"
                     v-model="selected">
-                <option value="actual_week">Текущая неделя</option>
-                <option value="next_week">Следующая неделя</option>
+              <option value="actual_week">Текущая неделя</option>
+              <option value="next_week">Следующая неделя</option>
             </select>
-        </label>
-      <button class="btn btn-light"
-              title="Показать/закрыть очередь"
-              v-if="isLogin"
-              @click.prevent="isQueueShow">
-        <img class="scroll-icon" :src="require(`@/assets/img/queue.svg`)" alt="QUEUE"/>
-        КУЕУЕ <sup style="color: red; font-size: 0.7em">[beta]</sup>
-      </button>
-        <button class="btn btn-dark"
-                title="Показать/закрыть скроллбар"
-                v-if="isLogin"
-                @click.prevent="isScroll">
+          </label>
+          <button class="btn btn-light"
+                  title="Показать/закрыть очередь"
+                  v-if="isLogin"
+                  @click.prevent="isQueueShow">
+            <img class="scroll-icon" :src="require(`@/assets/img/queue.svg`)" alt="QUEUE"/>
+            КУЕУЕ <sup style="color: red; font-size: 0.7em">[beta]</sup>
+          </button>
+          <button class="btn btn-dark"
+                  title="Показать/закрыть скроллбар"
+                  v-if="isLogin"
+                  @click.prevent="isScroll">
             <img class="scroll-icon" :src="require(`@/assets/img/scroll.svg`)" alt="Scrl"/>
-        </button>
-        <button class="btn btn-dark"
-                title="Обновить расписание"
-                v-if="isLogin"
-                @click.prevent="refresh">
+          </button>
+          <button class="btn btn-dark"
+                  title="Обновить расписание"
+                  v-if="isLogin"
+                  @click.prevent="refresh">
             <img class="scroll-icon" :src="require(`@/assets/img/repeat.svg`)" alt="Repeat"/>
-        </button>
-    </header>
-      <SchModeration v-if="isMod"/>
-      <Loader v-if="loading"></Loader>
-    <!-- Дни недели -->
-    <div v-else-if="!loading && schedule">
-        <section v-if="this.selected === 'actual_week'"
-                 v-bind:class="{ 'card-section': !isScroller, 'card-section-with-scroll': isScroller  }"
-        >
+          </button>
+        </header>
+        <Loader v-if="loading"></Loader>
+        <!-- Дни недели -->
+        <div v-else-if="!loading && schedule">
+          <section v-if="this.selected === 'actual_week'"
+                   v-bind:class="{ 'card-section': !isScroller, 'card-section-with-scroll': isScroller  }"
+          >
             <Card v-if="!isQSh" v-for="(card, i) of schedule"
                   v-bind:key="card.id"
                   v-bind:i="i"
@@ -65,41 +78,41 @@
                    v-bind:queue="card.queue"
                    v-bind:week="true"
             />
-        </section>
-        <section v-if="this.selected === 'next_week'"
-                 v-bind:class="{ 'card-section': !isScroller, 'card-section-with-scroll': isScroller  }"
-        >
-          <Card v-if="!isQSh" v-for="(card, i) of schedule_next"
-                v-bind:key="card.id"
-                v-bind:i="i"
-                v-bind:card="card"
-                v-bind:lessons="card.lessons"
-                v-bind:date="card.date"
-                v-bind:title="card.title"
-          />
-          <CardQ v-if="isQSh" v-for="(card, i) of schedule_next"
-                 v-bind:key="card.id"
-                 v-bind:i="i"
-                 v-bind:card="card"
-                 v-bind:date="card.date"
-                 v-bind:title="card.title"
-                 v-bind:lessons="card.lessons"
-                 v-bind:queue="card.queue"
-                 v-bind:week="false"
-          />
-        </section>
-    </div>
-      <div class="card-deck info-message" v-else-if="!loading && isNull">
+          </section>
+          <section v-if="this.selected === 'next_week'"
+                   v-bind:class="{ 'card-section': !isScroller, 'card-section-with-scroll': isScroller  }"
+          >
+            <Card v-if="!isQSh" v-for="(card, i) of schedule_next"
+                  v-bind:key="card.id"
+                  v-bind:i="i"
+                  v-bind:card="card"
+                  v-bind:lessons="card.lessons"
+                  v-bind:date="card.date"
+                  v-bind:title="card.title"
+            />
+            <CardQ v-if="isQSh" v-for="(card, i) of schedule_next"
+                   v-bind:key="card.id"
+                   v-bind:i="i"
+                   v-bind:card="card"
+                   v-bind:date="card.date"
+                   v-bind:title="card.title"
+                   v-bind:lessons="card.lessons"
+                   v-bind:queue="card.queue"
+                   v-bind:week="false"
+            />
+          </section>
+        </div>
+        <div class="card-deck info-message" v-else-if="!loading && isNull">
           <p class="text-danger text-center">Расписание {{group}} группы {{course}} курса еще никто не заполнил. Воспользуйтесь конструктором, чтобы это сделать!</p>
-      </div>
+        </div>
 
-    <div class="card-deck">
-        <div class="card mb-3 border card-border border card-border border card-border" style="max-width: 44rem">
+        <div class="card-deck">
+          <div class="card mb-3 border card-border border card-border border card-border" style="max-width: 44rem">
             <div class="card-body card-body-text">
             </div>
-        </div>
-        <div class="w-100 d-none d-sm-block d-md-none"><!-- wrap every card on sm--></div>
-        <div class="card mb-3 border card-border border card-border border card-border" style="max-width: 44rem">
+          </div>
+          <div class="w-100 d-none d-sm-block d-md-none"><!-- wrap every card on sm--></div>
+          <div class="card mb-3 border card-border border card-border border card-border" style="max-width: 44rem">
             <div class="card-body card-body-text">
               <ul class="list-group">
                 <li class="list-group-item list-group-item-success">
@@ -132,11 +145,10 @@
             <div class="card-footer">
 
             </div>
+          </div>
         </div>
-    </div>
-
+      </div>
   </div>
-
 </template>
 
 <script>
@@ -216,11 +228,53 @@
 </script>
 
 <style scoped>
+  .content{
+    display: inline-flex;
+  }
+  .close{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 11;
+  }
+  .moderation{
+    display: none;
+    width: 0;
+  }
+  .moderation.moderation-show{
+    display: block;
+    position: relative;
+    width: 35vw;
+    background: rgba(255,255,255, 0.2);
+    box-shadow: 0 0 0 rgba(0,0,0,0.25), 15px 0 10px rgba(0,0,0,0.22);
+    padding: 1.5rem;
+    margin: 0;
+  }
   .overlay-i {
-    padding: 0 4.2rem 0 2%;
-    width: 98.7vw;
+    padding: 0 1rem 0 2%;
+    width: 94vw;
+    background-attachment: scroll;
     max-width: 100%;
     min-height: 100vh;
+  }
+  .overlay-i.moderation-show{
+    display: block;
+    width: 59vw;
+    max-width: 100%;
+    min-height: 100vh;
+    transition: all .3s ease;
+  }
+  @media (max-width: 800px){
+    .moderation.moderation-show{
+      position: absolute;
+      width: 80%;
+      height: 100%;
+      background: #fff;
+      z-index: 9;
+    }
+    .overlay-i.moderation-show{
+      width: 94vw;
+    }
   }
   .card-deck{
     width: 100%;
