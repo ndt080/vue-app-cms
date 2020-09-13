@@ -1,12 +1,14 @@
 <template>
-  <ul class="list-group" v-if="les.qPeople">
+  <ul class="list-group grid-container" v-if="les.qPeople">
     <QNameUser v-for="(que, i) of les.qPeople"
                v-bind:key="que.id"
                v-bind:index="i"
                v-bind:id="que.id"
                v-bind:user="que.user"
+               v-bind:teach="que.teach"
                v-bind:que="que"
                v-bind:data="data"
+               v-bind:counter="0"
     />
   </ul>
 </template>
@@ -27,7 +29,7 @@
     }
 </script>
 
-<style scoped>
+<style>
   .card-tech{
     display: block;
   }
@@ -38,6 +40,12 @@
   }
   .homework a{
     text-decoration: none;
+  }
+  .grid-container{
+    display: grid;
+    grid-template-areas: "left right";
+    grid-template-columns: repeat(2, 50%);
+
   }
 
 </style>

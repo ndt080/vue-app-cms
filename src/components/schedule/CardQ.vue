@@ -2,7 +2,7 @@
   <div>
     <Loader v-if="loading"></Loader>
     <div class="card mb-3 border card-border card-section--content"
-         style="max-width: 22rem"
+         style="max-width: 25rem"
          v-if="!loading && getQueue(index, 'status') === true">
       <div class="card-header">
         <p class="alert text-left">"{{getLessonTitle(index)}}"</p>
@@ -20,13 +20,15 @@
           <div class=" form-group group card-desk row">
             <p class="text-left col-6">
               <select class="form-control form-control-lg"
+                      v-model="teachInput"
               >
-                <option selected value="list-group-item-success">препод 1</option>
-                <option value="list-group-item-primary">препод 2</option>
+                <option :value="null" disabled>к кому...</option>
+                <option :value="getQueue(index, 'teach1')+'_0'">{{getQueue(index, 'teach1')}}</option>
+                <option :value="getQueue(index, 'teach2')+'_1'">{{getQueue(index, 'teach2')}}</option>
               </select>
             </p>
             <p class="text-right col-6">
-            <button class="form-control form-control-lg btn-success">Записаться</button>
+              <button class="form-control form-control-lg btn-success">Записаться</button>
             </p>
           </div>
         </form>
@@ -61,7 +63,7 @@ export default {
   },
   data: () => ({
     nameInput: '',
-    teachInput: '',
+    teachInput: null,
     loading: true
   }),
   validations: {
@@ -101,8 +103,8 @@ export default {
         user: this.nameInput,
         cardID: this.index,
         week: this.week,
+        lesson: this.getQueue(this.index, 'lesson'),
         teacher: this.teachInput,
-        lesson: this.getQueue(this.index, 'lesson')
       }
       console.log(formData)
       try{
@@ -155,7 +157,7 @@ input{
   margin-bottom: 1rem;
 }
 input[type=text]{
-  width: 19.4rem;
+  width: 22.4rem;
 }
 input:first-child{
   margin-right: 1.6rem;

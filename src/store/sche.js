@@ -16,10 +16,11 @@ export default {
         queue: {
             type: Object,
             status: Boolean,
-            lesson: Number
+            lesson: Number,
+            teach1: String,
+            teach2: String,
         },
-        queueArr: [
-        ]
+        queueArr: []
     },
     mutations: {
         setSchedule(state, schedule){
@@ -146,7 +147,7 @@ export default {
                 throw e
             }
         },
-        async modSchedule({dispatch, commit}, {week, dateWeek, lesson, timeFrom, timeTo, subject, teachOne, teachTwo, cabOne, cabTwo, homework, colorLes, queueLes}){
+        async modSchedule({dispatch, commit}, {week, dateWeek, lesson, timeFrom, timeTo, subject, teachOne, teachTwo, cabOne, cabTwo, homework, colorLes, queue}){
             try{
                 if(week==='_now'){
                     week = ''
@@ -214,14 +215,14 @@ export default {
                         }
                     )
                 }
-                if(dateWeek && lesson && queueLes){
-                    queueLes = queueLes === 'true';
+                if(dateWeek && lesson && queue.queueLes){
+                    queue.queueLes = queue.queueLes === 'true';
                     let conn = await firebase.database().ref(`/scheduleC${this.getters.info.course}G${this.getters.info.group}${week}/${dateWeek}/`).child('queue')
                     conn.transaction(function () {
-                            return { status: queueLes, lesson: queueLes?lesson:null}
+                            return { status: queue.queueLes, lesson: queue.queueLes?lesson:null, teach1: queue.queueLesTeach1 , teach2: queue.queueLesTeach2}
                         }
                     )
-                    if(queueLes === false){
+                    if(queue.queueLes === false){
                         await firebase.database().ref(`/scheduleC${this.getters.info.course}G${this.getters.info.group}${week}/${dateWeek}/lessons/${lesson}`)
                             .child('qPeople').remove()
                     }
@@ -231,10 +232,10 @@ export default {
                 throw e
             }
         },
-        async modQueue({dispatch, commit}, {user, cardID, week,  lesson}) {
+        async modQueue({dispatch, commit}, {user, cardID, week,  lesson, teacher}) {
             try {
                 await firebase.database().ref(`/scheduleC${this.getters.info.course}G${this.getters.info.group}${week?'':'_next'}/${cardID}/lessons/${lesson}`)
-                    .child('qPeople').push({user: user})
+                    .child('qPeople').push({user: user, teach: teacher})
             } catch (e) {
                 commit('setError', e)
                 throw e

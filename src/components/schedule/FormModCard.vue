@@ -36,7 +36,7 @@
                 </select>
             </div>
           <!-- Type lessons (color)-->
-          <div class="col-md-4">
+          <div class="col-md-4" v-if="week && dateWeek && lesson">
             Тип:
             <select class="custom-select my-1 mr-sm-2 form-control"
                     v-model="colorLes">
@@ -46,7 +46,7 @@
             </select>
           </div>
             <!-- Queue -->
-            <div class="col-md-5">
+            <div class="col-md-5" v-if="week && dateWeek && lesson">
                 Форма очереди<sup style="color: red; font-size: 0.7em">[beta]</sup>:
                 <select class="custom-select my-1 mr-sm-2 form-control"
                         v-model="queueLes">
@@ -54,10 +54,17 @@
                     <option value='false'>Убрать</option>
                 </select>
             </div>
+          <!-- Queue -->
+            <div class="col-md-5 text-form-group" v-if="queueLes === 'true'">
+              <input type="text" class="form-control" placeholder="#1 преподаватель" v-model="queueLesTeach1"/>
+            </div>
+            <div class="col-md-5 text-form-group" v-if="queueLes === 'true'">
+              <input type="text" class="form-control" placeholder="#2 преподаватель" v-model="queueLesTeach2"/>
+            </div>
         </div>
 
         <!-- common: timeFrom, timeTo -->
-        <div class="form-group">
+        <div class="form-group" v-if="week && dateWeek && lesson">
             <a class="dropdown-toggle" data-toggle="collapse" href="#collapseTimeLess" aria-expanded="false" aria-controls="collapseTimeLess">
                 Время
             </a>
@@ -73,7 +80,7 @@
             </div>
         </div>
         <!-- common: subject, teachOne, teachTwo, cabOne, cabTwo-->
-        <div class="form-group">
+        <div class="form-group" v-if="week && dateWeek && lesson">
             <a class="dropdown-toggle" data-toggle="collapse" href="#collapseCommonLess" aria-expanded="false" aria-controls="collapseCommonLess">
                 Общее
             </a>
@@ -96,7 +103,7 @@
             </div>
         </div>
         <!-- homework-->
-        <div class="form-group">
+        <div class="form-group" v-if="week && dateWeek && lesson">
             <a class="dropdown-toggle" data-toggle="collapse" href="#collapseHomeLess" aria-expanded="false" aria-controls="collapseHomeLess">
                 Домашнее задание
             </a>
@@ -109,7 +116,7 @@
             </div>
         </div>
         <!-- button submit-->
-        <div class="form-group row">
+        <div class="form-group row" v-if="week && dateWeek && lesson">
             <div class="col-md-8">
                 <button class="btn btn-success">Сохранить</button>
             </div>
@@ -135,22 +142,26 @@
             cabTwo: '',
             homework: '',
             colorLes: '',
-            queueLes: ''
+            queueLes: '',
+          queueLesTeach1: '',
+          queueLesTeach2: ''
         }),
         validations: {
-            week: {required},
-            dateWeek: {required},
-            lesson: {required},
-            timeFrom: {},
-            timeTo: {},
-            subject: {},
-            teachOne: {},
-            teachTwo: {},
-            cabOne: {},
-            cabTwo: {},
-            homework: {},
-            colorLes: {},
-            queueLes: {}
+          week: {required},
+          dateWeek: {required},
+          lesson: {required},
+          timeFrom: {},
+          timeTo: {},
+          subject: {},
+          teachOne: {},
+          teachTwo: {},
+          cabOne: {},
+          cabTwo: {},
+          homework: {},
+          colorLes: {},
+          queueLes: {},
+          queueLesTeach1: {},
+          queueLesTeach2: {}
         },
         methods:{
             async submitHandler (){
@@ -159,19 +170,23 @@
                     return
                 }
                 const formData = {
-                    week: this.week,
-                    dateWeek: this.dateWeek,
-                    lesson: this.lesson,
-                    timeFrom: this.timeFrom,
-                    timeTo: this.timeTo,
-                    subject: this.subject,
-                    teachOne: this.teachOne,
-                    teachTwo: this.teachTwo,
-                    cabOne: this.cabOne,
-                    cabTwo: this.cabTwo,
-                    homework: this.homework,
-                    colorLes: this.colorLes,
-                    queueLes: this.queueLes
+                  week: this.week,
+                  dateWeek: this.dateWeek,
+                  lesson: this.lesson,
+                  timeFrom: this.timeFrom,
+                  timeTo: this.timeTo,
+                  subject: this.subject,
+                  teachOne: this.teachOne,
+                  teachTwo: this.teachTwo,
+                  cabOne: this.cabOne,
+                  cabTwo: this.cabTwo,
+                  homework: this.homework,
+                  colorLes: this.colorLes,
+                  queue: {
+                    queueLes: this.queueLes,
+                    queueLesTeach1: this.queueLesTeach1,
+                    queueLesTeach2: this.queueLesTeach2,
+                  },
                 }
                 try{
                     await this.$store.dispatch('modSchedule', formData)
