@@ -131,13 +131,7 @@ export default {
     },
     getLessonTitle(ind){
       this.getQueue(ind, 'lesson')
-      let tmpI = ''
-      let dayIndex = ["D1Monday","D2Tuesday","D3Wednesday","D4Thursday","D5Friday","D6Saturday"]
-      for(let i = 0; i < dayIndex.length; i++){
-        if(ind === dayIndex[i]){
-          tmpI = i
-        }
-      }
+      let tmpI = this.getQueue(ind, 'lesson')
       return this.card.lessons[tmpI]['subj']
     },
   }
