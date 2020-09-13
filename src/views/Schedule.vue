@@ -77,6 +77,7 @@
                    v-bind:lessons="card.lessons"
                    v-bind:queue="card.queue"
                    v-bind:week="true"
+                   @updateParent="this.$store.dispatch('fetchQueue', {index: i, week: true})"
             />
           </section>
           <section v-if="this.selected === 'next_week'"

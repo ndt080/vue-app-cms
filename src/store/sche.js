@@ -12,7 +12,14 @@ export default {
             {code: 'D6Saturday', title: 'СУББОТА'},
         ],
         schedule_next: {},
-        isNewWeek: false
+        isNewWeek: false,
+        queue: {
+            type: Object,
+            status: Boolean,
+            lesson: Number
+        },
+        queueArr: [
+        ]
     },
     mutations: {
         setSchedule(state, schedule){
@@ -24,6 +31,15 @@ export default {
         clearSchedule(state){
             state.schedule = {}
             state.schedule_next = {}
+            state.queue = {}
+        },
+        clearQueue(state) {
+            state.queue = {}
+            state.queueArr = []
+        },
+        setQueueStatus(state, queue){
+            state.queue = queue
+            state.queueArr.push(state.queue)
         }
     },
     actions: {
@@ -202,9 +218,13 @@ export default {
                     queueLes = queueLes === 'true';
                     let conn = await firebase.database().ref(`/scheduleC${this.getters.info.course}G${this.getters.info.group}${week}/${dateWeek}/`).child('queue')
                     conn.transaction(function () {
-                            return { status: queueLes, lesson: lesson}
+                            return { status: queueLes, lesson: queueLes?lesson:null}
                         }
                     )
+                    if(queueLes === false){
+                        await firebase.database().ref(`/scheduleC${this.getters.info.course}G${this.getters.info.group}${week}/${dateWeek}/lessons/${lesson}`)
+                            .child('qPeople').remove()
+                    }
                 }
             }catch (e){
                 commit('setError', e)
@@ -228,12 +248,31 @@ export default {
                 throw e
             }
         },
+        fetchQueue({commit},{index, week}){
+            try{
+                let queue
+                if(week){
+                    queue = this.getters.schedule[index].queue
+                }else{
+                    queue = this.getters.schedule_next[index].queue
+                }
+                if(queue){
+                    commit('setQueueStatus', queue)
+                }else{
+                    commit('setQueueStatus', queue = {status: false, lesson: null})
+                }
+            } catch (e) {
+                commit('setError', e)
+                throw e
+            }
+        }
     },
     getters:{
         schedule_next: s => s.schedule_next,
         schedule: s => s.schedule,
-        daysSch: s => s.daysSch
-    }
+        daysSch: s => s.daysSch,
+        queueArr: s => s.queueArr,
+    },
 
 
 }

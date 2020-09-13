@@ -1,31 +1,46 @@
 <template>
-  <div class="card mb-3 border card-border card-section--content"
-       style="max-width: 22rem"
-       v-if="card.queue">
-    <div class="card-header">
-      <p class="alert text-left">ОЧЕРЕДЬ: "{{card.title}}"</p>
-      <div class="text-right badge badge-light date-label" id="date-monday">{{date(card.date)}}</div>
-    </div>
-    <div class="card-body card-body-text">
-      <form class="form-inline" @submit.prevent="submitQueue">
-        <div class=" form-group group card-desk">
-          <input class="form-control form-control-lg" type="text"
-                 v-model="nameInput"
-                 placeholder="Введите имя"
-                 required
-          />
-        </div>
-      </form>
-      <Queue v-for="(les, i) of card.lessons"
-             v-bind:key="les.id"
-             v-bind:i="i"
-             v-bind:les="les"
-             v-bind:subj="les.subj"
-             v-bind:teach1="les.teach1"
-             v-bind:teach2="les.teach2"
-             v-bind:qPeople="les.qPeople"
-             v-bind:data="{cardID: index, week: week, lesson: card.queue.lesson}"
-      />
+  <div>
+    <Loader v-if="loading"></Loader>
+    <div class="card mb-3 border card-border card-section--content"
+         style="max-width: 22rem"
+         v-if="!loading && getQueue(index, 'status') === true">
+      <div class="card-header">
+        <p class="alert text-left">"{{getLessonTitle(index)}}"</p>
+        <div class="text-right badge badge-light date-label" id="date-monday">{{date(card.date)}}</div>
+      </div>
+      <div class="card-body card-body-text" v-if="">
+        <form class="form-inline" @submit.prevent="submitQueue">
+          <div class=" form-group group card-desk">
+            <input class="form-control form-control-lg" type="text"
+                   v-model="nameInput"
+                   placeholder="Введите имя"
+                   required
+            />
+          </div>
+          <div class=" form-group group card-desk row">
+            <p class="text-left col-6">
+              <select class="form-control form-control-lg"
+              >
+                <option selected value="list-group-item-success">препод 1</option>
+                <option value="list-group-item-primary">препод 2</option>
+              </select>
+            </p>
+            <p class="text-right col-6">
+            <button class="form-control form-control-lg btn-success">Записаться</button>
+            </p>
+          </div>
+        </form>
+        <Queue v-for="(les, i) of card.lessons"
+               v-bind:key="les.id"
+               v-bind:i="i"
+               v-bind:les="les"
+               v-bind:subj="les.subj"
+               v-bind:teach1="les.teach1"
+               v-bind:teach2="les.teach2"
+               v-bind:qPeople="les.qPeople"
+               v-bind:data="{cardID: index, week: week, lesson: getQueue(index, 'lesson')}"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -42,17 +57,42 @@ export default {
       required: true,  //делаем его обязательным
     },
     index: String,
-    week: {},
-    queue: {}
+    week: Boolean
   },
   data: () => ({
     nameInput: '',
+    teachInput: '',
+    loading: true
   }),
   validations: {
-    nameInput: {required}
+    nameInput: {required},
+    teachInput: {},
   },
+  mounted() {
+    this.$store.dispatch('fetchQueue', {index: this.index, week: this.week})
+    this.loading = false
+  },
+  computed:{
+    queueArr (){
+      return this.$store.getters.queueArr
+    }
+  },
+  /*watch:{
+      index: {
+      immediate: true,
+      deep: true,
+      handler(newValue, oldValue) {
+        console.log(newValue)
+        this.loading = true
+        this.$store.dispatch('fetchQueue', {index: newValue, week: this.week})
+        console.log(status)
+        this.loading = false
+      }
+    },
+  },
+   */
   methods:{
-    async submitQueue(){
+    submitQueue(){
       if(this.$v.$invalid){
         this.$v.$touch()
         return
@@ -61,11 +101,12 @@ export default {
         user: this.nameInput,
         cardID: this.index,
         week: this.week,
-        lesson: this.card.queue.lesson
+        teacher: this.teachInput,
+        lesson: this.getQueue(this.index, 'lesson')
       }
       console.log(formData)
       try{
-        await this.$store.dispatch('modQueue', formData)
+        this.$store.dispatch('modQueue', formData)
         this.$toast.success('Запись добавлена!');
       }catch (e) {
         this.$toast.error('Ошибка добавления записи!');
@@ -73,7 +114,30 @@ export default {
     },
     date (string){
       return string[8] + string[9] + '.' + string[5] + string[6]
-    }
+    },
+     getQueue(ind, option){
+      let tmpI = ''
+      let dayIndex = ["D1Monday","D2Tuesday","D3Wednesday","D4Thursday","D5Friday","D6Saturday"]
+      for(let i = 0; i < dayIndex.length; i++){
+        if(ind === dayIndex[i]){
+          tmpI = i
+        }
+      }
+      if(this.queueArr[tmpI]['status'] && this.queueArr[tmpI]['lesson']){
+        return this.queueArr[tmpI][option]
+      }
+    },
+    getLessonTitle(ind){
+      this.getQueue(ind, 'lesson')
+      let tmpI = ''
+      let dayIndex = ["D1Monday","D2Tuesday","D3Wednesday","D4Thursday","D5Friday","D6Saturday"]
+      for(let i = 0; i < dayIndex.length; i++){
+        if(ind === dayIndex[i]){
+          tmpI = i
+        }
+      }
+      return this.card.lessons[tmpI]['subj']
+    },
   }
 }
 </script>

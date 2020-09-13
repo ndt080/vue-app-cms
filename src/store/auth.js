@@ -15,6 +15,7 @@ export default {
             localStorage.removeItem('userAuth')
             commit('clearInfo')
             commit('clearSchedule')
+            commit('clearQueue')
         },
         async register({dispatch, commit}, {username, dateBirth, course, group, email, password}){
             try{

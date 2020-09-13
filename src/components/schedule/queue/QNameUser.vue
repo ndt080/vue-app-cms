@@ -30,8 +30,7 @@ export default {
       }catch (e) {
         this.$toast.error('Ошибка удаления записи!');
       }
-
-    }
+    },
   }
 }
 </script>

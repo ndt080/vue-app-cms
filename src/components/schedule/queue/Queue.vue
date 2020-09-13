@@ -1,8 +1,5 @@
 <template>
   <ul class="list-group" v-if="les.qPeople">
-    <li class="list-group-item text-center">
-      {{les.subj}}:
-    </li>
     <QNameUser v-for="(que, i) of les.qPeople"
                v-bind:key="que.id"
                v-bind:index="i"
@@ -26,8 +23,7 @@
             },
             index: Number,
             data: {}
-      },
-
+      }
     }
 </script>
 
