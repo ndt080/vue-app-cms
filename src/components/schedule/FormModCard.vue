@@ -6,6 +6,7 @@
                 Неделя<span style="color: red">*</span>:
                 <select class="custom-select my-1 mr-sm-2"
                         v-model="week">
+                    <option :value="null" disabled>неделя...</option>
                     <option value="_now">Текущая неделя</option>
                     <option value="_next">Следующая неделя</option>
                 </select>
@@ -15,6 +16,7 @@
                 День<span style="color: red">*</span>:
                 <select class="custom-select my-1 mr-sm-2"
                         v-model="dateWeek" >
+                    <option :value="null" disabled>день...</option>
                     <option selected value="D1Monday">Понедельник</option>
                     <option value="D2Tuesday">Вторник</option>
                     <option value="D3Wednesday">Среда</option>
@@ -28,6 +30,7 @@
                 Занятие<span style="color: red">*</span>:
                 <select class="custom-select my-1 mr-sm-2 form-control"
                         v-model="lesson">
+                    <option :value="null" disabled>занятие...</option>
                     <option selected value="0">пара 1</option>
                     <option value='1'>пара 2</option>
                     <option value='2'>пара 3</option>
@@ -40,6 +43,7 @@
             Тип:
             <select class="custom-select my-1 mr-sm-2 form-control"
                     v-model="colorLes">
+              <option :value="null" disabled>тип занятия...</option>
               <option selected value="list-group-item-success">лекция</option>
               <option value="list-group-item-primary">практическое</option>
               <option value="list-group-item-secondary">отсутствует</option>
@@ -47,9 +51,10 @@
           </div>
             <!-- Queue -->
             <div class="col-md-5" v-if="week && dateWeek && lesson">
-                Форма очереди<sup style="color: red; font-size: 0.7em">[beta]</sup>:
+                Форма очереди:
                 <select class="custom-select my-1 mr-sm-2 form-control"
                         v-model="queueLes">
+                    <option :value="null" disabled>нужна очередь?</option>
                     <option selected value='true'>Добавить</option>
                     <option value='false'>Убрать</option>
                 </select>
@@ -86,19 +91,34 @@
             </a>
             <div class="form-group row collapse" id="collapseCommonLess" >
                 <div class="col-md-5">
-                    #1 преподаватель: <input type="text" class="form-control" v-model="teachOne"/>
+                    #1 преподаватель: <input type="text"
+                                             class="form-control"
+                                             placeholder="для очистки del"
+                                             v-model="teachOne"/>
                 </div>
                 <div class="col-md-5">
-                    #1 кабинет: <input type="text" class="form-control" v-model="cabOne"/>
+                    #1 кабинет: <input type="text"
+                                       class="form-control"
+                                       placeholder="для очистки del"
+                                       v-model="cabOne"/>
                 </div>
                 <div class="col-md-5">
-                    #2 преподаватель: <input type="text" class="form-control" v-model="teachTwo"/>
+                    #2 преподаватель: <input type="text"
+                                             class="form-control"
+                                             placeholder="для очистки del"
+                                             v-model="teachTwo"/>
                 </div>
                 <div class="col-md-5">
-                    #2 кабинет: <input type="text" class="form-control" v-model="cabTwo"/>
+                    #2 кабинет: <input type="text"
+                                       class="form-control"
+                                       placeholder="для очистки del"
+                                       v-model="cabTwo"/>
                 </div>
                 <div class="col-md-10">
-                    предмет: <textarea type="text" class="form-control" v-model="subject"/>
+                    предмет: <textarea type="text"
+                                       class="form-control"
+                                       placeholder="для очистки del"
+                                       v-model="subject"/>
                 </div>
             </div>
         </div>
@@ -111,6 +131,7 @@
                 <div class="col-md-10">
                     <textarea type="text" class="form-control"
                               style="margin-bottom: 1rem"
+                              placeholder="пиши сюда дз ёпт, чтобы удалить напиши del"
                               v-model="homework"/>
                 </div>
             </div>
@@ -130,21 +151,21 @@
     export default {
         name: "FormModCard",
         data: () => ({
-            week: '',
-            dateWeek: '',
-            lesson: '',
-            timeFrom: '',
-            timeTo: '',
-            subject: '',
-            teachOne: '',
-            teachTwo: '',
-            cabOne: '',
-            cabTwo: '',
-            homework: '',
-            colorLes: '',
-            queueLes: '',
-          queueLesTeach1: '',
-          queueLesTeach2: ''
+            week: null,
+            dateWeek: null,
+            lesson: null,
+            timeFrom: null,
+            timeTo: null,
+            subject: null,
+            teachOne: null,
+            teachTwo: null,
+            cabOne: null,
+            cabTwo: null,
+            homework: null,
+            colorLes: null,
+            queueLes: null,
+          queueLesTeach1: null,
+          queueLesTeach2: null
         }),
         validations: {
           week: {required},

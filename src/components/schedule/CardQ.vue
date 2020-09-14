@@ -106,7 +106,6 @@ export default {
         lesson: this.getQueue(this.index, 'lesson'),
         teacher: this.teachInput,
       }
-      console.log(formData)
       try{
         this.$store.dispatch('modQueue', formData)
         this.$toast.success('Запись добавлена!');

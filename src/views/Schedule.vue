@@ -39,7 +39,7 @@
                   v-if="isLogin"
                   @click.prevent="isQueueShow">
             <img class="scroll-icon" :src="require(`@/assets/img/queue.svg`)" alt="QUEUE"/>
-            КУЕУЕ <sup style="color: red; font-size: 0.7em">[beta]</sup>
+            ОЧЕРЕДЬ
           </button>
           <button class="btn btn-dark"
                   title="Показать/закрыть скроллбар"

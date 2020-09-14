@@ -1,8 +1,9 @@
 <template>
   <li class="list-group-item list-group-item-success queue-name"
-      v-bind:class="{left_ul: !teach1, right_ul: teach1}"
-  >
-    <!--v-bind:style="{'grid-row': counter1 += 1}" -->
+      v-bind:style="{
+            'grid-row': row,
+            'grid-column': (teach1)?2:1,
+      }">
     <div class="text-left">
       {{que.user}}
       <p>[{{que.teach.split('_')[0]}}]</p>
@@ -20,16 +21,42 @@ export default {
       required: true,  //делаем его обязательным
     },
     data: {},
-    index: String
+    index: {
+      type: String,   //указываем тип передаваемого элемента
+      required: true,  //делаем его обязательным
+    },
+    j: Number
   },
   data: () => ({
-    counter1: 0,
-    counter2: 0,
+    counter1: parseInt(localStorage.getItem('count1'), 10),
+    counter2: parseInt(localStorage.getItem('count2'), 10),
+    row: 0
   }),
+  mounted() {
+    localStorage.setItem('count1', '0');
+    localStorage.setItem('count2', '0');
+  },
+  watch:{
+    index: {
+      immediate: true,
+      deep: true,
+      handler(newValue, oldValue) {
+        if(this.teach1){
+          localStorage.setItem('count1', (this.counter1+1).toString());
+          this.row = parseInt(localStorage.getItem('count1'), 10);
+          console.log('Index: '+ this.j + '; Status Teach: '+ this.teach1 + '; Row: ' + this.row);
+        }
+        if(!this.teach1){
+          localStorage.setItem('count2', (this.counter2+1).toString());
+          this.row = parseInt(localStorage.getItem('count2'), 10);
+          console.log('Index: '+ this.j + '; Status Teach: '+ this.teach1 + '; Row: ' + this.row);
+        }
+      }
+    },
+  },
   computed: {
     teach1(){
       let str = this.que.teach.split('').reverse().join('')
-      console.log(str)
       return str[0] === '0'? false:true
     }
   },
@@ -58,10 +85,5 @@ export default {
     line-height: 1.5em;
     padding-bottom: 0;
   }
-  .right_ul{
-    grid-column-end: right;
-  }
-  .left_ul{
-    grid-column-start: left;
-  }
+
 </style>
