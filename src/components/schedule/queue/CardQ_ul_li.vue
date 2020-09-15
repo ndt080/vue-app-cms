@@ -6,7 +6,7 @@
       }">
     <div class="text-left">
       {{que.user}}
-      <p>[{{this.teacher.split('_')[0]}}]</p>
+      <p>[{{this.teacher?this.teacher.split('_')[0]:'ноунейм'}}]</p>
     </div>
     <button class="btn text-right close" v-on:click.prevent="deleteObject()">&times;</button>
   </li>
@@ -52,8 +52,10 @@ export default {
   },
   computed: {
     teach1(){
-      let str = this.teacher.split('').reverse().join(' ')
-      return str[0] !== '0'
+      if(this.teacher){
+        let str = this.teacher.split('').reverse().join(' ')
+        return str[0] !== '0'
+      }
     },
   },
   methods: {
@@ -65,7 +67,6 @@ export default {
           lesson: this.data.lesson,
           recID: this.index
         }
-        console.log(tmp)
         this.$store.dispatch('delRecQueue', tmp)
         this.$toast.success('Запись удалена!');
       }catch (e) {
