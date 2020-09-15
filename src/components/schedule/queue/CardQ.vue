@@ -9,7 +9,7 @@
         <div class="text-right badge badge-light date-label" id="date-monday">{{date(card.date)}}</div>
       </div>
       <div class="card-body card-body-text" v-if="">
-        <form class="form-inline" @submit.prevent="submitQueue">
+        <form class="form-inline" @submit.prevent="submitQueue() && this.$emit('update-schedule')">
           <div class="form-group group">
             <input class="form-control" type="text"
                    v-model.trim="nameInput"

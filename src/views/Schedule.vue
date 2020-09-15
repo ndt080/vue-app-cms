@@ -1,6 +1,5 @@
 <template>
   <div class="content">
-
       <div class="moderation" v-bind:class="{ 'moderation-show': isMod }">
         <div class="active close" style="opacity: 1">
           <a href="#" v-if="isLogin && isMod" @click.prevent="isModeration">
@@ -18,7 +17,7 @@
         <div class="card-deck" style="padding: 0; margin: 0;">
           <a><p class="site-header-text">РАСПИСАНИЕ ЗАНЯТИЙ <span v-if="course">{{group}} ГРУППЫ {{course}} КУРСА</span></p></a>
         </div>
-        <header>
+        <header @update-schedule="refresh()">
           <button class="btn btn-dark" v-if="isLogin && !isMod" @click.prevent="isModeration">
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
@@ -29,6 +28,7 @@
           <button class="btn btn-danger" v-if="isLogin && isMod" @click.prevent="isModeration">ОТМЕНИТЬ</button>
           <label>
             <select class="custom-select my-1 mr-sm-2"
+                    @change.prevent="refresh()"
                     v-model="selected"
                     :disabled="isQSh">
               <option value="actual_week">Текущая неделя</option>

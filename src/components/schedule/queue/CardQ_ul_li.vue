@@ -20,6 +20,7 @@ export default {
       type: Object,   //указываем тип передаваемого элемента
       required: true,  //делаем его обязательным
     },
+    data: {},
     index: String,
     teacher: String,
     j: Number,
@@ -64,6 +65,7 @@ export default {
           lesson: this.data.lesson,
           recID: this.index
         }
+        console.log(tmp)
         this.$store.dispatch('delRecQueue', tmp)
         this.$toast.success('Запись удалена!');
       }catch (e) {
