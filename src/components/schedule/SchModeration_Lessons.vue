@@ -149,7 +149,7 @@
     import {required} from "vuelidate/lib/validators";
 
     export default {
-        name: "FormModCard",
+        name: "SchModeration_Lessons",
         data: () => ({
             week: null,
             dateWeek: null,

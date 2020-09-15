@@ -106,9 +106,6 @@ body{
     color: #0a0a0a !important;
 }
 
-.alert-danger, .list-group-item-danger {
-    box-shadow: 0 0 20px rgba(225, 83, 97, 0.5);
-}
 .text-right {
     float: right;
 }

@@ -29,7 +29,8 @@
           <button class="btn btn-danger" v-if="isLogin && isMod" @click.prevent="isModeration">ОТМЕНИТЬ</button>
           <label>
             <select class="custom-select my-1 mr-sm-2"
-                    v-model="selected">
+                    v-model="selected"
+                    :disabled="isQSh">
               <option value="actual_week">Текущая неделя</option>
               <option value="next_week">Следующая неделя</option>
             </select>
@@ -58,8 +59,7 @@
         <!-- Дни недели -->
         <div v-else-if="!loading && schedule">
           <section v-if="this.selected === 'actual_week'"
-                   v-bind:class="{ 'card-section': !isScroller, 'card-section-with-scroll': isScroller  }"
-          >
+                   v-bind:class="{ 'card-section': !isScroller, 'card-section-with-scroll': isScroller  }">
             <Card v-if="!isQSh" v-for="(card, i) of schedule"
                   v-bind:key="card.id"
                   v-bind:i="i"
@@ -68,21 +68,9 @@
                   v-bind:date="card.date"
                   v-bind:title="card.title"
             />
-            <CardQ v-if="isQSh" v-for="(card, i) of schedule"
-                   v-bind:key="card.id"
-                   v-bind:index="i"
-                   v-bind:card="card"
-                   v-bind:date="card.date"
-                   v-bind:title="card.title"
-                   v-bind:lessons="card.lessons"
-                   v-bind:queue="card.queue"
-                   v-bind:week="true"
-                   @updateParent="this.$store.dispatch('fetchQueue', {index: i, week: true})"
-            />
           </section>
           <section v-if="this.selected === 'next_week'"
-                   v-bind:class="{ 'card-section': !isScroller, 'card-section-with-scroll': isScroller  }"
-          >
+                   v-bind:class="{ 'card-section': !isScroller, 'card-section-with-scroll': isScroller  }">
             <Card v-if="!isQSh" v-for="(card, i) of schedule_next"
                   v-bind:key="card.id"
                   v-bind:i="i"
@@ -91,9 +79,22 @@
                   v-bind:date="card.date"
                   v-bind:title="card.title"
             />
-            <CardQ v-if="isQSh" v-for="(card, i) of schedule_next"
+          </section>
+          <section v-if="isQSh"
+                   v-bind:class="{ 'card-section': !isScroller, 'card-section-with-scroll': isScroller  }">
+            <CardQ v-for="(card, i) of schedule"
                    v-bind:key="card.id"
-                   v-bind:i="i"
+                   v-bind:index="i"
+                   v-bind:card="card"
+                   v-bind:date="card.date"
+                   v-bind:title="card.title"
+                   v-bind:lessons="card.lessons"
+                   v-bind:queue="card.queue"
+                   v-bind:week="true"
+            />
+            <CardQ v-for="(card, i) of schedule_next"
+                   v-bind:key="card.id"
+                   v-bind:index="i"
                    v-bind:card="card"
                    v-bind:date="card.date"
                    v-bind:title="card.title"
@@ -156,7 +157,7 @@
     import Card from "../components/schedule/Card";
     import {mapMutations, mapActions, mapGetters} from "vuex";
     import SchModeration from "../components/schedule/SchModeration";
-    import CardQ from "../components/schedule/CardQ";
+    import CardQ from "../components/schedule/queue/CardQ";
     export default {
         name: "Schedule",
         metaInfo:{
@@ -280,9 +281,9 @@
   .card-deck{
     width: 100%;
   }
-    header button,  header label {
-        margin-right: 1.3%;
-    }
+  header button,  header label {
+    margin-right: 1.3%;
+  }
     .scroll-icon{
         padding-top: 0;
         padding-bottom: 0;

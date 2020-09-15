@@ -10,29 +10,28 @@
       </div>
       <div class="card-body card-body-text" v-if="">
         <form class="form-inline" @submit.prevent="submitQueue">
-          <div class=" form-group group card-desk">
-            <input class="form-control form-control-lg" type="text"
-                   v-model="nameInput"
+          <div class="form-group group">
+            <input class="form-control" type="text"
+                   v-model.trim="nameInput"
                    placeholder="Введите имя"
                    required
             />
           </div>
-          <div class=" form-group group card-desk row">
-            <p class="text-left col-6">
-              <select class="form-control form-control-lg"
-                      v-model="teachInput"
-              >
-                <option :value="null" disabled>к кому...</option>
+          <div class="form-group group card-desk row">
+            <p class="col-8">
+              <select class="form-control"
+                      v-model="teachInput">
+                <option :value="null" disabled>Выбрать преподавателя...</option>
                 <option :value="getQueue(index, 'teach1')+'_0'">{{getQueue(index, 'teach1')}}</option>
                 <option :value="getQueue(index, 'teach2')+'_1'">{{getQueue(index, 'teach2')}}</option>
               </select>
             </p>
-            <p class="text-right col-6">
-              <button class="form-control form-control-lg btn-success">Записаться</button>
+            <p class="col-4">
+              <button class="form-control btn-success">Записаться</button>
             </p>
           </div>
         </form>
-        <Queue v-for="(les, i) of card.lessons"
+        <CardQ_ul v-for="(les, i) of card.lessons"
                v-bind:key="les.id"
                v-bind:i="i"
                v-bind:les="les"
@@ -48,11 +47,11 @@
 </template>
 
 <script>
-import Queue from "./queue/Queue";
+import CardQ_ul from "./CardQ_ul";
 import {required} from "vuelidate/lib/validators";
 export default {
   name: "CardQ",
-  components: {Queue},
+  components: {CardQ_ul},
   props: {
     card: {
       type: Object,   //указываем тип передаваемого элемента

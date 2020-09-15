@@ -6,21 +6,20 @@
     </div>
     <div class="card-body card-body-text">
         <ul class="list-group">
-            <Lessons
-                    v-for="(les, i) of card.lessons"
-                    v-bind:key="les.id"
-                    v-bind:index="i"
-                    v-bind:les="les"
-                    v-bind:time="les.time"
-                    v-bind:timeEnd="les.timeEnd"
-                    v-bind:subj="les.subj"
-                    v-bind:teach1="les.teach1"
-                    v-bind:teach2="les.teach2"
-                    v-bind:cab1="les.cab1"
-                    v-bind:cab2="les.cab2"
-                    v-bind:homework="les.homework"
-                    v-bind:color="les.color"
-                    v-bind:dateCard="card.date"
+        <Card_Lessons v-for="(les, i) of card.lessons"
+                      v-bind:key="les.id"
+                      v-bind:index="i"
+                      v-bind:les="les"
+                      v-bind:time="les.time"
+                      v-bind:timeEnd="les.timeEnd"
+                      v-bind:subj="les.subj"
+                      v-bind:teach1="les.teach1"
+                      v-bind:teach2="les.teach2"
+                      v-bind:cab1="les.cab1"
+                      v-bind:cab2="les.cab2"
+                      v-bind:homework="les.homework"
+                      v-bind:color="les.color"
+                      v-bind:datecard="card.date"
             />
         </ul>
     </div>
@@ -28,10 +27,10 @@
 </template>
 
 <script>
-    import Lessons from "./Lessons";
+    import Card_Lessons from "./Card_Lessons";
     export default {
         name: "Card",
-        components: {Lessons},
+        components: {Card_Lessons},
         props: {
             card: {
                 type: Object,   //указываем тип передаваемого элемента

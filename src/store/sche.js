@@ -63,7 +63,6 @@ export default {
                     if (update.status){
                         dispatch('newWeekSchedule')
                     }
-
             } catch (e){ }
         },
         async newWeekSchedule({dispatch}) {

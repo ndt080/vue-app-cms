@@ -6,7 +6,7 @@
       }">
     <div class="text-left">
       {{que.user}}
-      <p>[{{que.teach.split('_')[0]}}]</p>
+      <p>[{{this.teacher.split('_')[0]}}]</p>
     </div>
     <button class="btn text-right close" v-on:click.prevent="deleteObject()">&times;</button>
   </li>
@@ -14,18 +14,15 @@
 
 <script>
 export default {
-  name: "QNameUser",
+  name: "CardQ_ul_li",
   props: {
     que: {
       type: Object,   //указываем тип передаваемого элемента
       required: true,  //делаем его обязательным
     },
-    data: {},
-    index: {
-      type: String,   //указываем тип передаваемого элемента
-      required: true,  //делаем его обязательным
-    },
-    j: Number
+    index: String,
+    teacher: String,
+    j: Number,
   },
   data: () => ({
     counter1: parseInt(localStorage.getItem('count1'), 10),
@@ -40,25 +37,23 @@ export default {
     index: {
       immediate: true,
       deep: true,
-      handler(newValue, oldValue) {
+      handler() {
         if(this.teach1){
           localStorage.setItem('count1', (this.counter1+1).toString());
           this.row = parseInt(localStorage.getItem('count1'), 10);
-          console.log('Index: '+ this.j + '; Status Teach: '+ this.teach1 + '; Row: ' + this.row);
         }
         if(!this.teach1){
           localStorage.setItem('count2', (this.counter2+1).toString());
           this.row = parseInt(localStorage.getItem('count2'), 10);
-          console.log('Index: '+ this.j + '; Status Teach: '+ this.teach1 + '; Row: ' + this.row);
         }
       }
     },
   },
   computed: {
     teach1(){
-      let str = this.que.teach.split('').reverse().join('')
-      return str[0] === '0'? false:true
-    }
+      let str = this.teacher.split('').reverse().join(' ')
+      return str[0] !== '0'
+    },
   },
   methods: {
     deleteObject() {

@@ -33,18 +33,18 @@
                 </svg>
             </a>
             <div class="collapse" id="collapseTime">
-                <FormModCard />
+                <SchModeration_Lessons />
             </div>
         </section>
     </div>
 </template>
 
 <script>
-    import FormModCard from "./FormModCard";
+    import SchModeration_Lessons from "./SchModeration_Lessons";
     import {required} from "vuelidate/lib/validators";
     export default {
         name: "SchModeration",
-        components: {FormModCard},
+        components: {SchModeration_Lessons},
         data: () => ({
             dateFrom: '',
         }),
