@@ -21,9 +21,10 @@
         Штабквартира тимы:
       </p>
     </section>
-    <div class="map">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2351.1188216260853!2d27.545243215828048!3d53.89409198009752!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46dbcfe79c5d5f91%3A0x4a6f20abe71d30b!2z0JPQu9Cw0LLQvdGL0Lkg0JrQvtGA0L_Rg9GBINCR0JPQow!5e0!3m2!1sru!2sby!4v1598866809990!5m2!1sru!2sby" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-    </div>
+    <section class="map">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2351.1188216260853!2d27.545243215828048!3d53.89409198009752!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46dbcfe79c5d5f91%3A0x4a6f20abe71d30b!2z0JPQu9Cw0LLQvdGL0Lkg0JrQvtGA0L_Rg9GBINCR0JPQow!5e0!3m2!1sru!2sby!4v1598866809990!5m2!1sru!2sby"
+              width="100%"  frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+    </section>
 
   </div>
 </template>
@@ -39,7 +40,7 @@
 
 <style scoped>
   .about{
-    padding: 0 4.2rem 0 2%;
+    padding: 0 2rem 0 2rem;
     min-height: 100vh;
   }
   .about section p{
