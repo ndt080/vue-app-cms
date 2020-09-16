@@ -1,7 +1,7 @@
 <template>
   <header class="topNav" >
     <h4 class="text-left">
-      CHANGELOG
+      МЕНЕДЖЕР РАСПИСАНИЯ ФПМИ БГУ
     </h4>
     <h4 class="text-right" v-if="isLogin">перейти к <router-link to="/schedule">расписанию занятий</router-link></h4>
   </header>
@@ -23,7 +23,6 @@
     align-items: center;
     padding: 15px 5%;
     z-index: 1000;
-    margin-top: 1.2rem;
     border-radius: 1rem;
   }
   header h4{

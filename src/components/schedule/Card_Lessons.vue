@@ -67,28 +67,33 @@ export default {
     },
     methods:{
       checkDate(dateNow, dateSch, timeSch, timeEndSch){
-        if(dateSch.toISOString().split('T')[0] <= dateNow.toISOString().split('T')[0]){
+        if(dateSch.toISOString().split('T')[0] < dateNow.toISOString().split('T')[0]) {
+            this.changeTypeLes = true
+        }
+        if(dateSch.toISOString().split('T')[0] <= dateNow.toISOString().split('T')[0]) {
           //PAST LESSON COLOR
-          if(this.getTime(timeEndSch, 'minute') < dateNow.getMinutes() && this.getTime(timeEndSch, 'hour') <= dateNow.getHours()){
+          if (this.getTime(timeEndSch, 'minute') < dateNow.getMinutes() && this.getTime(timeEndSch, 'hour') <= dateNow.getHours()) {
+            this.changeTypeLes = true
+          } else if (this.getTime(timeEndSch, 'minute') > dateNow.getMinutes() && this.getTime(timeEndSch, 'hour') < dateNow.getHours()) {
+            this.changeTypeLes = true
+          } else if (this.getTime(timeEndSch, 'minute') === dateNow.getMinutes() && this.getTime(timeEndSch, 'hour') <= dateNow.getHours()) {
+            this.changeTypeLes = true
+          } else if (this.getTime(timeEndSch, 'minute') === dateNow.getMinutes() && this.getTime(timeEndSch, 'hour') <= dateNow.getHours()) {
             this.changeTypeLes = true
           }
-          else if(this.getTime(timeEndSch, 'minute') > dateNow.getMinutes() && this.getTime(timeEndSch, 'hour') < dateNow.getHours()){
-            this.changeTypeLes = true
-          }
-          else if(this.getTime(timeEndSch, 'minute') === dateNow.getMinutes() && this.getTime(timeEndSch, 'hour') <= dateNow.getHours()){
-            this.changeTypeLes = true
-          }
+        }
+        if(dateSch.toISOString().split('T')[0] === dateNow.toISOString().split('T')[0]) {
           //NOW LESSON COLOR
-          if(this.getTime(timeSch, 'minute') < dateNow.getMinutes() && dateNow.getMinutes() <= this.getTime(timeEndSch, 'minute') && this.getTime(timeEndSch, 'hour') > dateNow.getHours()){
+          if(this.getTime(timeSch, 'minute') < dateNow.getMinutes() && dateNow.getMinutes() < this.getTime(timeEndSch, 'minute') && this.getTime(timeEndSch, 'hour') > dateNow.getHours() && this.getTime(timeEndSch, 'hour') < dateNow.getHours()+2){
             this.nowTypeLes = true
           }
-          else if(this.getTime(timeSch, 'minute') < dateNow.getMinutes() && dateNow.getMinutes() > this.getTime(timeEndSch, 'minute') && this.getTime(timeEndSch, 'hour') > dateNow.getHours()){
+          else if(this.getTime(timeSch, 'minute') < dateNow.getMinutes() && dateNow.getMinutes() > this.getTime(timeEndSch, 'minute') && this.getTime(timeEndSch, 'hour') > dateNow.getHours() && this.getTime(timeEndSch, 'hour') < dateNow.getHours()+2){
             this.nowTypeLes = true
           }
-          else if(this.getTime(timeSch, 'minute') > dateNow.getMinutes() && dateNow.getMinutes() < this.getTime(timeEndSch, 'minute') && this.getTime(timeEndSch, 'hour') >= dateNow.getHours()){
+          else if(this.getTime(timeSch, 'minute') > dateNow.getMinutes() && dateNow.getMinutes() < this.getTime(timeEndSch, 'minute') && this.getTime(timeEndSch, 'hour') >= dateNow.getHours() && this.getTime(timeEndSch, 'hour') < dateNow.getHours()+2){
             this.nowTypeLes = true
           }
-          else if(this.getTime(timeSch, 'minute') < dateNow.getMinutes() && dateNow.getMinutes() < this.getTime(timeEndSch, 'minute') && this.getTime(timeEndSch, 'hour') >= dateNow.getHours()){
+          else if(this.getTime(timeSch, 'minute') < dateNow.getMinutes() && dateNow.getMinutes() < this.getTime(timeEndSch, 'minute') && this.getTime(timeEndSch, 'hour') >= dateNow.getHours() && this.getTime(timeEndSch, 'hour') < dateNow.getHours()+2){
             this.nowTypeLes = true
           }
         }

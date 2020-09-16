@@ -1,19 +1,8 @@
 <template>
   <div class="overlay-i">
     <TopNav v-bind:isLogin="isLogin"/>
-    <!-- GIF LOGO BOX -->
-    <div class="container-img-i">
-        <img class="img-body" :src="require(`@/assets/img/logo.gif`)" alt="ЛОГО" />
-    </div>
-    <!-- TEXT CONTENT -->
-    <h1>WELCOME, ФПМИ-ШНИК БГУ!!!</h1>
-    <p class="text-body-i">"Оставь надежду всяк сюда входящий, боль и страдания не заставят себя ждать. Соседи не забудут крик бомбящий,
-        ведь Орешко будет завтра лабу принимать..."
-    </p>
-    <section>
-      <h2 v-if="!isLogin">чтобы в полной мере воспользователь функциями приложения, необходимо <br />
-      <router-link to="/login">войти</router-link> или <router-link to="/registration">зарегистрироваться</router-link></h2>
-    </section>
+    <Home_Auth v-if="isLogin"/>
+    <Home_noAuth v-if="!isLogin"/>
     <footer>
         <p class="text-left">Powered by Vue.js and firebase </p>
     </footer>
@@ -23,9 +12,11 @@
 <script>
 
 import TopNav from "../components/home/TopNav";
+import Home_Auth from "@/components/home/Home_Auth";
+import Home_noAuth from "@/components/home/Home_noAuth";
 export default {
   name: 'Home',
-    components: {TopNav},
+    components: {Home_noAuth, Home_Auth, TopNav},
     metaInfo:{
     title: 'Главная'
   },
@@ -44,66 +35,21 @@ export default {
 </script>
 
 <style scoped>
-  .overlay-i {
-    padding: 3%;
-    margin: 0 auto;
-    width: 100%;
-    min-height: 100vh;
-    font-family: 'Oswald', sans-serif;
-    color: rgb(154,198,172);
-  }
+.overlay-i {
+  padding: 2% 7.2rem 3% 3%;
+  margin: 0 auto;
+  width: 100vw;
+  min-height: 100vh;
+  font-family: 'Oswald', sans-serif;
+  color: rgb(154,198,172);
+}
   @media (max-width: 500px) {
-    .container-img-i{
-        padding: 5% 0 0 0 !important;
-    }
-    .img-body{
-        width: 18rem !important;
-        height: 12rem;
-    }
-    .text-body-i{
-      font-size: 20px !important;
-      padding: 0 !important;
+    .overlay-i{
+      padding: 3% 5.2rem 3% 3%;
     }
     footer{
       padding: 0 5rem 0 1.5rem !important;
     }
-  }
-  .text-body-i{
-      padding: 0 5rem 0 5rem;
-  }
-  .overlay-i h1{
-    font-size: 45px;
-    text-align: center;
-    font-weight: bold;
-  }
-  .overlay-i h2{
-    font-size: 2rem;
-    text-align: center;
-    font-weight: bold;
-    padding-top: 1rem;
-  }
-  .overlay-i p{
-    font-size: 24px;
-    color: #e6e6e6;
-    text-align: center;
-    padding-top: 0.3rem;
-  }
-  .overlay-i a{
-    text-decoration: none;
-  }
-  .container-img-i{
-    position: relative;
-    display: block;
-    margin: 0 auto;
-    padding-left: 1.5%;
-    padding-top: 5%;
-    text-align: center;
-  }
-  .img-body{
-    width: 20rem;
-    height: 15rem;
-    border-radius: 0.5rem;
-    margin-bottom: 30px;
   }
   footer{
     display: inline-flex;
@@ -117,8 +63,5 @@ export default {
   footer p{
     font-size: 1.3em !important;
     color: #9ac6ac !important;
-  }
-  section {
-
   }
 </style>
