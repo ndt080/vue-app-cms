@@ -8,42 +8,30 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
-  {
-      path: '/',
-      name: 'Home',
-      meta: { layout: 'home' },
-      component: () => import('../views/Home.vue')
+    {
+        path: '/',
+        name: 'Home',
+        meta: { layout: 'home', auth: true  },
+        component: () => import('../views/Home.vue')
     },
-  {
-    path: '/about',
-        name: 'About',
+    {
+      path: '/login',
+      name: 'Login',
+      meta: { layout: 'empty', auth: false  },
+      component: () => import('../views/Login.vue')
+    },
+    {
+      path: '/about',
+      name: 'About',
       meta: { layout: 'main' },
-    component: () => import('../views/About.vue')
-  },
-  {
-    path: '/schedule',
-        name: 'Schedule',
+      component: () => import('../views/About.vue')
+    },
+    {
+      path: '/schedule',
+      name: 'Schedule',
       meta: { layout: 'main', auth: true },
-    component: () => import('../views/Schedule.vue')
-  },
-  {
-    path: '/login',
-        name: 'Login',
-      meta: { layout: 'empty' },
-    component: () => import('../views/Login.vue')
-  },
-  {
-    path: '/registration',
-        name: 'Registration',
-      meta: { layout: 'empty' },
-    component: () => import('../views/Registration.vue')
-  },
-  {
-    path: '/profile',
-        name: 'Profile',
-      meta: { layout: 'main', auth: true },
-    component: () => import('../views/Profile.vue')
-  },
+      component: () => import('../views/Schedule.vue')
+    },
     {
       path: '/faq',
       name: 'FAQ',

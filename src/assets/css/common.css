@@ -20,7 +20,7 @@ body{
     background-repeat: repeat repeat;
     background-size: cover;
 }
-.home-layout{
+.home-layout, .empty-layout{
     display: inline-flex;
     position: absolute;
     width: 100%;
@@ -32,47 +32,13 @@ body{
     -o-background-size: contain;
     -moz-background-size: contain;
 }
-.home-layout .content{
+.home-layout .content, .empty-layout .content{
     background: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
 }
-.empty-layout{
-    display: flex;
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0,0,0,0.15);
-    color: #0a0a0a;
-    padding-right: 4.5rem;
-}
-.empty-layout .content{
-    margin: 0 auto;
-    background: #fff;
-    min-width: 40vw;
-    padding: 3rem;
-}
-.empty-layout .content .card-deck{
-    display: block !important;
-}
-.main-layout .content, .home-layout .content{
+.main-layout .content, .home-layout .content, .empty-layout .content{
     margin-right: 4.2rem;
 }
 /* CLOSE LAYOUT BLOCK */
-
-/*  HOME PAGE BLOCK */
-
-/*  CLOSE HOME PAGE BLOCK */
-
-
-
-
-
-
-
-
-
-
-
-
 
 .template-main-container{
     display: block;

@@ -8,13 +8,16 @@
 </template>
 
 <script>
-  import Nav from "../components/nav/Nav";
-    export default {
-        name: "HomeLayout",
-        components: {
-          Nav
-        },
-    }
+import Nav from "../components/nav/Nav";
+  export default {
+  name: "HomeLayout",
+  components: {
+    Nav
+  },
+  async mounted() {
+    await this.$store.dispatch('fetchInfo')
+  }
+}
 
 </script>
 

@@ -63,37 +63,19 @@ export default {
       this.interval = setInterval(() => {
         this.date = new Date()
         this.checkDate(this.date, this.dateSchedule, this.time, this.timeEnd);
-      }, 10*60*1000)
+      }, 60*1000)
     },
     methods:{
       checkDate(dateNow, dateSch, timeSch, timeEndSch){
-        if(dateSch.toISOString().split('T')[0] < dateNow.toISOString().split('T')[0]) {
-            this.changeTypeLes = true
-        }
         if(dateSch.toISOString().split('T')[0] <= dateNow.toISOString().split('T')[0]) {
           //PAST LESSON COLOR
-          if (this.getTime(timeEndSch, 'minute') < dateNow.getMinutes() && this.getTime(timeEndSch, 'hour') <= dateNow.getHours()) {
-            this.changeTypeLes = true
-          } else if (this.getTime(timeEndSch, 'minute') > dateNow.getMinutes() && this.getTime(timeEndSch, 'hour') < dateNow.getHours()) {
-            this.changeTypeLes = true
-          } else if (this.getTime(timeEndSch, 'minute') === dateNow.getMinutes() && this.getTime(timeEndSch, 'hour') <= dateNow.getHours()) {
-            this.changeTypeLes = true
-          } else if (this.getTime(timeEndSch, 'minute') === dateNow.getMinutes() && this.getTime(timeEndSch, 'hour') <= dateNow.getHours()) {
+          if(this.setTime(dateSch, timeEndSch) <= dateNow){
             this.changeTypeLes = true
           }
         }
         if(dateSch.toISOString().split('T')[0] === dateNow.toISOString().split('T')[0]) {
           //NOW LESSON COLOR
-          if(this.getTime(timeSch, 'minute') < dateNow.getMinutes() && dateNow.getMinutes() < this.getTime(timeEndSch, 'minute') && this.getTime(timeEndSch, 'hour') > dateNow.getHours() && this.getTime(timeEndSch, 'hour') < dateNow.getHours()+2){
-            this.nowTypeLes = true
-          }
-          else if(this.getTime(timeSch, 'minute') < dateNow.getMinutes() && dateNow.getMinutes() > this.getTime(timeEndSch, 'minute') && this.getTime(timeEndSch, 'hour') > dateNow.getHours() && this.getTime(timeEndSch, 'hour') < dateNow.getHours()+2){
-            this.nowTypeLes = true
-          }
-          else if(this.getTime(timeSch, 'minute') > dateNow.getMinutes() && dateNow.getMinutes() < this.getTime(timeEndSch, 'minute') && this.getTime(timeEndSch, 'hour') >= dateNow.getHours() && this.getTime(timeEndSch, 'hour') < dateNow.getHours()+2){
-            this.nowTypeLes = true
-          }
-          else if(this.getTime(timeSch, 'minute') < dateNow.getMinutes() && dateNow.getMinutes() < this.getTime(timeEndSch, 'minute') && this.getTime(timeEndSch, 'hour') >= dateNow.getHours() && this.getTime(timeEndSch, 'hour') < dateNow.getHours()+2){
+          if(this.setTime(dateSch, timeSch) >= dateNow && this.setTime(dateSch, timeEndSch) >= dateNow){
             this.nowTypeLes = true
           }
         }
@@ -106,7 +88,14 @@ export default {
             string = (string[3]!=='0'?string[3]:'')+string[4]
           }
         return parseInt(string)
+      },
+      setTime(date, time){
+        date.setSeconds(0);
+        date.setHours(this.getTime(time, 'hour'));
+        date.setMinutes(this.getTime(time, 'minute'));
+        return date;
       }
+
     },
     beforeDestroy() {
       clearInterval(this.interval)

@@ -10,23 +10,11 @@
             <router-link class="router-link" tag="a" to="/login">
                 <div class="btn btn-login">
                     <span><img :src="require(`@/assets/img/login.svg`)" alt="На главную"/></span>
-                    Вход
-                </div>
-            </router-link>
-            <router-link class="router-link" tag="a" to="/registration">
-                <div class="btn btn-login">
-                    <span><img :src="require(`@/assets/img/reg.svg`)" alt="На главную"/></span>
-                    Регистрация
+                    Вход/Регистрация
                 </div>
             </router-link>
         </section>
         <section v-else>
-            <router-link class="router-link" tag="a" to="/profile">
-                <div class="btn btn-login">
-                    <span><img :src="require(`@/assets/img/user.svg`)" alt="На главную"/></span>
-                    Профиль
-                </div>
-            </router-link>
             <a class="router-link" href="" @click.prevent="logout">
                 <div class="btn btn-login">
                     <span><img :src="require(`@/assets/img/logout.svg`)" alt="На главную"/></span>

@@ -22,7 +22,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 15px 5%;
-    z-index: 1000;
+    z-index: 0;
     border-radius: 1rem;
   }
   header h4{

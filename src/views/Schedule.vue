@@ -8,11 +8,8 @@
             </svg>
           </a>
         </div>
-
         <SchModeration v-if="isMod"/>
       </div>
-
-
       <div class="overlay-i" v-bind:class="{ 'moderation-show': isMod }">
         <div class="card-deck" style="padding: 0; margin: 0;">
           <a><p class="site-header-text">РАСПИСАНИЕ ЗАНЯТИЙ <span v-if="course">{{group}} ГРУППЫ {{course}} КУРСА</span></p></a>

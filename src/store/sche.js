@@ -54,7 +54,7 @@ export default {
                 const update = (await firebase.database().ref(`/update`).once('value')).val()
                //ДЛЯ ОТЛАДКИ--
                     let date = new Date();
-                    if (date.getDay() === 6 && (date.getHours() === 22) && (date.getMinutes() === 0)) {
+                    if (date.getDay() === 6 && (date.getHours() === 23) && (date.getMinutes() === 0)) {
                         await firebase.database().ref(`/update`).child('status').transaction(function () {
                             return true
                         })
@@ -63,6 +63,7 @@ export default {
                     if (update.status){
                         dispatch('newWeekSchedule')
                     }
+
             } catch (e){ }
         },
         async newWeekSchedule({dispatch}) {

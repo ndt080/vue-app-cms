@@ -61,14 +61,16 @@ export default {
   methods: {
     deleteObject() {
       try{
-        const tmp = {
-          cardID: this.data.cardID,
-          week: this.data.week,
-          lesson: this.data.lesson,
-          recID: this.index
+        if(confirm("Удалить запись?")) {
+          const tmp = {
+            cardID: this.data.cardID,
+            week: this.data.week,
+            lesson: this.data.lesson,
+            recID: this.index
+          }
+          this.$store.dispatch('delRecQueue', tmp)
+          this.$toast.success('Запись удалена!');
         }
-        this.$store.dispatch('delRecQueue', tmp)
-        this.$toast.success('Запись удалена!');
       }catch (e) {
         this.$toast.error('Ошибка удаления записи!');
       }

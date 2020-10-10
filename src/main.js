@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuelidate from "vuelidate";
 import VueBootstrapToasts from "vue-bootstrap-toasts";
-import VueMeta from 'vue-meta'
+import VueMeta from 'vue-meta';
 import App from './App.vue';
 import './registerServiceWorker';
 import router from './router';
@@ -10,7 +10,6 @@ import dateFilter from "@/filters/date.filter";
 import Loader from "./components/Loader";
 import 'bootstrap/dist/js/bootstrap.min';
 import 'jquery/dist/jquery.min';
-
 
 import firebase from "firebase/app";
 import 'firebase/auth';
