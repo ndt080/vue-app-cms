@@ -8,13 +8,16 @@
       {{que.user}}
       <p>[{{this.teacher?this.teacher.split('_')[0]:'ноунейм'}}]</p>
     </div>
-    <button class="btn text-right close" v-on:click.prevent="deleteObject()">&times;</button>
+    <button class="btn text-right close"
+            v-on:click.prevent="deleteObject()"
+            v-if="this.UID === this.que.userID || status === 'admin'"
+    >&times;</button>
   </li>
 </template>
 
 <script>
 export default {
-  name: "CardQ_ul_li",
+  name: "CardQRec",
   props: {
     que: {
       type: Object,   //указываем тип передаваемого элемента
@@ -57,19 +60,25 @@ export default {
         return str[0] !== '0'
       }
     },
+    UID () {
+      return this.$store.getters.UID
+    },
+    status () {
+      return this.$store.getters.info.status
+    },
   },
   methods: {
     deleteObject() {
       try{
-        if(confirm("Удалить запись?")) {
-          const tmp = {
-            cardID: this.data.cardID,
-            week: this.data.week,
-            lesson: this.data.lesson,
-            recID: this.index
+        if((this.que.userID?this.UID === this.que.userID:this.UID) || status === 'admin'){
+          if(confirm("Удалить запись?")) {
+            const tmp = {
+              queueID: this.data.queueID,
+              recID: this.index
+            }
+            this.$store.dispatch('delRecQueue', tmp)
+            this.$toast.success('Запись удалена!');
           }
-          this.$store.dispatch('delRecQueue', tmp)
-          this.$toast.success('Запись удалена!');
         }
       }catch (e) {
         this.$toast.error('Ошибка удаления записи!');

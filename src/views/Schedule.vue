@@ -79,25 +79,14 @@
           </section>
           <section v-if="isQSh"
                    v-bind:class="{ 'card-section': !isScroller, 'card-section-with-scroll': isScroller  }">
-            <CardQ v-for="(card, i) of schedule"
+            <CardQ v-for="(card, i) of queue"
                    v-bind:key="card.id"
-                   v-bind:index="i"
+                   v-bind:ind="i"
                    v-bind:card="card"
-                   v-bind:date="card.date"
-                   v-bind:title="card.title"
-                   v-bind:lessons="card.lessons"
-                   v-bind:queue="card.queue"
-                   v-bind:week="true"
-            />
-            <CardQ v-for="(card, i) of schedule_next"
-                   v-bind:key="card.id"
-                   v-bind:index="i"
-                   v-bind:card="card"
-                   v-bind:date="card.date"
-                   v-bind:title="card.title"
-                   v-bind:lessons="card.lessons"
-                   v-bind:queue="card.queue"
-                   v-bind:week="false"
+                   v-bind:date="card.subject"
+                   v-bind:teacher1="card.teach1"
+                   v-bind:teacher2="card.teach2"
+                   v-bind:people="card.people"
             />
           </section>
         </div>
@@ -177,6 +166,7 @@
         },
         async mounted() {
             await this.$store.dispatch('fetchSchedule')
+            await this.$store.dispatch('fetchQueue')
             this.loading = false
              if(!this.$store.getters.schedule){
                  this.isNull = true
@@ -207,18 +197,21 @@
             }
         },
         computed:{
-            schedule_next (){
-                return this.$store.getters.schedule_next
-            },
-            schedule (){
-                return this.$store.getters.schedule
-            },
-            course (){
-                return this.$store.getters.info.course
-            },
-            group (){
-                return this.$store.getters.info.group
-            },
+          schedule_next (){
+            return this.$store.getters.schedule_next
+          },
+          schedule (){
+            return this.$store.getters.schedule
+          },
+          course (){
+            return this.$store.getters.info.course
+          },
+          group (){
+            return this.$store.getters.info.group
+          },
+          queue (){
+            return this.$store.getters.queue
+          }
         },
       beforeDestroy() {
           clearInterval(this.interval)

@@ -21,12 +21,12 @@
 
       <div class="card-deck card-deck-common-settings" style="max-width: 75%">
         <div class="card card-common-settings" style="max-width: 48rem">
-          <div class="card-title"> sadasdas</div>
+          <div class="card-title">ОБЩИЕ НАСТРОЙКИ:</div>
           <div class="card-body">
           </div>
         </div>
         <div class="card card-common-settings" style="max-width: 48rem">
-          <div class="card-title"> sadasdas</div>
+          <div class="card-title">-- --</div>
           <div class="card-body">
           </div>
         </div>
@@ -34,16 +34,7 @@
         <div class="w-50 d-none d-sm-block d-md-none"><!-- wrap every card on sm--></div>
         <div class="w-50 d-none d-lg-block d-md-block d-xl-none"><!-- wrap every 2 on lg and md--></div>
 
-        <div class="card card-common-settings" style="max-width: 48rem">
-          <div class="card-title"> sadasdas</div>
-          <div class="card-body">
-          </div>
-        </div>
-        <div class="card card-common-settings" style="max-width: 48rem">
-          <div class="card-title"> sadasdas</div>
-          <div class="card-body">
-          </div>
-        </div>
+        <UpdateLog/>
       </div>
     </div>
   </div>
@@ -53,9 +44,10 @@
 import FormProfile from "@/components/FormProfile";
 import UserInfo from "@/components/home/profile/UserInfo";
 import UserInfo_Mod from "@/components/home/profile/UserInfo_Mod";
+import UpdateLog from "@/components/home/update/UpdateLog";
 export default {
   name: "Home_Auth",
-  components: {UserInfo_Mod, UserInfo, FormProfile},
+  components: {UpdateLog, UserInfo_Mod, UserInfo, FormProfile},
   data() {
     return{
       isMod: false
@@ -106,13 +98,9 @@ export default {
   margin: 10px 10px 10px 20px;
   background-color: rgba(247, 247, 247, 0.2) !important;
   border: none !important;
+  color: #0a0a0a;
 }
 
-.overlay-i h1{
-  font-size: 45px;
-  text-align: center;
-  font-weight: bold;
-}
 .overlay-i h2{
   font-size: 2rem;
   text-align: center;
@@ -120,10 +108,19 @@ export default {
   padding-top: 1rem;
   color: #f0ad4e;
 }
-.overlay-i p{
-  font-size: 24px;
-  color: #e6e6e6;
-  text-align: center;
-  padding-top: 0.3rem;
+.card-title{
+  background: #fff;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  padding: 7px 14px 7px 14px;
+  font-size: 1.3em;
+  color: #0a0a0a;
+}
+.list-group-item-none{
+  background: rgba(255,255,255, 0);
+  border-radius: 0;
+}
+.list-group-item-none p{
+  color: #e2e3e5 !important;
 }
 </style>

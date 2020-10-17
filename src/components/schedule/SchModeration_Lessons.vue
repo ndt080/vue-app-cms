@@ -49,23 +49,6 @@
               <option value="list-group-item-secondary">отсутствует</option>
             </select>
           </div>
-            <!-- Queue -->
-            <div class="col-md-5" v-if="week && dateWeek && lesson">
-                Форма очереди:
-                <select class="custom-select my-1 mr-sm-2 form-control"
-                        v-model="queueLes">
-                    <option :value="null" disabled>нужна очередь?</option>
-                    <option selected value='true'>Добавить</option>
-                    <option value='false'>Убрать</option>
-                </select>
-            </div>
-          <!-- Queue -->
-            <div class="col-md-5 text-form-group" v-if="queueLes === 'true'">
-              <input type="text" class="form-control" placeholder="#1 преподаватель" v-model="queueLesTeach1"/>
-            </div>
-            <div class="col-md-5 text-form-group" v-if="queueLes === 'true'">
-              <input type="text" class="form-control" placeholder="#2 преподаватель" v-model="queueLesTeach2"/>
-            </div>
         </div>
 
         <!-- common: timeFrom, timeTo -->
@@ -162,10 +145,7 @@
             cabOne: null,
             cabTwo: null,
             homework: null,
-            colorLes: null,
-            queueLes: null,
-          queueLesTeach1: null,
-          queueLesTeach2: null
+            colorLes: null
         }),
         validations: {
           week: {required},
@@ -179,10 +159,7 @@
           cabOne: {},
           cabTwo: {},
           homework: {},
-          colorLes: {},
-          queueLes: {},
-          queueLesTeach1: {},
-          queueLesTeach2: {}
+          colorLes: {}
         },
         methods:{
             async submitHandler (){
@@ -202,12 +179,7 @@
                   cabOne: this.cabOne,
                   cabTwo: this.cabTwo,
                   homework: this.homework,
-                  colorLes: this.colorLes,
-                  queue: {
-                    queueLes: this.queueLes,
-                    queueLesTeach1: this.queueLesTeach1,
-                    queueLesTeach2: this.queueLesTeach2,
-                  },
+                  colorLes: this.colorLes
                 }
                 try{
                     await this.$store.dispatch('modSchedule', formData)

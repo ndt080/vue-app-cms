@@ -75,7 +75,7 @@ export default {
         }
         if(dateSch.toISOString().split('T')[0] === dateNow.toISOString().split('T')[0]) {
           //NOW LESSON COLOR
-          if(this.setTime(dateSch, timeSch) >= dateNow && this.setTime(dateSch, timeEndSch) >= dateNow){
+          if(this.setTime(dateSch, timeSch) <= dateNow && this.setTime(dateSch, timeEndSch) >= dateNow){
             this.nowTypeLes = true
           }
         }

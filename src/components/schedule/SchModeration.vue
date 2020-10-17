@@ -36,15 +36,27 @@
                 <SchModeration_Lessons />
             </div>
         </section>
+      <section>
+        <a  href="#collapseQueue" class="text-justify" data-toggle="collapse">
+          Настройка очереди
+          <svg width="0.7em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-down-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+          </svg>
+        </a>
+        <div class="collapse" id="collapseQueue">
+          <SchModeration_Queue />
+        </div>
+      </section>
     </div>
 </template>
 
 <script>
     import SchModeration_Lessons from "./SchModeration_Lessons";
     import {required} from "vuelidate/lib/validators";
+    import SchModeration_Queue from "@/components/schedule/SchModeration_Queue";
     export default {
         name: "SchModeration",
-        components: {SchModeration_Lessons},
+        components: {SchModeration_Queue, SchModeration_Lessons},
         data: () => ({
             dateFrom: '',
         }),

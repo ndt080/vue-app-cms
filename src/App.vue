@@ -24,7 +24,12 @@
     components: {
       EmptyLayout, MainLayout, HomeLayout
     },
-
+    async mounted() {
+      let date = new Date();
+      if (date.getDay() === 6 && (date.getHours() === 21) && (date.getMinutes() === 43)) {
+        await this.$store.dispatch('newWeekSchedule')
+      }
+    },
   }
 </script>
 <style lang="scss">

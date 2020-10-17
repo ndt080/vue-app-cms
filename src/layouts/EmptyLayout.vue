@@ -9,6 +9,7 @@
 
 <script>
   import Nav from "../components/nav/Nav";
+  import firebase from "firebase";
     export default {
       name: "EmptyLayout",
       data: () => ({

@@ -2,13 +2,18 @@ import firebase from "firebase/app";
 export default {
     state: {
         info: {},
+        UID: {},
     },
     mutations: {
         setInfo(state, info){
             state.info = info
         },
+        setUID(state, UID){
+            state.UID = UID
+        },
         clearInfo(state){
             state.info = {}
+            state.UID = {}
         }
     },
     actions: {
@@ -17,6 +22,7 @@ export default {
                 const uid = await dispatch('getUID')
                 const info = (await firebase.database().ref(`/users/${uid}/info`).once('value')).val()
                 commit('setInfo', info)
+                commit('setUID', uid)
             } catch (e){
             }
         },
@@ -65,6 +71,7 @@ export default {
         },
     },
     getters: {
-        info: s => s.info
+        info: s => s.info,
+        UID: s => s.UID
     }
 }

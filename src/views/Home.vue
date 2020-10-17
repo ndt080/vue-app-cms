@@ -1,7 +1,10 @@
 <template>
   <div class="overlay-i">
     <TopNav/>
-    <Home_Auth/>
+    <Loader v-if="loading"
+            style="margin-top: 2rem"
+    />
+    <Home_Auth v-else/>
   </div>
 </template>
 
@@ -14,6 +17,15 @@ export default {
     components: {Home_Auth, TopNav},
     metaInfo:{
     title: 'Главная'
+  },
+  data() {
+    return{
+      loading: true,
+    }
+  },
+  async mounted() {
+    await this.$store.dispatch('fetchInfo')
+    this.loading = false
   },
 }
 </script>

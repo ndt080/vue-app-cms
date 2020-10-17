@@ -13,14 +13,6 @@ export default {
         ],
         schedule_next: {},
         isNewWeek: false,
-        queue: {
-            type: Object,
-            status: Boolean,
-            lesson: Number,
-            teach1: String,
-            teach2: String,
-        },
-        queueArr: []
     },
     mutations: {
         setSchedule(state, schedule){
@@ -33,15 +25,8 @@ export default {
             state.schedule = {}
             state.schedule_next = {}
             state.queue = {}
+            state.postsUpdate = {}
         },
-        clearQueue(state) {
-            state.queue = {}
-            state.queueArr = []
-        },
-        setQueueStatus(state, queue){
-            state.queue = queue
-            state.queueArr.push(state.queue)
-        }
     },
     actions: {
         async fetchSchedule({dispatch, commit}) {
@@ -51,19 +36,12 @@ export default {
 
                 const schedule_next = (await firebase.database().ref(`/scheduleC${this.getters.info.course}G${this.getters.info.group}_next`).once('value')).val()
                 commit('setScheduleNext', schedule_next)
+                //ДЛЯ ОТЛАДКИ--
                 const update = (await firebase.database().ref(`/update`).once('value')).val()
-               //ДЛЯ ОТЛАДКИ--
-                    let date = new Date();
-                    if (date.getDay() === 6 && (date.getHours() === 20) && (date.getMinutes() === 0)) {
-                        await firebase.database().ref(`/update`).child('status').transaction(function () {
-                            return true
-                        })
-                    }
-                //--ДЛЯ ОТЛАДКИ)
                     if (update.status){
                         dispatch('newWeekSchedule')
                     }
-
+                //--ДЛЯ ОТЛАДКИ)
             } catch (e){ }
         },
         async newWeekSchedule({dispatch}) {
@@ -147,7 +125,7 @@ export default {
                 throw e
             }
         },
-        async modSchedule({dispatch, commit}, {week, dateWeek, lesson, timeFrom, timeTo, subject, teachOne, teachTwo, cabOne, cabTwo, homework, colorLes, queue}){
+        async modSchedule({dispatch, commit}, {week, dateWeek, lesson, timeFrom, timeTo, subject, teachOne, teachTwo, cabOne, cabTwo, homework, colorLes}){
             try{
                 if(week==='_now'){
                     week = ''
@@ -215,64 +193,16 @@ export default {
                         }
                     )
                 }
-                if(dateWeek && lesson && queue.queueLes){
-                    queue.queueLes = queue.queueLes === 'true';
-                    let conn = await firebase.database().ref(`/scheduleC${this.getters.info.course}G${this.getters.info.group}${week}/${dateWeek}/`).child('queue')
-                    conn.transaction(function () {
-                            return { status: queue.queueLes, lesson: queue.queueLes?lesson:null, teach1: queue.queueLesTeach1 , teach2: queue.queueLesTeach2}
-                        }
-                    )
-                    if(queue.queueLes === false){
-                        await firebase.database().ref(`/scheduleC${this.getters.info.course}G${this.getters.info.group}${week}/${dateWeek}/lessons/${lesson}`)
-                            .child('qPeople').remove()
-                    }
-                }
             }catch (e){
                 commit('setError', e)
                 throw e
             }
         },
-        async modQueue({dispatch, commit}, {user, cardID, week,  lesson, teacher}) {
-            try {
-                await firebase.database().ref(`/scheduleC${this.getters.info.course}G${this.getters.info.group}${week?'':'_next'}/${cardID}/lessons/${lesson}`)
-                    .child('qPeople').push({user: user, teach: teacher})
-            } catch (e) {
-                commit('setError', e)
-                throw e
-            }
-        },
-        async delRecQueue({commit}, {cardID, week,  lesson, recID}) {
-            try {
-                await firebase.database().ref(`/scheduleC${this.getters.info.course}G${this.getters.info.group}${week?'':'_next'}/${cardID}/lessons/${lesson}/qPeople/${recID}`).remove()
-            } catch (e) {
-                commit('setError', e)
-                throw e
-            }
-        },
-        fetchQueue({commit},{index, week}){
-            try{
-                let queue
-                if(week){
-                    queue = this.getters.schedule[index].queue
-                }else{
-                    queue = this.getters.schedule_next[index].queue
-                }
-                if(queue){
-                    commit('setQueueStatus', queue)
-                }else{
-                    commit('setQueueStatus', queue = {status: false, lesson: null})
-                }
-            } catch (e) {
-                commit('setError', e)
-                throw e
-            }
-        }
     },
     getters:{
         schedule_next: s => s.schedule_next,
         schedule: s => s.schedule,
         daysSch: s => s.daysSch,
-        queueArr: s => s.queueArr,
     },
 
 
