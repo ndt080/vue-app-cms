@@ -70,7 +70,7 @@ export default {
   methods: {
     deleteObject() {
       try{
-        if((this.que.userID?this.UID === this.que.userID:this.UID) || status === 'admin'){
+        if((this.que.userID?this.UID === this.que.userID:this.UID) || this.$store.getters.info.status === 'admin'){
           if(confirm("Удалить запись?")) {
             const tmp = {
               queueID: this.data.queueID,
