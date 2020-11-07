@@ -1,4 +1,5 @@
 import firebase from "firebase/app";
+
 export default {
     state: {
         postsUpdate: {},
@@ -6,7 +7,7 @@ export default {
     },
     mutations: {
         setPostsUpdate(state, postsUpdate){
-            state.postsUpdate = postsUpdate
+            state.postsUpdate =  postsUpdate.reverse()
         },
         setPostsSchedule(state, postsSchedule){
             state.postsSchedule = postsSchedule
@@ -15,9 +16,8 @@ export default {
     actions: {
         async fetchPostsUpdate({commit}) {
             try {
-                const posts = (await firebase.database().ref(`/update/posts/`).once('value')).val()
-                console.log(posts.length)
-                commit('setPostsUpdate', posts)
+                let posts = (await firebase.database().ref(`/update/posts/`).once('value')).val()
+                commit('setPostsUpdate', Object.values(posts))
             } catch (e){
             }
         },

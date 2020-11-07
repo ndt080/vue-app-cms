@@ -7,6 +7,7 @@
     <div class="card-body-text">
       <p class="text-justify" style="white-space: pre-line">{{post.text}}</p>
     </div>
+    <hr/>
   </li>
 </template>
 
@@ -25,11 +26,16 @@ name: "Post_update",
 <style scoped>
 .list-group-item-none{
   background: rgba(255,255,255,0.5) !important;
+  border: none;
+  padding: 0;
 }
 .title{
+  font-size: 1.3rem;
   font-weight: bold;
 }
 .date{
-  color: #0275d8;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #3740ff;
 }
 </style>

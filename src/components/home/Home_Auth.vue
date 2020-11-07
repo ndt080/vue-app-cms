@@ -1,41 +1,24 @@
 <template>
-  <div class="home-auth-content">
-    <h2 class="text-center">Здрямс{{', '+name}} &#129325;</h2>
-    <div class="card-deck" style="padding: 0; margin: 0 0 0 -20px !important;">
-      <div class="card card-profile-settings" style="max-width: 15%">
-        <img :src="require(`@/assets/img/hacker.svg`)" class="card-img-top" alt="avatar"
-             v-if="!ava"/>
-        <img :src="ava" class="card-img-top" alt="avatar"
-             v-else/>
-        <div class="card-body">
-          <h5 class="card-title text-center"
-              :class="status==='admin'?['list-group-item-primary']:['list-group-item-success']"
-              style="padding: 5px; border-radius: 0.3rem">{{status}}</h5>
-          <a href="#" class="btn btn-primary"
-             style="width: 100%; margin-bottom: 10px"
-             @click.prevent="isModeration">Редактировать профиль</a>
-          <UserInfo v-if="!isMod"/>
-          <UserInfo_Mod v-if="isMod"/>
-        </div>
-      </div>
+  <div class="card-deck">
+    <div class="card" style="border: none; padding: 2rem 0.5rem 2rem 2rem; max-width: 20rem">
+      <img :src="require(`@/assets/img/hacker.svg`)" class="card-img-top img-ava" alt="avatar"
+           v-if="!ava"/>
+      <img :src="ava" class="card-img-top img-ava" alt="avatar"
+           v-else/>
+      <button class="btn text-center"
+              :class="status==='admin'?['admin']:['user']"
+              style="padding: 5px; border-radius: 0.3rem; margin-bottom: 10px">{{status}}</button>
+      <button class="btn text-center"
+              id="primary"
+              style="padding: 5px; border-radius: 0.3rem; margin-bottom: 10px"
+              @click.prevent="isModeration">Изменить данные</button>
+      <UserInfo v-if="!isMod"/>
+      <UserInfo_Mod v-else/>
+    </div>
 
-      <div class="card-deck card-deck-common-settings" style="max-width: 75%">
-        <div class="card card-common-settings" style="max-width: 48rem">
-          <div class="card-title">ОБЩИЕ НАСТРОЙКИ:</div>
-          <div class="card-body">
-          </div>
-        </div>
-        <div class="card card-common-settings" style="max-width: 48rem">
-          <div class="card-title">-- --</div>
-          <div class="card-body">
-          </div>
-        </div>
-
-        <div class="w-50 d-none d-sm-block d-md-none"><!-- wrap every card on sm--></div>
-        <div class="w-50 d-none d-lg-block d-md-block d-xl-none"><!-- wrap every 2 on lg and md--></div>
-
-        <UpdateLog/>
-      </div>
+    <div class="card" style="border: none; padding: 2rem 0.5rem 2rem 2rem; max-width: 100%">
+      <h2 class="text-center">Здрямс{{', '+name}} &#129325;</h2>
+      <UpdateLog/>
     </div>
   </div>
 </template>
@@ -74,39 +57,17 @@ export default {
 </script>
 
 <style scoped>
-@media (max-width: 700px){
-  .card-profile-settings{
-    max-width: 48rem !important;
-  }
+.img-ava{
+  border-radius: 0.25rem !important;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25) !important;
+  margin-bottom: 30px;
 }
-@media (max-width: 1440px) {
-  .card-deck-common-settings {
-    max-width: 48rem !important;
-  }
-}
-@media (max-width: 1280px) {
-  .card-deck-common-settings {
-    max-width: 60%!important;
-  }
-}
-@media (max-width: 1150px) {
-  .card-deck-common-settings {
-    max-width: 24rem !important;
-  }
-}
-.card{
-  margin: 10px 10px 10px 20px;
-  background-color: rgba(247, 247, 247, 0.2) !important;
-  border: none !important;
-  color: #0a0a0a;
-}
-
 .overlay-i h2{
   font-size: 2rem;
   text-align: center;
   font-weight: bold;
-  padding-top: 1rem;
-  color: #f0ad4e;
+  color: #3740ff;
+  padding-bottom: 1rem;
 }
 .card-title{
   background: #fff;
@@ -123,4 +84,13 @@ export default {
 .list-group-item-none p{
   color: #e2e3e5 !important;
 }
+.admin{
+  color: #fff;
+  background: #0a0a0a;
+}
+.user{
+  color: #fff;
+  background: #e51661;
+}
+
 </style>

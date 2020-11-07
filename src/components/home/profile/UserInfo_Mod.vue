@@ -1,5 +1,5 @@
 <template>
-  <form class="card-body form-group" @submit.prevent="submitHandler" action='' method="POST">
+  <form class="form-group" @submit.prevent="submitHandler" action='' method="POST">
     <table class="table table-hover">
       <tbody>
         <tr class="form-group">
@@ -43,13 +43,9 @@
                    v-model.trim="dataGroup" />
           </td>
         </tr>
-        <tr class="form-group">
-          <td colspan="2">
-            <button class="btn btn-success">СОХРАНИТЬ</button>
-          </td>
-        </tr>
       </tbody>
     </table>
+    <button class="btn btn-success">СОХРАНИТЬ</button>
   </form>
 </template>
 
@@ -145,13 +141,16 @@
 </script>
 
 <style scoped>
-    .btn{
-        width: 100%;
-    }
-    .table-header{
-      color: #f0ad4e;
-    }
-    .table-section{
-      color: #f7f7f7;
-    }
+  .btn{
+      width: 100%;
+  }
+  .table-header{
+     font-weight: bold;
+     color: #e51661;
+     width: 45%;
+   }
+  .table-section{
+    font-weight: bold;
+    color: #0a0a0a;
+  }
 </style>

@@ -25,27 +25,20 @@ body{
     position: absolute;
     width: 100%;
     min-height: 100%;
-    /*background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%); */
-    background: rgb(41, 43, 44) url("../img/pattern.svg") repeat repeat center fixed;
-    background-size: contain;
-    -webkit-background-size: contain;
-    -o-background-size: contain;
-    -moz-background-size: contain;
 }
-.home-layout .content, .empty-layout .content{
-    background: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
-}
+
 .main-layout .content, .home-layout .content, .empty-layout .content{
     margin-right: 4.2rem;
 }
 /* CLOSE LAYOUT BLOCK */
-
-.template-main-container{
-    display: block;
-    width: 100%;
-    padding-right: 2rem;
+#primary{
+    color: #fff;
+    background: #3740ff;
+    border: none;
 }
-
+#primary:hover{
+    background: #000ad1;
+}
 .site-header-text {
     margin: 0;
     padding-top: 0.5rem;

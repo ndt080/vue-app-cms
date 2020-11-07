@@ -5,10 +5,7 @@
       <div class="bars">
         <div class="dropleft">
           <a href="#" data-toggle="dropdown">
-            <img :src="require(`@/assets/img/3.svg`)" class="nav-elements" alt="avatar"
-                 v-if="!ava"/>
-            <img :src="ava" class="nav-elements" alt="avatar"
-                 v-else/>
+            <img :src="require(`@/assets/img/3.svg`)" class="nav-elements" alt="avatar"/>
           </a>
           <LoginNav />
         </div>
@@ -30,11 +27,11 @@
         </div>
       </div>
       <!-- helpful link -->
-      <div class="bars">
+<!--      <div class="bars">
         <a href="#">
           <img :src="require(`@/assets/img/helpful.svg`)"  title="Полезная информация и материалы" class="nav-elements" alt="Полезное" />
         </a>
-      </div>
+      </div>-->
       <!-- schedule link -->
       <div class="bars">
         <router-link to="/schedule">
@@ -110,11 +107,6 @@
         }
       }
     },
-    computed: {
-      ava (){
-        return this.$store.getters.info.ava
-      },
-    },
     methods:{
       openMenu(event) {
         this.isOpen = !this.isOpen;
@@ -146,7 +138,7 @@
     -webkit-transition: 1s cubic-bezier(0.645, 0.045, 0.355, 1);
     transition: 1s cubic-bezier(0.645, 0.045, 0.355, 1);
     will-change: width;
-    z-index: 1;
+    z-index: 2;
   }
   .nav.active {
     width: 100vw;

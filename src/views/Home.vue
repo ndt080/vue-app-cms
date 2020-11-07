@@ -1,10 +1,13 @@
 <template>
   <div class="overlay-i">
     <TopNav/>
-    <Loader v-if="loading"
-            style="margin-top: 2rem"
-    />
-    <Home_Auth v-else/>
+    <div></div>
+    <div style="padding-top: 7rem;">
+      <Loader v-if="loading"
+              style="margin-top: 2rem"
+      />
+      <Home_Auth v-else/>
+    </div>
   </div>
 </template>
 
@@ -32,32 +35,22 @@ export default {
 
 <style scoped>
 .overlay-i {
-  padding: 2% 5rem 3% 3%;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: space-between;
   margin: 0 auto;
   width: 96vw;
   min-height: 100vh;
+  padding: 0 5rem 1rem 3%;
+
   font-family: 'Oswald', sans-serif;
-  color: rgb(154,198,172);
+  color: #0a0a0a;
 }
-  @media (max-width: 500px) {
-    .overlay-i{
-      padding: 3% 4.4rem 3% 3%;
-    }
-    footer{
-      padding: 0 5rem 0 1.5rem !important;
-    }
+
+@media (max-width: 500px) {
+  .overlay-i{
+    padding: 0 4.4rem 1rem 3%;
   }
-  footer{
-    display: inline-flex;
-    justify-content: space-between;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    padding: 0 5rem 0 3rem;
-  }
-  footer p{
-    font-size: 1.3em !important;
-    color: #9ac6ac !important;
-  }
+}
 </style>

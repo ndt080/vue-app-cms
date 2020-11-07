@@ -140,83 +140,88 @@
 </template>
 
 <script>
-    import Card from "../components/schedule/Card";
-    import {mapMutations, mapActions, mapGetters} from "vuex";
-    import SchModeration from "../components/schedule/SchModeration";
-    import CardQ from "../components/schedule/queue/CardQ";
-    export default {
-        name: "Schedule",
-        metaInfo:{
-          title: 'Расписание'
-        },
-        components: {CardQ, SchModeration, Card},
-        data() {
-            return{
-                isLogin: this.isAuth(),
-                isWeek: false,
-                selected: 'actual_week',
-                isMod: false,
-                loading: true,
-                isNull: false,
-                isScroller: false,
-                isQSh: false,
-                date: new Date(),
-              interval: null
-            }
-        },
-        async mounted() {
-            await this.$store.dispatch('fetchSchedule')
-            await this.$store.dispatch('fetchQueue')
-            this.loading = false
-             if(!this.$store.getters.schedule){
-                 this.isNull = true
-            }
-             this.interval = setInterval(() => {
-                this.date = new Date()
-             }, 1000)
-        },
-        methods:{
-            isAuth(){
-                const auth = localStorage.getItem('userAuth')
-                return auth === 'yes';
-            },
-            isModeration(){
-                return this.isMod = !this.isMod
-            },
-            isScroll(){
-                return this.isScroller = !this.isScroller
-            },
-            isQueueShow(){
-                return this.isQSh = !this.isQSh
-            },
-            async refresh(){
-                this.loading = true;
-                await this.$store.dispatch('fetchSchedule')
-                this.isNull = !this.$store.getters.schedule;
-                this.loading = false
-            }
-        },
-        computed:{
-          schedule_next (){
-            return this.$store.getters.schedule_next
-          },
-          schedule (){
-            return this.$store.getters.schedule
-          },
-          course (){
-            return this.$store.getters.info.course
-          },
-          group (){
-            return this.$store.getters.info.group
-          },
-          queue (){
-            return this.$store.getters.queue
-          }
-        },
-      beforeDestroy() {
-          clearInterval(this.interval)
+  import Card from "../components/schedule/Card";
+  import {mapMutations, mapActions, mapGetters} from "vuex";
+  import SchModeration from "../components/schedule/SchModeration";
+  import CardQ from "../components/schedule/queue/CardQ";
+  export default {
+    name: "Schedule",
+    metaInfo:{
+      title: 'Расписание'
+    },
+    components: {CardQ, SchModeration, Card},
+    data() {
+      return{
+        isLogin: this.isAuth(),
+        isWeek: false,
+        selected: 'actual_week',
+        isMod: false,
+        loading: true,
+        isNull: false,
+        isScroller: false,
+        isQSh: false,
+        date: new Date(),
+        interval: null
       }
+    },
+    async mounted() {
+      this.isQSh = this.routerData
+      await this.$store.dispatch('fetchSchedule')
+      await this.$store.dispatch('fetchQueue')
+      this.loading = false
+       if(!this.$store.getters.schedule){
+           this.isNull = true
+      }
+       this.interval = setInterval(() => {
+          this.date = new Date()
+       }, 1000)
+    },
+    methods:{
+      isAuth(){
+        const auth = localStorage.getItem('userAuth')
+        return auth === 'yes';
+      },
+      isModeration(){
+        return this.isMod = !this.isMod
+      },
+      isScroll(){
+        return this.isScroller = !this.isScroller
+      },
+      isQueueShow(){
+        this.isQSh?this.$router.push('/schedule'):this.$router.push('/queue')
+        return this.isQSh = !this.isQSh
+      },
+      async refresh(){
+        this.loading = true;
+        await this.$store.dispatch('fetchSchedule')
+        this.isNull = !this.$store.getters.schedule;
+        this.loading = false
+      }
+    },
+    computed:{
+      schedule_next (){
+        return this.$store.getters.schedule_next
+      },
+      schedule (){
+        return this.$store.getters.schedule
+      },
+      course (){
+        return this.$store.getters.info.course
+      },
+      group (){
+        return this.$store.getters.info.group
+      },
+      queue (){
+        return this.$store.getters.queue
+      },
+      routerData(){
+         return this.$route.meta.data === 'queue'
+      } ,
+    },
+    beforeDestroy() {
+      clearInterval(this.interval)
     }
+  }
 </script>
 
 <style scoped>

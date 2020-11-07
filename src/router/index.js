@@ -23,19 +23,25 @@ const router = new VueRouter({
     {
       path: '/about',
       name: 'About',
-      meta: { layout: 'main' },
+      meta: { layout: 'empty' },
       component: () => import('../views/About.vue')
     },
     {
       path: '/schedule',
       name: 'Schedule',
-      meta: { layout: 'main', auth: true },
+      meta: { layout: 'main', auth: true,  data: 'schedule'},
+      component: () => import('../views/Schedule.vue')
+    },
+    {
+      path: '/queue',
+      name: 'Queue',
+      meta: { layout: 'main', auth: true, data: 'queue'},
       component: () => import('../views/Schedule.vue')
     },
     {
       path: '/faq',
       name: 'FAQ',
-      meta: { layout: 'main' },
+      meta: { layout: 'empty' },
       component: () => import('../views/FAQ.vue')
     }
   ]
@@ -46,7 +52,7 @@ router.beforeEach((to, from, next) => {
   const requireAuth = to.matched.some(record => record.meta.auth)
 
   if (requireAuth && !currentUser) {
-    next('/login?message=login')
+    next('/login')
   } else {
     next()
   }

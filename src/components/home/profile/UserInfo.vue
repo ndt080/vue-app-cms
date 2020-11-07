@@ -39,9 +39,12 @@
 
 <style scoped>
 .table-header{
-  color: #f0ad4e;
+  font-weight: bold;
+  color: #e51661;
+  width: 45%;
 }
 .table-section{
-  color: #f7f7f7;
+  font-weight: bold;
+  color: #0a0a0a;
 }
 </style>

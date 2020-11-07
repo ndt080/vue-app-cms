@@ -15,10 +15,11 @@ import firebase from "firebase/app";
 import 'firebase/auth';
 import 'firebase/database';
 
+
 Vue.config.productionTip = false
 Vue.use(Vuelidate);
 Vue.use(VueBootstrapToasts);
-Vue.use(VueMeta)
+Vue.use(VueMeta);
 Vue.component('Loader', Loader)
 Vue.filter('dateFilter', dateFilter)
 

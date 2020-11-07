@@ -103,15 +103,19 @@ export default {
     },
     deleteQueue() {
       try{
-        if(confirm("Вы действительно хотите удалить очередь?")) {
-          const tmp = {
-            queueID: this.ind,
+        if(this.$store.getters.info.status === 'admin') {
+          if (confirm("Вы действительно хотите удалить очередь?")) {
+            const tmp = {
+              queueID: this.ind,
+            }
+            this.$store.dispatch('removeQueue', tmp)
+            this.loading = true
+            this.$toast.success('Очередь удалена!');
+            this.$store.dispatch('fetchQueue')
+            this.loading = false
           }
-          this.$store.dispatch('removeQueue', tmp)
-          this.loading = true
-          this.$toast.success('Очередь удалена!');
-          this.$store.dispatch('fetchQueue')
-          this.loading = false
+        } else{
+          this.$toast.warning('НЕДОСТАТОЧНО ПРАВ! Обратитесь к администратору для удаления данной очереди!');
         }
       }catch (e) {
         this.$toast.error('Ошибка удаления очедери!');

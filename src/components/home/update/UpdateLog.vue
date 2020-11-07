@@ -1,8 +1,8 @@
 <template>
-  <div class="card card-common-settings" style="max-width: 100%; max-height: 25rem">
-    <div class="card-title" style="margin: 0">UPDATE LOG:</div>
-    <ul class="list-group" style="overflow-y: scroll;">
-      <Post_update  v-for="(post, i) of posts"
+  <div>
+    <h3 class="post-header">Доска объявлений </h3>
+    <ul class="list-group">
+      <Post_update  v-for="(post, i) in posts"
                     v-bind:key="post.id"
                     v-bind:index="i"
                     v-bind:post="post"
@@ -18,8 +18,10 @@
 <script>
 import Post_update from "@/components/home/update/Post_update";
 import AddPost_update from "@/components/home/update/AddPost_update";
+import posts from "@/store/posts";
+
 export default {
-name: "UpdateLog",
+  name: "UpdateLog",
   components: {AddPost_update, Post_update},
   async mounted() {
     await this.$store.dispatch('fetchPostsUpdate')
@@ -31,24 +33,16 @@ name: "UpdateLog",
     posts() {
       return this.$store.getters.postsUpdate
     },
-  }
+  },
 }
 </script>
 
 <style scoped>
-.card-title{
-  background: #fff;
-  border-top-left-radius: 0.25rem;
-  border-top-right-radius: 0.25rem;
-  padding: 7px 14px 7px 14px;
-  font-size: 1.3em;
-  color: #0a0a0a;
-}
-.list-group-item-none{
-  background: rgba(255,255,255, 0);
-  border-radius: 0;
-}
-.list-group-item-none p{
-  color: #e2e3e5 !important;
+.post-header{
+  color: #fff;
+  background: #3740ff;
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  text-align: center;
 }
 </style>
