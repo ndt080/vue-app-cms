@@ -57,6 +57,11 @@ export default {
 </script>
 
 <style scoped>
+@media (max-width: 700px) {
+  .card{
+    padding-bottom: 0 !important;
+  }
+}
 .img-ava{
   border-radius: 0.25rem !important;
   box-shadow: 0 14px 28px rgba(0,0,0,0.25) !important;

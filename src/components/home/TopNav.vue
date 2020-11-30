@@ -7,11 +7,13 @@
       <h4><router-link to="/">МЕНЕДЖЕР РАСПИСАНИЯ ФПМИ БГУ</router-link></h4>
     </div>
     <button class="btn text-right install"
-            v-if="deferredPrompt"
-            @onClick.prevent="this.installApp()">Install</button>
+            data-toggle="modal" data-target="#exampleModal"
+            v-if="deferredPrompt">Install</button>
     <router-link v-else to="/schedule">
       <button class="btn text-right install">Расписание</button>
     </router-link>
+
+
   </header>
 </template>
 
@@ -24,16 +26,19 @@
       };
     },
     created() {
-      window.addEventListener("beforeinstallprompt", e => {
+      window.addEventListener("BeforeInstallPrompt", e => {
         e.preventDefault();
         // Stash the event so it can be triggered later.
         this.deferredPrompt = e;
       });
-      window.addEventListener("appinstalled", () => {
+      window.addEventListener("appInstalled", () => {
         this.deferredPrompt = null;
       });
     },
     methods: {
+      async dismiss() {
+        this.deferredPrompt = null;
+      },
       async installApp() {
         this.deferredPrompt.prompt();
       }
@@ -46,7 +51,7 @@
     display: flex;
     position: fixed;
     width: 100vw;
-    min-height: 4.3rem;
+    height: 4.3rem;
     background: rgba(255,255,255,1);
     box-shadow: 0 14px 28px rgba(0,0,0,0.25);
     justify-content: space-between;
@@ -54,6 +59,17 @@
     z-index: 1;
     padding: 0 10% 0 10%;
     margin: 0;
+  }
+  @media (max-width: 700px) {
+    header{
+      height: 6rem;
+    }
+    header h4{
+      font-size: 1.1em;
+    }
+    .install{
+      padding: 5px 5px 5px 5px !important;
+    }
   }
   header h4{
     padding: 10px 0 0 5px;
