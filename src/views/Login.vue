@@ -1,6 +1,5 @@
 <template>
   <div class="overlay-i">
-    <TopNav/>
     <div></div>
     <div style="padding-top: 7rem;">
       <Login_login v-if="isLoginForm" />
@@ -22,7 +21,7 @@
 </template>
 
 <script>
-  import TopNav from "@/components/home/TopNav";
+  import TopNav from "@/components/nav/TopNav";
   import Login_registration from "@/components/login/Login_registration";
   import Login_login from "@/components/login/Login_login";
   export default {
@@ -51,22 +50,14 @@
   align-items: center;
   justify-content: space-between;
   margin: 0 auto;
-  width: 96vw;
+  width: 98vw;
   min-height: 100vh;
-  padding: 0 5rem 1rem 3%;
+  padding: 0 1rem 0 2rem;
 
   font-family: 'Oswald', sans-serif;
   color: #0a0a0a;
 }
 
-@media (max-width: 500px) {
-  .overlay-i{
-    padding: 0 4.4rem 1rem 3%;
-  }
-  footer{
-    padding: 0 5rem 0 1.5rem !important;
-  }
-}
 footer{
   display: inline-flex;
   justify-content: space-between;

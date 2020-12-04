@@ -1,6 +1,9 @@
 module.exports = {
   pwa: {
     name: 'Менеджер расписания ФПМИ БГУ',
-    themeColor: '#FFFFFF'
+    themeColor: '#000000',
+    manifestOptions: {
+      background_color: '#FFFFFF'
+    }
   }
 }

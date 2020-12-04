@@ -1,5 +1,5 @@
 <template>
-  <table class="table table-hover">
+  <table class="table table-hover animate__animated animate__zoomIn">
     <tbody>
     <tr>
       <td class="table-header">ФИО</td>

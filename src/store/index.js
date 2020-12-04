@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import auth from './auth'
-import sche from './sche'
+import schedule_global from './schedele_global'
+import schedule_common from "@/store/schedule_common";
 import queue from './queue'
 import info from './info'
 import posts from './posts'
@@ -27,6 +28,6 @@ export default new Vuex.Store({
     isEditT: s => s.isEditT
   },
   modules: {
-    auth, sche, info, queue, posts
+    auth, schedule_global, schedule_common, info, queue, posts
   }
 })

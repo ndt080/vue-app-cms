@@ -3,7 +3,7 @@
     <div class="card" style="border: none; padding: 3rem">
       <picture>
         <source :srcset="require(`@/assets/img/logo.webp`)" type="image/webp">
-        <img class="img-home" :src="require(`@/assets/img/sche1.svg`)" alt="ЛОГО" style="max-width: 90%"/>
+        <img class="img-home" :src="require(`@/assets/img/sche1.svg`)" alt="ЛОГО" style="max-width: 19rem"/>
       </picture>
     </div>
       <form @submit.prevent="submitHandler"
@@ -12,7 +12,7 @@
             method="POST"
       >
         <div class="form-group">
-          <h1 style="text-align: center; color: #3740ff"><b>Добро пожаловать!</b></h1>
+          <h1 style="text-align: center; color: #3740ff; padding-top: 1rem"><b>Добро пожаловать!</b></h1>
         </div>
         <div class="form-group">
           <input type="email" class="form-control-lg" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"
@@ -55,7 +55,7 @@ name: "Login_login",
       }
       try{
         await this.$store.dispatch('login', formData)
-        await this.$router.push('/')
+        await this.$router.push('/schedule')
         await this.$toast.success('Вы успешно авторизировались!');
       }catch (e) {
         this.$toast.error(e);
@@ -71,7 +71,7 @@ name: "Login_login",
     border-color: rgba(0,0,0,0.1);
   }
   form{
-    width: 20rem;
+    width: 25rem;
   }
   .img-home{
     box-shadow: 0 14px 28px rgba(0,0,0,0.25);

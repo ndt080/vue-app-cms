@@ -1,5 +1,5 @@
 <template>
-  <form class="form-group" @submit.prevent="submitHandler" action='' method="POST">
+  <form class="form-group animate__animated animate__zoomIn" @submit.prevent="submitHandler" action='' method="POST">
     <table class="table table-hover">
       <tbody>
         <tr class="form-group">

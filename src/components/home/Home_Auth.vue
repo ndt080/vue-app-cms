@@ -1,9 +1,9 @@
 <template>
   <div class="card-deck">
-    <div class="card" style="border: none; padding: 2rem 0.5rem 2rem 2rem; max-width: 20rem">
-      <img :src="require(`@/assets/img/hacker.svg`)" class="card-img-top img-ava" alt="avatar"
+    <div class="card animate__animated animate__zoomIn" style="border: none; padding: 2rem 0.5rem 2rem 2rem; max-width: 20rem">
+      <img :src="require(`@/assets/img/hacker.svg`)" class="card-img-top img-ava animate__animated animate__zoomIn" alt="avatar"
            v-if="!ava"/>
-      <img :src="ava" class="card-img-top img-ava" alt="avatar"
+      <img :src="ava" class="card-img-top img-ava animate__animated animate__zoomIn" alt="avatar"
            v-else/>
       <button class="btn text-center"
               :class="status==='admin'?['admin']:['user']"
@@ -16,7 +16,7 @@
       <UserInfo_Mod v-else/>
     </div>
 
-    <div class="card" style="border: none; padding: 2rem 0.5rem 2rem 2rem; max-width: 100%">
+    <div class="card animate__animated animate__bounceInDown" style="border: none; padding: 2rem 0.5rem 2rem 2rem; max-width: 100%">
       <h2 class="text-center">Здрямс{{', '+name}} &#129325;</h2>
       <UpdateLog/>
     </div>

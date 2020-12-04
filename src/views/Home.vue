@@ -1,6 +1,5 @@
 <template>
   <div class="overlay-i">
-    <TopNav/>
     <div></div>
     <div style="padding-top: 7rem;">
       <Loader v-if="loading"
@@ -13,7 +12,7 @@
 
 <script>
 
-import TopNav from "../components/home/TopNav";
+import TopNav from "../components/nav/TopNav";
 import Home_Auth from "@/components/home/Home_Auth";
 export default {
   name: 'Home',
@@ -40,17 +39,12 @@ export default {
   align-items: center;
   justify-content: space-between;
   margin: 0 auto;
-  width: 96vw;
+  width: 98vw;
   min-height: 100vh;
-  padding: 0 5rem 1rem 3%;
+  padding: 0 3% 1rem 3%;
 
   font-family: 'Oswald', sans-serif;
   color: #0a0a0a;
 }
 
-@media (max-width: 500px) {
-  .overlay-i{
-    padding: 0 4.4rem 1rem 3%;
-  }
-}
 </style>

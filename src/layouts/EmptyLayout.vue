@@ -1,6 +1,7 @@
 <template>
   <div class="empty-layout">
-    <Nav />
+<!--    <Nav />-->
+    <TopNav />
     <div class="content">
       <router-view />
     </div>
@@ -12,12 +13,14 @@
   import Nav from "../components/nav/Nav";
   import firebase from "firebase";
   import Modal_install from "@/components/Modal_install";
+  import TopNav from "@/components/nav/TopNav";
     export default {
       name: "EmptyLayout",
       data: () => ({
         message: ''
       }),
       components:{
+        TopNav,
         Modal_install,
           Nav
       },

@@ -122,10 +122,10 @@
     }
 </script>
 <style scoped>
-.btn, .form-control {
-  width: 100%;
-}
-form{
-  font-size: 1.2em;
-}
+    .btn, .form-control {
+      width: 100%;
+    }
+    form{
+      font-size: 1.2em;
+    }
 </style>

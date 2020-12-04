@@ -90,7 +90,7 @@
 </template>
 
 <script>
-  import LoginNav from "./LoginNav";
+  import LoginNav from "./DropNav";
   export default {
     name: "Nav",
     components: {LoginNav},

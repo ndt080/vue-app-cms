@@ -1,5 +1,5 @@
 <template>
-  <div class="card mb-3 border card-border card-section--content" >
+  <div class="card mb-3 border card-border card-section--content animate__animated animate__fadeInLeft">
     <div class="card-header">
         <p class="alert text-left">{{card.title}}</p>
         <div class="text-right badge badge-light date-label" id="date-monday">{{date(card.date)}}</div>

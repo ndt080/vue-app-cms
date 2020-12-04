@@ -1,7 +1,7 @@
 <template>
   <div>
     <Loader v-if="loading"></Loader>
-    <div class="card mb-3 border card-border card-section--content"
+    <div class="card mb-3 border card-border card-section--content animate__animated animate__bounceInLeft"
          style="max-width: 25rem"
          v-if="!loading">
       <div class="card-header">

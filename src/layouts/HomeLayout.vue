@@ -1,6 +1,7 @@
 <template>
   <div class="home-layout">
-    <Nav />
+    <!--<Nav />-->
+    <TopNav />
     <div class="content">
       <router-view />
     </div>
@@ -11,9 +12,11 @@
 <script>
 import Nav from "../components/nav/Nav";
 import Modal_install from "@/components/Modal_install";
+import TopNav from "@/components/nav/TopNav";
   export default {
   name: "HomeLayout",
   components: {
+    TopNav,
     Modal_install,
     Nav
   },

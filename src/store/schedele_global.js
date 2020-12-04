@@ -13,6 +13,7 @@ export default {
         ],
         schedule_next: {},
         isNewWeek: false,
+
     },
     mutations: {
         setSchedule(state, schedule){
@@ -204,6 +205,8 @@ export default {
         schedule: s => s.schedule,
         daysSch: s => s.daysSch,
     },
-
+    setters:{
+        
+    },
 
 }

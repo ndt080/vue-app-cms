@@ -1,6 +1,7 @@
 <template>
   <div class="content">
-      <div class="moderation" v-bind:class="{ 'moderation-show': isMod }">
+    <TopNav_Sch />
+      <div class="moderation" v-bind:class="{ 'moderation-show': isMod }" style="margin-top: 4.3rem;">
         <div class="active close" style="opacity: 1">
           <a href="#" v-if="isLogin && isMod" @click.prevent="isModeration">
             <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -11,51 +12,21 @@
         <SchModeration v-if="isMod"/>
       </div>
       <div class="overlay-i" v-bind:class="{ 'moderation-show': isMod }">
-        <div class="card-deck" style="padding: 0; margin: 0;">
-          <a><p class="site-header-text">РАСПИСАНИЕ ЗАНЯТИЙ <span v-if="course">{{group}} ГРУППЫ {{course}} КУРСА</span></p></a>
-        </div>
-        <header @update-schedule="refresh()">
-          <button class="btn btn-dark" v-if="isLogin && !isMod" @click.prevent="isModeration">
-            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-              <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-            </svg>
-            <span>&nbsp; РЕДАКТИРОВАТЬ</span>
-          </button>
-          <button class="btn btn-danger" v-if="isLogin && isMod" @click.prevent="isModeration">ОТМЕНИТЬ</button>
-          <label>
-            <select class="custom-select my-1 mr-sm-2"
-                    @change.prevent="refresh()"
-                    v-model="selected"
-                    :disabled="isQSh">
-              <option value="actual_week">Текущая неделя</option>
-              <option value="next_week">Следующая неделя</option>
-            </select>
-          </label>
-          <button class="btn btn-light"
-                  title="Показать/закрыть очередь"
-                  v-if="isLogin"
-                  @click.prevent="isQueueShow">
-            <img class="scroll-icon" :src="require(`@/assets/img/queue.svg`)" alt="QUEUE"/>
-            ОЧЕРЕДЬ
-          </button>
-          <button class="btn btn-dark"
-                  title="Показать/закрыть скроллбар"
-                  v-if="isLogin"
-                  @click.prevent="isScroll">
-            <img class="scroll-icon" :src="require(`@/assets/img/scroll.svg`)" alt="Scrl"/>
-          </button>
-          <button class="btn btn-dark"
-                  title="Обновить расписание"
-                  v-if="isLogin"
-                  @click.prevent="refresh">
-            <img class="scroll-icon" :src="require(`@/assets/img/repeat.svg`)" alt="Repeat"/>
-          </button>
+        <header class="mobile__schedule-name  animate__animated animate__fadeInDown">
+          <img alt="logo"
+               width="25rem"
+               style="margin: 5px 10px 0 0"
+               :src="require(`@/assets/img/sche1.svg`)"
+          />
+          <p>&nbsp; &nbsp;</p>
+          <router-link to="/">
+            schedule.fpm {{course}} course {{group}} group
+          </router-link>
         </header>
         <Loader v-if="loading"></Loader>
         <!-- Дни недели -->
-        <div v-else-if="!loading && schedule">
-          <section v-if="this.selected === 'actual_week'"
+        <div v-else-if="(!loading && schedule)">
+          <section v-if="selected === 'actual_week'"
                    v-bind:class="{ 'card-section': !isScroller, 'card-section-with-scroll': isScroller  }">
             <Card v-if="!isQSh" v-for="(card, i) of schedule"
                   v-bind:key="card.id"
@@ -66,7 +37,7 @@
                   v-bind:title="card.title"
             />
           </section>
-          <section v-if="this.selected === 'next_week'"
+          <section v-if="selected === 'next_week'"
                    v-bind:class="{ 'card-section': !isScroller, 'card-section-with-scroll': isScroller  }">
             <Card v-if="!isQSh" v-for="(card, i) of schedule_next"
                   v-bind:key="card.id"
@@ -95,12 +66,12 @@
         </div>
 
         <div class="card-deck">
-          <div class="card mb-3 border card-border border card-border border card-border" style="max-width: 44rem">
+          <div class="card card-border animate__animated animate__fadeInDown" style="max-width: 60rem">
             <div class="card-body card-body-text">
             </div>
           </div>
           <div class="w-100 d-none d-sm-block d-md-none"><!-- wrap every card on sm--></div>
-          <div class="card mb-3 border card-border border card-border border card-border" style="max-width: 44rem">
+          <div class="card card-border animate__animated animate__fadeInDown " style="max-width: 30rem">
             <div class="card-body card-body-text">
               <ul class="list-group">
                 <li class="list-group-item list-group-item-success">
@@ -130,9 +101,6 @@
                 </li>
               </ul>
             </div>
-            <div class="card-footer">
-
-            </div>
           </div>
         </div>
       </div>
@@ -141,37 +109,30 @@
 
 <script>
   import Card from "../components/schedule/Card";
-  import {mapMutations, mapActions, mapGetters} from "vuex";
   import SchModeration from "../components/schedule/SchModeration";
   import CardQ from "../components/schedule/queue/CardQ";
+  import TopNav_Sch from "@/components/nav/TopNav_Sch";
+
   export default {
     name: "Schedule",
     metaInfo:{
       title: 'Расписание'
     },
-    components: {CardQ, SchModeration, Card},
+    components: {TopNav_Sch, CardQ, SchModeration, Card},
     data() {
       return{
         isLogin: this.isAuth(),
         isWeek: false,
-        selected: 'actual_week',
-        isMod: false,
-        loading: true,
-        isNull: false,
-        isScroller: false,
-        isQSh: false,
         date: new Date(),
         interval: null
       }
     },
     async mounted() {
-      this.isQSh = this.routerData
+      await this.$store.commit('setQueueShow', this.routerData)
       await this.$store.dispatch('fetchSchedule')
       await this.$store.dispatch('fetchQueue')
-      this.loading = false
-       if(!this.$store.getters.schedule){
-           this.isNull = true
-      }
+      await this.$store.commit('setLoading', false)
+      await this.$store.commit('setStateSchedule', !this.$store.getters.schedule)
        this.interval = setInterval(() => {
           this.date = new Date()
        }, 1000)
@@ -182,21 +143,8 @@
         return auth === 'yes';
       },
       isModeration(){
-        return this.isMod = !this.isMod
+        return this.$store.commit('setEditSchedule', !this.isMod)
       },
-      isScroll(){
-        return this.isScroller = !this.isScroller
-      },
-      isQueueShow(){
-        this.isQSh?this.$router.push('/schedule'):this.$router.push('/queue')
-        return this.isQSh = !this.isQSh
-      },
-      async refresh(){
-        this.loading = true;
-        await this.$store.dispatch('fetchSchedule')
-        this.isNull = !this.$store.getters.schedule;
-        this.loading = false
-      }
     },
     computed:{
       schedule_next (){
@@ -205,11 +153,29 @@
       schedule (){
         return this.$store.getters.schedule
       },
-      course (){
-        return this.$store.getters.info.course
+      loading (){
+        return this.$store.getters.loading
+      },
+      isNull(){
+        return this.$store.getters.isNullSchedule
+      },
+      selected(){
+        return this.$store.getters.selectedSchedule
+      },
+      isQSh(){
+        return this.$store.getters.queueShow
+      },
+      isScroller(){
+        return this.$store.getters.scrollerShow
+      },
+      isMod(){
+        return this.$store.getters.editSchedule
       },
       group (){
         return this.$store.getters.info.group
+      },
+      course (){
+        return this.$store.getters.info.course
       },
       queue (){
         return this.$store.getters.queue
@@ -228,15 +194,22 @@
   .content{
     display: inline-flex;
   }
+  .overlay-i {
+    padding: 5.5rem 1% 2% 2%;
+    width: 98vw;
+    background-attachment: scroll;
+    max-width: 100vw;
+    min-height: 100vh;
+  }
   .close{
     position: absolute;
     right: 10px;
     top: 10px;
-    z-index: 11;
+    z-index: 6 !important;
   }
   .moderation{
     display: none;
-    width: 0;
+    z-index: 3 !important;
   }
   .moderation.moderation-show{
     display: block;
@@ -247,50 +220,70 @@
     padding: 1.5rem;
     margin: 0;
   }
-  .overlay-i {
-    padding: 0 1rem 0 2%;
-    width: 94vw;
-    background-attachment: scroll;
-    max-width: 100%;
-    min-height: 100vh;
-  }
+
   .overlay-i.moderation-show{
     display: block;
-    width: 59vw;
+    width: 63vw;
     max-width: 100%;
     min-height: 100vh;
-    transition: all .3s ease;
-  }
-  @media (max-width: 800px){
-    .moderation.moderation-show{
-      position: absolute;
-      width: 80%;
-      height: 100%;
-      background: #fff;
-      z-index: 9;
-    }
-    .overlay-i.moderation-show{
-      width: 94vw;
-    }
-  }
-  .card-deck{
-    width: 100%;
   }
   header button,  header label {
     margin-right: 1.3%;
   }
-    .scroll-icon{
-        padding-top: 0;
-        padding-bottom: 0;
-        height: 1.3rem;
+  .scroll-icon{
+      padding-top: 0;
+      padding-bottom: 0;
+      height: 1.3rem;
+  }
+  .info-message{
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 1rem 0 0;
+      font-size: 1.5em;
+  }
+  .list-group-item .list-group a{
+    margin-bottom: 0.5rem;
+  }
+  .mobile__schedule-name{
+    display: none;
+  }
+
+  @media (max-width: 1050px){
+    .moderation.moderation-show{
+      position: absolute;
+      top:0;
+      left:0;
+      right: 0;
+      width: 100%;
+      height: 100vh;
+      margin: 0 !important;
+      background: rgba(255,255,255,0.98);
+      z-index: 3 !important;
     }
-    .info-message{
-        width: 100%;
-        margin: 0 auto;
-        padding: 0 1rem 0 0;
-        font-size: 1.5em;
+    .overlay-i.moderation-show{
+      width: 100vw;
     }
-    .list-group-item .list-group a{
-      margin-bottom: 0.5rem;
+    .overlay-i {
+      padding: 4rem 1rem 5rem 1.5rem;
     }
+    .mobile__schedule-name{
+      display: inline-flex !important;
+      justify-content: center;
+      position: absolute;
+      height: 2.7rem;
+      max-height: 3rem;
+      top:0;
+      left: 0;
+      right: 0;
+      z-index: 1;
+      padding: 0.2rem;
+      background: #fff;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+    }
+    .mobile__schedule-name a{
+      text-decoration: none;
+      font-size: 1.5em;
+      color: #0a0a0a;
+    }
+  }
 </style>

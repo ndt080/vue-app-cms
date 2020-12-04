@@ -1,6 +1,6 @@
 <template>
   <div class="main-layout">
-    <Nav />
+<!--    <Nav />-->
     <div class="content">
       <router-view />
     </div>

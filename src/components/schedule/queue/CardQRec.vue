@@ -3,7 +3,8 @@
       v-bind:style="{
             'grid-row': row,
             'grid-column': (teach1)?2:1,
-      }">
+      }"
+      style="height: 3.7rem">
     <div class="text-left">
       {{que.user}}
       <p>[{{this.teacher?this.teacher.split('_')[0]:'ноунейм'}}]</p>
@@ -90,9 +91,8 @@ export default {
 
 <style scoped>
   .queue-name{
-    font-size: 0.8em !important;
-    line-height: 1.5em;
-    padding-bottom: 0;
+    font-size: 0.9em !important;
+    line-height: 1.3em;
   }
 
 </style>
